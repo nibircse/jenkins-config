@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.18.2">
+      <projectUrl>https://github.com/subutai-io/installers.git/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.4">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/subutai-io/installers.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url></url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd mac
+
+# Build Release Installer
+filename=&quot;subutai-network-installer.pkg&quot;
+URL=http://10.10.0.206:8080/kurjun/rest
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/file/info?name=$filename`
+prop=&apos;id&apos;
+id=`jsonval`
+
+# Build pkg
+( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
+( cd root.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Payload
+( cd scripts.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Scripts
+( cd scripts.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Scripts
+mkbom -u 0 -g 80 root.rh flat/rh.pkg/Bom
+mkbom -u 0 -g 80 root.mh flat/mh.pkg/Bom
+( cd flat &amp;&amp; xar --compression none -cf &quot;/tmp/$filename&quot; * )
+
+# Sign pkg
+pushd /var/lib/jenkins/.opt/installer-signer &gt; /dev/null
+
+: | openssl dgst -sign key.pem -binary | wc -c &gt; siglen.txt
+xar --sign -f /tmp/$filename --digestinfo-to-sign digestinfo.dat \
+--sig-size `cat siglen.txt` \
+--cert-loc certs/cert00 \
+--cert-loc certs/cert01 \
+--cert-loc certs/cert02
+openssl rsautl -sign -inkey key.pem -in digestinfo.dat \
+-out signature.dat
+xar --inject-sig signature.dat -f /tmp/$filename
+rm -f signature.dat digestinfo.dat siglen.txt
+
+popd &gt; /dev/null
+
+#preparing data for uploader
+echo &quot;file=/tmp/$filename&quot; &gt;&gt; ../env.properties
+echo &quot;dir=raw&quot; &gt;&gt; ../env.properties
+echo &quot;id=$id&quot; &gt;&gt; ../env.properties</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>URL=http://10.10.0.206:8080/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+token=$(curl -s -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+
+curl -s -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+
+# delete old file
+curl -s -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd mac
+
+# Build -master Installer
+filename=&quot;subutai-network-installer-master.pkg&quot;
+URL=http://10.10.0.206:8080/kurjun/rest
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/file/info?name=$filename`
+prop=&apos;id&apos;
+id=`jsonval`
+
+# Change snap name
+git checkout scripts.rh/postinstall
+sed -i &apos;s/&quot;subutai_4.0.0_amd64.snap/subutai_4.0.0_amd64-master.snap/&apos; scripts.rh/postinstall
+
+# Build pkg
+( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
+( cd root.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Payload
+( cd scripts.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Scripts
+( cd scripts.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Scripts
+mkbom -u 0 -g 80 root.rh flat/rh.pkg/Bom
+mkbom -u 0 -g 80 root.mh flat/mh.pkg/Bom
+( cd flat &amp;&amp; xar --compression none -cf &quot;/tmp/$filename&quot; * )
+
+# Sign pkg
+pushd /var/lib/jenkins/.opt/installer-signer &gt; /dev/null
+
+: | openssl dgst -sign key.pem -binary | wc -c &gt; siglen.txt
+xar --sign -f /tmp/$filename --digestinfo-to-sign digestinfo.dat \
+--sig-size `cat siglen.txt` \
+--cert-loc certs/cert00 \
+--cert-loc certs/cert01 \
+--cert-loc certs/cert02
+openssl rsautl -sign -inkey key.pem -in digestinfo.dat \
+-out signature.dat
+xar --inject-sig signature.dat -f /tmp/$filename
+rm -f signature.dat digestinfo.dat siglen.txt
+
+popd &gt; /dev/null
+
+#preparing data for uploader
+echo &quot;file=/tmp/$filename&quot; &gt;&gt; ../env.properties
+echo &quot;dir=raw&quot; &gt;&gt; ../env.properties
+echo &quot;id=$id&quot; &gt;&gt; ../env.properties</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>URL=http://10.10.0.206:8080/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+token=$(curl -s -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+
+curl -s -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+
+# delete old file
+curl -s -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>cd mac
+
+# Build -dev Installer
+filename=&quot;subutai-network-installer-dev.pkg&quot;
+URL=http://10.10.0.206:8080/kurjun/rest
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/file/info?name=$filename`
+prop=&apos;id&apos;
+id=`jsonval`
+
+# Change snap name
+git checkout scripts.rh/postinstall
+sed -i &apos;s/&quot;subutai_4.0.0_amd64.snap/subutai_4.0.0_amd64-dev.snap/&apos; scripts.rh/postinstall
+
+# Build pkg
+( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
+( cd root.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Payload
+( cd scripts.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Scripts
+( cd scripts.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Scripts
+mkbom -u 0 -g 80 root.rh flat/rh.pkg/Bom
+mkbom -u 0 -g 80 root.mh flat/mh.pkg/Bom
+( cd flat &amp;&amp; xar --compression none -cf &quot;/tmp/$filename&quot; * )
+
+# Sign pkg
+pushd /var/lib/jenkins/.opt/installer-signer &gt; /dev/null
+
+: | openssl dgst -sign key.pem -binary | wc -c &gt; siglen.txt
+xar --sign -f /tmp/$filename --digestinfo-to-sign digestinfo.dat \
+--sig-size `cat siglen.txt` \
+--cert-loc certs/cert00 \
+--cert-loc certs/cert01 \
+--cert-loc certs/cert02
+openssl rsautl -sign -inkey key.pem -in digestinfo.dat \
+-out signature.dat
+xar --inject-sig signature.dat -f /tmp/$filename
+rm -f signature.dat digestinfo.dat siglen.txt
+
+popd &gt; /dev/null
+
+#preparing data for uploader
+echo &quot;file=/tmp/$filename&quot; &gt;&gt; ../env.properties
+echo &quot;dir=raw&quot; &gt;&gt; ../env.properties
+echo &quot;id=$id&quot; &gt;&gt; ../env.properties</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>URL=http://10.10.0.206:8080/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+token=$(curl -s -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+
+curl -s -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+
+# delete old file
+curl -s -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
