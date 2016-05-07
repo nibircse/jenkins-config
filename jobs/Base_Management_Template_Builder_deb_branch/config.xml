@@ -111,10 +111,10 @@ ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force
 ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.0-${GIT_BRANCH##origin/}&quot;
 
 # move template to jenkins instance
-ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz /tmp/management-${GIT_BRANCH##origin/}.deb&quot;
+ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz /tmp/$filename&quot;
 
 #preparing data for uploader
-echo &quot;file=/tmp/management-${GIT_BRANCH##origin/}.deb&quot; &gt;&gt; ../env.properties
+echo &quot;file=/tmp/$filename&quot; &gt;&gt; ../env.properties
 echo &quot;id=$id&quot; &gt;&gt; ../env.properties
 echo &quot;dir=template&quot; &gt;&gt; ../env.properties</command>
     </hudson.tasks.Shell>
