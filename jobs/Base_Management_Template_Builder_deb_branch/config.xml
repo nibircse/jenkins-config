@@ -50,7 +50,7 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/file/info?name=$filename`
+json=`curl -k -s -X GET $URL/apt/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
@@ -83,7 +83,7 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;</command>
+curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command># ENV
@@ -96,7 +96,7 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/file/info?name=$filename`
+json=`curl -k -s -X GET $URL/template/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
@@ -132,7 +132,7 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;</command>
+curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
