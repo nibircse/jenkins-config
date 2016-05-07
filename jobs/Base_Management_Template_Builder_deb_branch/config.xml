@@ -103,7 +103,7 @@ id=`jsonval`
 
 # build template
 ssh root@gw.intra.lan &quot;/apps/bin/subutai destroy management&quot;
-ssh root@gw.intra.lan &quot;/bin/rm /mnt/lib/lxc/tmpdir/management-subutai-template*&quot;
+#ssh root@gw.intra.lan &quot;/bin/rm /mnt/lib/lxc/tmpdir/management-subutai-template*&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/subutai clone openjre8 management&quot;
 sleep 5
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt update&quot;
