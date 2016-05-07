@@ -54,7 +54,7 @@ json=`curl -k -s -X GET $URL/file/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
-cd management/
+cd management
 
 # build deb
 mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=${GIT_BRANCH##origin/}`
