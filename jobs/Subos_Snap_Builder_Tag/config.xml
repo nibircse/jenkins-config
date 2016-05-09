@@ -69,6 +69,7 @@ mv ${out[4]//\&apos;/} $filename
 #preparing data for uploader
 echo &quot;file=$filename&quot; &gt;&gt; env.properties
 echo &quot;version=$version&quot; &gt;&gt; env.properties
+echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=raw&quot; &gt;&gt; env.properties
 </command>
     </hudson.tasks.Shell>
