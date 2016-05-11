@@ -46,7 +46,7 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;management-${GIT_BRANCH##origin/}2.deb&quot;
+filename=&quot;management-${GIT_BRANCH##origin/}.deb&quot;
 
 # get current file id
 function jsonval {
@@ -84,13 +84,17 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-#curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command># ENV
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 filename=&quot;management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz&quot;
 
@@ -118,7 +122,7 @@ ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.0-${GIT_B
 ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/tmp/$filename&quot;
 
 #preparing data for uploader
-echo &quot;file=/tmp/$filename&quot; &gt; env.properties
+echo &quot;file=$tmp/$filename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
