@@ -55,7 +55,7 @@ function jsonval {
 }
 
 json=`curl -k -s -X GET $URL/apt/info?name=$filename`
-prop=&apos;id&apos;
+prop=&apos;md5Sum&apos;
 id=`jsonval`
 
 cd management
@@ -105,7 +105,7 @@ function jsonval {
 }
 
 json=`curl -k -s -X GET $URL/template/info?name=$filename`
-prop=&apos;md5&apos;
+prop=&apos;md5Sum&apos;
 id=`jsonval`
 
 
