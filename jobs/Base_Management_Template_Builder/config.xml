@@ -49,10 +49,8 @@
     <numToKeep>0</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
-  <disabled>true</disabled>
-  <disabledSubProjects>
-    <string>dev</string>
-  </disabledSubProjects>
+  <disabled>false</disabled>
+  <disabledSubProjects/>
   <allowAnonymousSync>false</allowAnonymousSync>
   <suppressTriggerNewBranchBuild>false</suppressTriggerNewBranchBuild>
   <scmSource class="jenkins.plugins.git.GitSCMSource" plugin="git@2.4.4">
