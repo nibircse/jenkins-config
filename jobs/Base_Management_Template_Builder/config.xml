@@ -1,6 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <freestyle-multi-branch-project plugin="multi-branch-project-plugin@0.4.2">
-  <properties/>
+  <actions/>
+  <description></description>
+  <properties>
+    <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty plugin="cloudbees-folder@5.9">
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@1.28">
+            <specifications/>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <java.util.concurrent.CopyOnWriteArrayList/>
+        </entry>
+      </domainCredentialsMap>
+    </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+  </properties>
   <views>
     <branch-list-view>
       <owner class="freestyle-multi-branch-project" reference="../../.."/>
@@ -40,4 +53,12 @@
   <disabledSubProjects/>
   <allowAnonymousSync>false</allowAnonymousSync>
   <suppressTriggerNewBranchBuild>false</suppressTriggerNewBranchBuild>
+  <scmSource class="jenkins.plugins.git.GitSCMSource" plugin="git@2.4.4">
+    <id>27bd0361-eba5-4da2-8c90-7ceb0ac5a4ac</id>
+    <remote>https://github.com/subutai-io/base/</remote>
+    <credentialsId></credentialsId>
+    <includes>dev</includes>
+    <excludes></excludes>
+    <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
+  </scmSource>
 </freestyle-multi-branch-project>
