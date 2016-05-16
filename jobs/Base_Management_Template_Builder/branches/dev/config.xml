@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.0">
@@ -16,13 +18,13 @@
         <url>https://github.com/subutai-io/base/</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
-    <branches class="singleton-list">
+    <branches>
       <hudson.plugins.git.BranchSpec>
         <name>dev</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <submoduleCfg class="empty-list"/>
+    <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
@@ -30,7 +32,7 @@
     </extensions>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
