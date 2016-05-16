@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<freestyle-multi-branch-project plugin="multi-branch-project-plugin@0.4.2">
+  <properties/>
+  <views>
+    <branch-list-view>
+      <owner class="freestyle-multi-branch-project" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>.*</includeRegex>
+      <recurse>false</recurse>
+    </branch-list-view>
+  </views>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <healthMetrics>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@5.9"/>
+  </healthMetrics>
+  <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon" plugin="cloudbees-folder@5.9"/>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@5.9">
+    <pruneDeadBranches>true</pruneDeadBranches>
+    <daysToKeep>0</daysToKeep>
+    <numToKeep>0</numToKeep>
+  </orphanedItemStrategy>
+  <triggers/>
+  <disabled>false</disabled>
+  <disabledSubProjects/>
+  <allowAnonymousSync>false</allowAnonymousSync>
+  <suppressTriggerNewBranchBuild>false</suppressTriggerNewBranchBuild>
+</freestyle-multi-branch-project>
