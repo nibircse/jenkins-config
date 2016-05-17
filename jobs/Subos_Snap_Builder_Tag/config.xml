@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.0">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.1">
       <projectUrl>https://github.com/subutai-io/subos/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
@@ -35,14 +35,18 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.19.0">
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.19.1">
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command># ENV
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 filename=&quot;subutai_4.0.0_amd64.snap&quot;
 
@@ -64,10 +68,10 @@ out=( `./autobuild.sh -b` )
 
 # rename builded file
 version=$(echo ${out[4]//\&apos;/}| cut -d &apos;-&apos; -f2 | cut -d &apos;_&apos; -f1)
-mv ${out[4]//\&apos;/} $filename
+mv ${out[4]//\&apos;/} $tmp/$filename
 
 #preparing data for uploader
-echo &quot;file=$filename&quot; &gt;&gt; env.properties
+echo &quot;file=$tmp/$filename&quot; &gt;&gt; env.properties
 echo &quot;version=$version&quot; &gt;&gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=raw&quot; &gt;&gt; env.properties
