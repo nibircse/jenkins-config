@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -71,7 +72,7 @@ mkbom -u 0 -g 80 root.mh flat/mh.pkg/Bom
 pushd /var/lib/jenkins/.opt/installer-signer &gt; /dev/null
 
 : | openssl dgst -sign key.pem -binary | wc -c &gt; siglen.txt
-xar --sign -f /tmp/$filename --digestinfo-to-sign digestinfo.dat \
+xar --sign -f $tmp/$filename --digestinfo-to-sign digestinfo.dat \
 --sig-size `cat siglen.txt` \
 --cert-loc certs/cert00 \
 --cert-loc certs/cert01 \
@@ -84,7 +85,7 @@ rm -f signature.dat digestinfo.dat siglen.txt
 popd &gt; /dev/null
 
 #preparing data for uploader
-echo &quot;file=/tmp/$filename&quot; &gt;&gt; ../env.properties
+echo &quot;file=$tmp/$filename&quot; &gt;&gt; ../env.properties
 echo &quot;dir=raw&quot; &gt;&gt; ../env.properties
 echo &quot;id=$id&quot; &gt;&gt; ../env.properties</command>
     </hudson.tasks.Shell>
@@ -99,7 +100,10 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+#set date as version
+version=$(date +%s)
+
+#curl -s -k -Ffile=@$file -Fversion=$version -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
 #curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
