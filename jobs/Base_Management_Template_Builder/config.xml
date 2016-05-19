@@ -58,7 +58,7 @@
     <remote>https://github.com/subutai-io/base/</remote>
     <credentialsId></credentialsId>
     <includes>master dev</includes>
-    <excludes></excludes>
+    <excludes>sikuli-dev</excludes>
     <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
   </scmSource>
 </freestyle-multi-branch-project>
