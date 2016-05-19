@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.1">
+      <projectUrl>https://github.com/subutai-io/base/</projectUrl>
+      <displayName/>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.19.1">
+      <spec/>
+    </com.cloudbees.jenkins.GitHubPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+filename="management-${GIT_BRANCH##origin/}.deb"
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i&lt;=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+prop='md5Sum'
+id=`jsonval`
+
+cd management
+
+# build deb
+mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=${GIT_BRANCH##origin/}
+
+
+# move builded file
+#mv `ls server/server-karaf/target/*.deb` $tmp/$filename
+find server/server-karaf/target/ -name "*.deb" | xargs -I {} mv {} $tmp/$filename
+
+#preparing data for uploader
+echo "file=$tmp/$filename" &gt; ../env.properties
+echo "id=$id" &gt;&gt; ../env.properties
+echo "dir=apt" &gt;&gt; ../env.properties
+</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s -k "$URL/auth/token?user=$USER" | gpg --clearsign --no-tty)
+token=$(curl -s -k -Fmessage="$AUTHID" -Fuser=$USER "$URL/auth/token")
+
+curl -s -k -Ffile=@$file -Ftoken=$token "$URL/$dir/upload"
+
+# delete old file
+curl -s -k -X DELETE "$URL/apt/delete?id=$id&amp;token=$token"</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+filename="management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz"
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=split($0,a,","); for (i=1; i&lt;=n; i++) print a[i]}' | sed 's/\"\:\"/\|/g' | sed 's/[\,]/ /g' | sed 's/\"//g' | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/template/info?name=$filename`
+prop='md5Sum'
+id=`jsonval`
+
+
+# build template
+ssh root@gw.intra.lan "/apps/bin/subutai destroy management"
+#ssh root@gw.intra.lan "/bin/rm /mnt/lib/lxc/tmpdir/management-subutai-template*"
+ssh root@gw.intra.lan "/apps/bin/subutai clone openjre8 management"
+sleep 5
+ssh root@gw.intra.lan "/apps/bin/lxc-attach -n management -- apt update"
+ssh root@gw.intra.lan "/apps/bin/lxc-attach -n management -- sync"
+ssh root@gw.intra.lan "/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-${GIT_BRANCH##origin/}"
+ssh root@gw.intra.lan "/apps/bin/subutai export management -v 4.0.0-${GIT_BRANCH##origin/}"
+
+# move template to jenkins instance
+ssh root@gw.intra.lan "mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename"
+
+#preparing data for uploader
+echo "file=$tmp/$filename" &gt; env.properties
+echo "id=$id" &gt;&gt; env.properties
+echo "dir=template" &gt;&gt; env.properties</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@1.92.1">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s -k "$URL/auth/token?user=$USER" | gpg --clearsign --no-tty)
+token=$(curl -s -k -Fmessage="$AUTHID" -Fuser=$USER "$URL/auth/token")
+
+curl -s -k -Ffile=@$file -Ftoken=$token "$URL/$dir/upload"
+
+# delete old file
+curl -s -k -X DELETE "$URL/template/delete?id=$id&amp;token=$token"</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
