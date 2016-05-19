@@ -63,7 +63,7 @@ id=`jsonval`
 cd management
 
 # build deb
-mvn clean install -Dmaven.test.skip=true -P deb
+mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=release
 
 
 # move builded file
