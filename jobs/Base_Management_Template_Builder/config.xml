@@ -57,7 +57,7 @@
     <id>27bd0361-eba5-4da2-8c90-7ceb0ac5a4ac</id>
     <remote>https://github.com/subutai-io/base/</remote>
     <credentialsId></credentialsId>
-    <includes>dev</includes>
+    <includes>master dev</includes>
     <excludes></excludes>
     <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
   </scmSource>
