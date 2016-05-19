@@ -13,8 +13,8 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <name>origin</name>
-        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <name>def</name>
+        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
         <url>https://github.com/subutai-io/base/</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
