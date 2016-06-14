@@ -86,10 +86,10 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+#curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command># Preparing
@@ -142,10 +142,10 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
+#curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
