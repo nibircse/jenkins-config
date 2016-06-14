@@ -118,7 +118,7 @@ ssh root@gw.intra.lan &quot;/apps/bin/subutai clone openjre8 management&quot;
 sleep 5
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt update&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt upgrade&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt upgrade -y&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-${GIT_BRANCH##origin/}&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.0-${GIT_BRANCH##origin/}&quot;
