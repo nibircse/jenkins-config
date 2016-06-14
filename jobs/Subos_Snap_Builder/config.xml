@@ -49,7 +49,7 @@
     <numToKeep>-1</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <disabledSubProjects/>
   <allowAnonymousSync>false</allowAnonymousSync>
   <suppressTriggerNewBranchBuild>false</suppressTriggerNewBranchBuild>
