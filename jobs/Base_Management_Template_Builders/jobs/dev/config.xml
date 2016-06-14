@@ -47,7 +47,7 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;management-${GIT_BRANCH#*/}.deb&quot;
+filename=&quot;management-${GIT_BRANCH##origin/}.deb&quot;
 
 # get current file id
 function jsonval {
@@ -62,7 +62,7 @@ id=`jsonval`
 cd management
 
 # build deb
-mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=${GIT_BRANCH#*/}
+mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=${GIT_BRANCH##origin/}
 
 
 # move builded file
@@ -98,7 +98,7 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;management-subutai-template_4.0.0-${GIT_BRANCH#*/}_amd64.tar.gz&quot;
+filename=&quot;management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz&quot;
 
 # get current file id
 function jsonval {
@@ -119,12 +119,12 @@ sleep 5
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt update&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt upgrade -y&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-${GIT_BRANCH#*/}&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-${GIT_BRANCH##origin/}&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.0-${GIT_BRANCH#*/}&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.0-${GIT_BRANCH##origin/}&quot;
 
 # move template to jenkins instance
-ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH#*/}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
+ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.0-${GIT_BRANCH##origin/}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
 
 #preparing data for uploader
 echo &quot;file=$tmp/$filename&quot; &gt; env.properties
