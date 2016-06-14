@@ -31,7 +31,7 @@
     <extensions/>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -151,5 +151,13 @@ curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</c
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <org.jvnet.hudson.plugins.exclusion.IdAllocator plugin="Exclusion@0.12">
+      <ids>
+        <org.jvnet.hudson.plugins.exclusion.DefaultIdType>
+          <name>MANAGEMENT</name>
+        </org.jvnet.hudson.plugins.exclusion.DefaultIdType>
+      </ids>
+    </org.jvnet.hudson.plugins.exclusion.IdAllocator>
+  </buildWrappers>
 </project>
