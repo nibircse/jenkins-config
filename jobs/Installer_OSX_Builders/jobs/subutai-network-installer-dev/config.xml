@@ -62,10 +62,13 @@ sed -i &apos;s/&quot;subutai_4.0.0_amd64.snap/&quot;subutai_4.0.0_amd64-dev.snap
 # Build pkg
 ( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
 ( cd root.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Payload
+( cd root.services &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/services.pkg/Payload
 ( cd scripts.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Scripts
 ( cd scripts.mh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/mh.pkg/Scripts
+( cd scripts.services &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/services.pkg/Scripts
 mkbom -u 0 -g 80 root.rh flat/rh.pkg/Bom
 mkbom -u 0 -g 80 root.mh flat/mh.pkg/Bom
+mkbom -u 0 -g 80 root.services flat/services.pkg/Bom
 ( cd flat &amp;&amp; xar --compression none -cf &quot;$tmp/$filename&quot; * )
 
 # Sign pkg
