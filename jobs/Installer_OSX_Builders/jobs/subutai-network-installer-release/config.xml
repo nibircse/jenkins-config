@@ -58,8 +58,8 @@ id=`jsonval`
 # Change snap name
 git checkout scripts.rh/postinstall
 root.rh/Applications/Subutai/scripts/prepare-server
-sed -i &apos;s/&quot;subutai_4.0.2_amd64.snap/&quot;subutai_4.0.1_amd64.snap/&apos; scripts.rh/postinstall
-sed -i &apos;s/&quot;subutai_4.0.2_amd64.snap/&quot;subutai_4.0.1_amd64.snap/&apos; root.rh/Applications/Subutai/scripts/prepare-server
+sed -i &apos;s/subutai_4.0.2_amd64.snap/subutai_4.0.1_amd64.snap/&apos; scripts.rh/postinstall
+sed -i &apos;s/subutai_4.0.2_amd64.snap/subutai_4.0.1_amd64.snap/&apos; root.rh/Applications/Subutai/scripts/prepare-server
 
 # Build pkg
 ( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
