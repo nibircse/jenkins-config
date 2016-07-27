@@ -48,7 +48,7 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;subutai_4.0.0_amd64.snap&quot;
+filename=&quot;subutai_4.0.1_amd64.snap&quot;
 
 # get current file id
 function jsonval {
