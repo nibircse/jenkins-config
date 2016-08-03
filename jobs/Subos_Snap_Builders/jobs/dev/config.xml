@@ -53,7 +53,7 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/file/info?name=$filename`
+json=`curl -k -s -X GET $URL/raw/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
@@ -88,7 +88,7 @@ token=$(curl -k -s -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 curl -s -k -Ffile=@$file -Fversion=$version -Ftoken=$token &quot;$URL/$dir/upload&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/file/delete?id=$id&amp;token=$token&quot;
+curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
