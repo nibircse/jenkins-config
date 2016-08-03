@@ -109,7 +109,7 @@ function jsonval {
 }
 
 json=`curl -k -s -X GET $URL/template/info?name=$filename`
-prop=&apos;md5Sum&apos;
+prop=&apos;id&apos;
 id=`jsonval`
 
 
