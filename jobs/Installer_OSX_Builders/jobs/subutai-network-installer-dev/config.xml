@@ -52,7 +52,7 @@ function jsonval {
 }
 
 json=`curl -k -s -X GET $URL/raw/info?name=$filename`
-prop=&apos;md5Sum&apos;
+prop=&apos;raw&apos;
 id=`jsonval`
 
 # Change snap name
