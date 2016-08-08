@@ -144,8 +144,8 @@ AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --n
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
 #curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
-SIGNATURE=$(curl -s -k -Ffile=@$FILE -Ftoken=&quot;$TOKEN&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
-curl -s -k -Ftoken=&quot;$TOKEN&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
+SIGNATURE=$(curl -s -k -Ffile=@$FILE -Ftoken=&quot;$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
+curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
 
 # delete old file
 curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;
