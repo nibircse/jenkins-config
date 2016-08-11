@@ -122,7 +122,7 @@ ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade udev&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-${GIT_BRANCH##origin/}&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.2-${GIT_BRANCH##origin/}&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.3-${GIT_BRANCH##origin/}&quot;
 
 # move template to jenkins instance
 ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.3-${GIT_BRANCH##origin/}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
