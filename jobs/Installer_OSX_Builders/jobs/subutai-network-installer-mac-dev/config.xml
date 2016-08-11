@@ -18,7 +18,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>master</name>
+        <name>mac-memory-check</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -43,7 +43,7 @@ mkdir -p $tmp
 cd mac
 
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;subutai-network-installer-dev.pkg&quot;
+filename=&quot;subutai-network-installer-testing.pkg&quot;
 
 # get current file id
 function jsonval {
