@@ -46,10 +46,11 @@
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
+version=$(cat subutai/etc/agent.gcfg | grep version | cut -d &apos; &apos; -f3)
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;subutai_4.0.3_amd64-${GIT_BRANCH##origin/}.snap&quot;
+filename=&quot;subutai_${version}_amd64-${GIT_BRANCH##origin/}.snap&quot;
 
 # get current file id
 function jsonval {
