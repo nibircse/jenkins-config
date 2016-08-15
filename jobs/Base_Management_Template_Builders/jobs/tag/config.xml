@@ -100,7 +100,8 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;management-subutai-template_4.0.2_amd64.tar.gz&quot;
+version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
+filename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
 
 # get current file id
 function jsonval {
@@ -124,10 +125,10 @@ ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade udev&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-stable&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.2&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v ${version}&quot;
 
 # move template to jenkins instance
-ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.2_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
+ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
 
 #preparing data for uploader
 echo &quot;file=$tmp/$filename&quot; &gt; env.properties
