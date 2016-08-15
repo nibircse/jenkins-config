@@ -44,6 +44,7 @@ cd mac
 
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 filename=&quot;subutai-network-installer-master.pkg&quot;
+source builder.conf
 
 # get current file id
 function jsonval {
@@ -57,7 +58,8 @@ id=`jsonval`
 
 # Change snap name
 git checkout scripts.rh/postinstall
-sed -i &apos;s/&quot;subutai_4.0.3_amd64.snap/&quot;subutai_4.0.3_amd64-master.snap/&apos; scripts.rh/postinstall
+#sed -i &apos;s/&quot;subutai_4.0.3_amd64.snap/&quot;subutai_4.0.3_amd64-master.snap/&apos; scripts.rh/postinstall
+sed -i &quot;s/subutai_subutaiversion_amd64.snap/subutai_${version}_amd64-${JOB_NAME##Installer_OSX_Builders/}.snap/&quot; scripts.rh/postinstall
 
 # Build pkg
 ( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
