@@ -98,7 +98,8 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
+#version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
+version=&apos;4.0.4&apos;
 filename=&quot;management-subutai-template_${version}-${GIT_BRANCH##origin/}_amd64.tar.gz&quot;
 
 # get current file id
