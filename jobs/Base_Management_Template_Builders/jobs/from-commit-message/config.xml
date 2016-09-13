@@ -46,6 +46,7 @@ echo &quot;===========================&quot;
 
 if [[ ! $(git log --format=%B -n 1 $GIT_COMMIT) == *\[jenkins-build-it\]* ]] ; then
         echo &quot;Build is not triggered&quot;;
+        java -jar ~/.opt/jenkins-cli.jar set-build-result not_built
         exit 1
 else
         echo &quot;Build is triggered&quot;
