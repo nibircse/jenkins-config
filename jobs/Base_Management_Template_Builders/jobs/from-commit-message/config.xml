@@ -44,9 +44,9 @@
       <command># check of commit message
 echo &quot;===========================&quot;
 
-if [ &quot;git show $GIT_COMMIT | grep jenkins-build-it&quot; == &quot;&quot;  ] ; then
+if [[ ! $(git log --format=%B -n 1 $GIT_COMMIT) == *\[jenkins-build-it\]* ]] ; then
         echo &quot;Build is not triggered&quot;;
-        exit 0
+        exit 1
 else
         echo &quot;Build is triggered&quot;
 fi
