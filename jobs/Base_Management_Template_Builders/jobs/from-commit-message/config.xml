@@ -26,11 +26,7 @@
       <url>https://github.com/subutai-io/base/</url>
     </browser>
     <submoduleCfg class="list"/>
-    <extensions>
-      <hudson.plugins.git.extensions.impl.MessageExclusion>
-        <excludedMessage>.*!(jenkins-build-it).*</excludedMessage>
-      </hudson.plugins.git.extensions.impl.MessageExclusion>
-    </extensions>
+    <extensions/>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -44,6 +40,19 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
+    <hudson.tasks.Shell>
+      <command># check of commit message
+echo &quot;===========================&quot;
+
+if [ &quot;git show $GIT_COMMIT | grep &quot;jenkins-build-it&quot; == false  ] ; then
+        echo &quot;Build is not triggered&quot;;
+        exit 0
+else
+        echo &quot;Build is triggered&quot;
+fi
+
+echo &quot;===========================&quot;</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
