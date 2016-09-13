@@ -44,7 +44,7 @@
       <command># check of commit message
 echo &quot;===========================&quot;
 
-if [ &quot;git show $GIT_COMMIT | grep &quot;jenkins-build-it&quot; == false  ] ; then
+if [ &quot;git show $GIT_COMMIT | grep jenkins-build-it&quot; == false  ] ; then
         echo &quot;Build is not triggered&quot;;
         exit 0
 else
