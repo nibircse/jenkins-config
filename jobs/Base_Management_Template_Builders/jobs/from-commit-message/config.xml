@@ -33,7 +33,7 @@
     </extensions>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
@@ -148,11 +148,11 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-SIGNATURE=$(curl -s -k -Ffile=@$file -Ftoken=&quot;$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
-curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
+#SIGNATURE=$(curl -s -k -Ffile=@$file -Ftoken=&quot;$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
+#curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;
+#curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
