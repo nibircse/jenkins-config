@@ -26,7 +26,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>:^(?!master|dev|.*/tags/.*)(\S+)</name>
+        <name>master dev */tags/*</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -34,7 +34,11 @@
       <url>https://github.com/p1gmale0n/base/</url>
     </browser>
     <submoduleCfg class="list"/>
-    <extensions/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        <buildChooser class="hudson.plugins.git.util.InverseBuildChooser"/>
+      </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+    </extensions>
   </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
