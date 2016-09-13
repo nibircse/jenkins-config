@@ -28,7 +28,7 @@
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.MessageExclusion>
-        <excludedMessage>(?s).*(!jenkins-build-it).*</excludedMessage>
+        <excludedMessage>.*(!jenkins-build-it).*</excludedMessage>
       </hudson.plugins.git.extensions.impl.MessageExclusion>
     </extensions>
   </scm>
