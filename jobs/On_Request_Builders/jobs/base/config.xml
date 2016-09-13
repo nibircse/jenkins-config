@@ -26,7 +26,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>:^(?!origin/master|origin/dev|*/tags/*)(\S+)</name>
+        <name>:^(?!origin/master|origin/dev|.*/tags/.*)(\S+)</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
