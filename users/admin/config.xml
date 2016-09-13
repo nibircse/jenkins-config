@@ -1,17 +1,28 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <user>
   <fullName>jenkins admin</fullName>
+  <description></description>
   <properties>
     <jenkins.security.ApiTokenProperty>
       <apiToken>e5xUu0CRGExO3hOOjIcUajTvgwA1oti00+hfzi37o2jX3FU4ZrOcHfoJL1++NGtS</apiToken>
     </jenkins.security.ApiTokenProperty>
-    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1.27">
+    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@2.1.0">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
     </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
-    <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.42">
+    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.17">
+      <emailAddress>jenkins@subut.ai</emailAddress>
+    </hudson.tasks.Mailer_-UserProperty>
+    <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.43">
       <triggers/>
     </hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty>
+    <jenkins.security.LastGrantedAuthoritiesProperty>
+      <roles>
+        <string>authenticated</string>
+      </roles>
+      <timestamp>1461565189968</timestamp>
+    </jenkins.security.LastGrantedAuthoritiesProperty>
     <hudson.model.MyViewsProperty>
+      <primaryViewName></primaryViewName>
       <views>
         <hudson.model.AllView>
           <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
@@ -25,20 +36,14 @@
     <hudson.model.PaneStatusProperties>
       <collapsed/>
     </hudson.model.PaneStatusProperties>
-    <hudson.search.UserSearchProperty>
-      <insensitiveSearch>false</insensitiveSearch>
-    </hudson.search.UserSearchProperty>
     <hudson.security.HudsonPrivateSecurityRealm_-Details>
       <passwordHash>#jbcrypt:$2a$10$F1A1.eNxG8lY6f.iT14qgOtgsZqwK0M4ITsNbPvOrUsu2tIUSxVNK</passwordHash>
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
-    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.17">
-      <emailAddress>jenkins@subut.ai</emailAddress>
-    </hudson.tasks.Mailer_-UserProperty>
-    <jenkins.security.LastGrantedAuthoritiesProperty>
-      <roles>
-        <string>authenticated</string>
-      </roles>
-      <timestamp>1461565189968</timestamp>
-    </jenkins.security.LastGrantedAuthoritiesProperty>
+    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+      <authorizedKeys>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDyKcTZxem1lHnSvfuJs8zknhfXNrA1fYyahxQrlNki28S39ByxwcIUxbjtUyNflHgbQX6RqBCAN4Rl2hXEaBUMWG6IUdC55CtJwBVu0gXbn+uSgkhp5v2KouRMQzrbvtlyFEIap8QFtYEZqs4GCoawvBeP9snNYxE553QS91D8oaFsVe/nbpbyjjUYLlS4N4vMKQlI+v90j1oMpBbmfnNr7f363d5hduOPRQK1bcpTlbMyto9q4/EoZP4qG3vnYLomnn64nTt1KrCtrxiVds1s5AGfs09rK9sLOJSAA1fYL8EAybN9t9NZ0cqCKUOpHZT+lSpWS7BEOifZSkPEkjVX jenkins@jenkins</authorizedKeys>
+    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+    <hudson.search.UserSearchProperty>
+      <insensitiveSearch>false</insensitiveSearch>
+    </hudson.search.UserSearchProperty>
   </properties>
 </user>
