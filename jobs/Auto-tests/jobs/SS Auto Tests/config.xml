@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.21.1">
-      <projectUrl>https://github.com/subutai-io/base/</projectUrl>
+      <projectUrl>https://github.com/subutai-io/playbooks/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
@@ -13,17 +13,17 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/subutai-io/base/</url>
+        <url>https://github.com/subutai-io/playbooks</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>dev</name>
+        <name>selenium</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <browser class="hudson.plugins.git.browser.GithubWeb">
-      <url>https://github.com/subutai-io/base/</url>
+      <url>https://github.com/subutai-io/playbooks</url>
     </browser>
     <submoduleCfg class="list"/>
     <extensions/>
@@ -36,7 +36,9 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command></command>
+      <command>./run_tests_qa.sh -m 54.93.76.249
+./run_tests_qa.sh -s all
+./run_tests_qa.sh -r</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
