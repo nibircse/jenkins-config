@@ -1,17 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <user>
-  <fullName>soffokulus</fullName>
+  <fullName>soffokl</fullName>
+  <description></description>
   <properties>
     <jenkins.security.ApiTokenProperty>
       <apiToken>nk39M0WX6d7k95w56pPtM2TQNemOTHb71vIKszKy/MDX3FU4ZrOcHfoJL1++NGtS</apiToken>
     </jenkins.security.ApiTokenProperty>
-    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1.27">
+    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@2.1.4">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
     </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
-    <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.42">
+    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.18">
+      <emailAddress>soffokulus@gmail.com</emailAddress>
+    </hudson.tasks.Mailer_-UserProperty>
+    <hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty plugin="email-ext@2.47">
       <triggers/>
     </hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty>
     <hudson.model.MyViewsProperty>
+      <primaryViewName></primaryViewName>
       <views>
         <hudson.model.AllView>
           <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
@@ -25,11 +30,14 @@
     <hudson.model.PaneStatusProperties>
       <collapsed/>
     </hudson.model.PaneStatusProperties>
+    <hudson.security.HudsonPrivateSecurityRealm_-Details>
+      <passwordHash>#jbcrypt:$2a$10$HWyXoPM9st1bGsM5dAYaKePUOf7JUP9WMzGHko/VN/f30TzuG7NKG</passwordHash>
+    </hudson.security.HudsonPrivateSecurityRealm_-Details>
+    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+      <authorizedKeys></authorizedKeys>
+    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>false</insensitiveSearch>
     </hudson.search.UserSearchProperty>
-    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.17">
-      <emailAddress>soffokulus@gmail.com</emailAddress>
-    </hudson.tasks.Mailer_-UserProperty>
   </properties>
 </user>
