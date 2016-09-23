@@ -49,7 +49,7 @@
           </default>
           <int>1</int>
           <string>DISPLAY</string>
-          <string>:10.1</string>
+          <string>:10</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
