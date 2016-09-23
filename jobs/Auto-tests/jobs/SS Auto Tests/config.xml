@@ -36,7 +36,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>firefox &amp;</command>
+      <command>Xvfb :10 -screen 0 2000x2000x24 -ac -noreset &amp;
+firefox &amp;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>./run_tests_qa.sh -m 54.93.76.249
@@ -48,18 +49,5 @@
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers>
-    <org.jenkinsci.plugins.xvfb.Xvfb plugin="xvfb@1.1.3">
-      <displayName>10</displayName>
-      <screen></screen>
-      <debug>false</debug>
-      <timeout>0</timeout>
-      <displayNameOffset>1</displayNameOffset>
-      <additionalOptions></additionalOptions>
-      <shutdownWithBuild>false</shutdownWithBuild>
-      <autoDisplayName>false</autoDisplayName>
-      <assignedLabels></assignedLabels>
-      <parallelBuild>false</parallelBuild>
-    </org.jenkinsci.plugins.xvfb.Xvfb>
-  </buildWrappers>
+  <buildWrappers/>
 </project>
