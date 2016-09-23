@@ -52,6 +52,7 @@ firefox &amp;</command>
   <buildWrappers>
     <org.jenkinsci.plugins.xvfb.Xvfb plugin="xvfb@1.1.3">
       <installationName>default</installationName>
+      <displayName>10</displayName>
       <screen>2000x2000x24</screen>
       <debug>true</debug>
       <timeout>0</timeout>
