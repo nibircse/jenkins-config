@@ -54,7 +54,7 @@
       <screen></screen>
       <debug>false</debug>
       <timeout>0</timeout>
-      <displayNameOffset>0</displayNameOffset>
+      <displayNameOffset>1</displayNameOffset>
       <additionalOptions></additionalOptions>
       <shutdownWithBuild>false</shutdownWithBuild>
       <autoDisplayName>false</autoDisplayName>
