@@ -62,7 +62,7 @@ id=`jsonval`
 cd management
 
 # build deb
-mvn clean install -P deb -Dgit.branch=${GIT_BRANCH##origin/} sonar:sonar -Dsonar.Name=&quot;Subutai Base&quot; -Dsonar.branch=${GIT_BRANCH##origin/}
+mvn clean install -P deb -Dgit.branch=${GIT_BRANCH##origin/} sonar:sonar -Dsonar.branch=${GIT_BRANCH##origin/}
 
 
 # move builded file
