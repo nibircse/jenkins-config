@@ -62,7 +62,7 @@ id=`jsonval`
 cd management
 
 # build deb
-mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=${GIT_BRANCH##origin/}
+mvn clean install -P deb -Dgit.branch=${GIT_BRANCH##origin/} sonar:sonar
 
 
 # move builded file
@@ -149,12 +149,6 @@ curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$
 
 # delete old file
 curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;
-</command>
-    </hudson.tasks.Shell>
-    <hudson.tasks.Shell>
-      <command>#run sonar analytics
-cd management
-mvn clean verify sonar:sonar
 </command>
     </hudson.tasks.Shell>
   </builders>
