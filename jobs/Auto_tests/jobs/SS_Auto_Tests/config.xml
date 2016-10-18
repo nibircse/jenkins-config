@@ -36,7 +36,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>#/usr/bin/Xvfb :10 -screen 0 2000x2000x24 -ac -noreset &amp;
+      <command>/usr/bin/Xvfb :20 -screen 0 2000x2000x24 -ac -noreset &amp;
 firefox &amp;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
