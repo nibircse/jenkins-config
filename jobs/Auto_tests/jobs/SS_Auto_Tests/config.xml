@@ -40,7 +40,7 @@
 firefox &amp;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>./run_tests_qa.sh -m 54.93.76.249
+      <command>./run_tests_qa.sh -m 52.59.236.52
 ./run_tests_qa.sh -s all
 ./run_tests_qa.sh -r</command>
     </hudson.tasks.Shell>
