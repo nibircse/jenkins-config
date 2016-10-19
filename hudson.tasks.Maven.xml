@@ -1,4 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson.tasks.Maven_-DescriptorImpl>
-  <installations/>
+  <installations>
+    <hudson.tasks.Maven_-MavenInstallation>
+      <name>M3</name>
+      <home>/usr/local/apache-maven-3.3.3</home>
+      <properties/>
+    </hudson.tasks.Maven_-MavenInstallation>
+  </installations>
 </hudson.tasks.Maven_-DescriptorImpl>
