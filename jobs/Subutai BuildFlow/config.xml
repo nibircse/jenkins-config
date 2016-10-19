@@ -19,7 +19,6 @@ node() {
     
     stage &apos;Build deb/template of management&apos;
     git url: &quot;https://github.com/subutai-io/base.git&quot;
-    checkout scm
 
     // prepare dir for builded artifacts
     sh &quot;if test ! -d ${artifactDir}; mkdir /tmp/jenkinsflow; fi&quot;
