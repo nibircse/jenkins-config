@@ -22,9 +22,8 @@ node() {
 
     // prepare dir for builded artifacts
     sh &quot;if test ! -d ${artifactDir}; mkdir /tmp/jenkinsflow; fi&quot;
-    sh &quot;cd management&quot;
-    sh &quot;${mvnHome}/bin/mvn clean install -P deb -Dgit.branch=dev&quot;
-    sh &apos;find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} ${artifactDir}/${debFileName}&apos;
+    sh &quot;pushd management; ${mvnHome}/bin/mvn clean install -P deb -Dgit.branch=dev; popd&quot;
+    sh &apos;find management/server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} ${artifactDir}/${debFileName}&apos;
 
     stage &apos;Create template of management&apos;
 	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/subutai destroy management&quot;&apos;
