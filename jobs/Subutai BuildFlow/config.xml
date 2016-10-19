@@ -18,7 +18,7 @@ node() {
     String templateFileName = &apos;&apos;
     
     stage &apos;Build deb/template of management&apos;
-    git url: &quot;https://github.com/my-organization/simple-maven-project-with-tests.git&quot;
+    git url: &quot;https://github.com/subutai-io/base.git&quot;
     checkout scm
 
     // prepare dir for builded artifacts
