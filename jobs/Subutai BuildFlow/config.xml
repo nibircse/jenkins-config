@@ -9,7 +9,44 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
-    <script></script>
+    <script>#!groovy
+
+node() {
+    def mvnHome = tool &apos;M3&apos;
+    String artifactDir = &apos;/tmp/jenkinsflow&apos;
+    String debFileName = &apos;management-dev.deb&apos;
+    String templateFileName = &apos;&apos;
+    
+    stage &apos;Build deb/template of management&apos;
+    git url: &quot;https://github.com/my-organization/simple-maven-project-with-tests.git&quot;
+    checkout scm
+
+    // prepare dir for builded artifacts
+    sh &quot;if test ! -d ${artifactDir}; mkdir /tmp/jenkinsflow; fi&quot;
+    sh &quot;cd management&quot;
+    sh &quot;${mvnHome}/bin/mvn clean install -P deb -Dgit.branch=dev&quot;
+    sh &apos;find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} ${artifactDir}/${debFileName}&apos;
+
+    stage &apos;Create template of management&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/subutai destroy management&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/subutai clone openjre8 management&quot;&apos;
+	sleep(5000)
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt update&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade procps&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade udev&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-dev&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;&apos;
+	sh &apos;ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v 4.0.4-dev&quot;&apos;
+
+	sh &apos;ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_4.0.4-dev_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/tmp/jenkinsflow/&quot;&apos;
+
+    stage &apos;Update management on test node&apos;
+    sh &apos;ssh root@52.59.236.52 &quot;subutai destroy management&quot;&apos;
+    sh &apos;ssh root@52.59.236.52 &quot;rm /mnt/lib/lxc/tmpdir/management-subutai-template_*&quot;&apos;
+    sh &quot;scp /tmp/jenkinsflow/management-subutai-template_4.0.4-dev_amd64.tar.gz root@52.59.236.52:/mnt/lib/&quot; 
+    sh &apos;ssh root@52.59.236.52 &quot;subutai import management&quot;&apos;
+}</script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
