@@ -17,7 +17,7 @@
 
     String filename = &quot;/tmp/uploadfromjenkins&quot;
     def signature = sh (script: &quot;curl -s -k -Ffile=@${filename} -Ftoken=${token} ${url}/template/upload | gpg --clearsign --no-tty&quot;, returnStdout: true)
-    sh &quot;curl -s -k -Ftoken=${token} -Fsignature=${signature} ${url}/auth/sign&quot;
+    sh &quot;curl -s -k -Ftoken=${token} -Fsignature=\&quot;${signature}\&quot; ${url}/auth/sign&quot;
 }</script>
     <sandbox>true</sandbox>
   </definition>
