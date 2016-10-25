@@ -16,8 +16,10 @@ node() {
 	String url = &quot;https://eu0.cdn.subut.ai:8338/kurjun/rest&quot;
 	String user = &quot;jenkins&quot;
 	def authID = sh (script: &quot;curl -s -k ${url}/auth/token?user=${user} | gpg --clearsign --no-tty&quot;, returnStdout: true)
-	println authID
-	//def token = sh (script: &quot;curl -s -k -Fmessage=${authID} -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
+	println ${authID}
+	def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
+    println ${token}
+    
 }</script>
     <sandbox>true</sandbox>
   </definition>
