@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.7">
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -15,7 +16,8 @@ node() {
 	String url = &quot;https://eu0.cdn.subut.ai:8338/kurjun/rest&quot;
 	String user = &quot;jenkins&quot;
 	def authID = sh (script: &quot;curl -s -k ${url}/auth/token?user=${user} | gpg --clearsign --no-tty&quot;, returnStdout: true)
-	def token = sh (script: &quot;curl -s -k -Fmessage=${authID} -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
+	println authID
+	//def token = sh (script: &quot;curl -s -k -Fmessage=${authID} -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
 }</script>
     <sandbox>true</sandbox>
   </definition>
