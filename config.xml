@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>2.24</version>
+  <version>2.26</version>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -47,9 +47,11 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>1</int>
+          <int>2</int>
           <string>DISPLAY</string>
           <string>:20</string>
+          <string>SS_TEST_NODE</string>
+          <string>52.59.236.52</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
