@@ -16,7 +16,7 @@
 	def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
 
     String filename = &quot;/tmp/uploadfromjenkins&quot;
-    def signature = sh (script: &quot;curl -s -k -Ffile=@${artifactDir}/${filename} -Ftoken=${token} ${url}/template/upload | gpg --clearsign --no-tty&quot;, returnStdout: true)
+    def signature = sh (script: &quot;curl -s -k -Ffile=@$${filename} -Ftoken=${token} ${url}/template/upload | gpg --clearsign --no-tty&quot;, returnStdout: true)
     sh &quot;curl -s -k -Ftoken=${token} -Fsignature=${signature} ${url}/auth/sign&quot;
 }</script>
     <sandbox>true</sandbox>
