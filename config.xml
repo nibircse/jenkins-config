@@ -20,7 +20,6 @@
     <permission>hudson.model.Hudson.Administer:p1gmale0n</permission>
     <permission>hudson.model.Hudson.ConfigureUpdateCenter:p1gmale0n</permission>
     <permission>hudson.model.Hudson.Read:p1gmale0n</permission>
-    <permission>hudson.model.Hudson.Read:subutai-io</permission>
     <permission>hudson.model.Hudson.RunScripts:p1gmale0n</permission>
     <permission>hudson.model.Hudson.UploadPlugins:p1gmale0n</permission>
     <permission>hudson.model.Item.Build:p1gmale0n</permission>
@@ -31,7 +30,6 @@
     <permission>hudson.model.Item.Discover:p1gmale0n</permission>
     <permission>hudson.model.Item.Move:p1gmale0n</permission>
     <permission>hudson.model.Item.Read:p1gmale0n</permission>
-    <permission>hudson.model.Item.Read:subutai-io</permission>
     <permission>hudson.model.Item.Workspace:p1gmale0n</permission>
     <permission>hudson.model.Run.Delete:p1gmale0n</permission>
     <permission>hudson.model.Run.Replay:p1gmale0n</permission>
