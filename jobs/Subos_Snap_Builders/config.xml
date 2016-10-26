@@ -4,7 +4,7 @@
   <description></description>
   <properties>
     <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
-      <permission>hudson.model.View.Read:subutai-io</permission>
+      <permission>hudson.model.Item.Read:subutai-io</permission>
     </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
   </properties>
   <views>
