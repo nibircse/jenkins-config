@@ -15,7 +15,7 @@
         <string>soffokl</string>
       </adminUserNameList>
       <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
-      <useRepositoryPermissions>true</useRepositoryPermissions>
+      <useRepositoryPermissions>false</useRepositoryPermissions>
       <authenticatedUserCreateJobPermission>false</authenticatedUserCreateJobPermission>
       <allowGithubWebHookPermission>false</allowGithubWebHookPermission>
       <allowCcTrayPermission>false</allowCcTrayPermission>
