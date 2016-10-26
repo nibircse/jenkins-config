@@ -15,8 +15,8 @@
         <string>tzununbekov</string>
         <string>soffokl</string>
       </adminUserNameList>
-      <authenticatedUserReadPermission>true</authenticatedUserReadPermission>
-      <useRepositoryPermissions>false</useRepositoryPermissions>
+      <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
+      <useRepositoryPermissions>true</useRepositoryPermissions>
       <authenticatedUserCreateJobPermission>false</authenticatedUserCreateJobPermission>
       <allowGithubWebHookPermission>false</allowGithubWebHookPermission>
       <allowCcTrayPermission>false</allowCcTrayPermission>
