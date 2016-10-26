@@ -13,7 +13,7 @@
       <adminUserNameList class="linked-list">
         <string>p1gmale0n</string>
       </adminUserNameList>
-      <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
+      <authenticatedUserReadPermission>true</authenticatedUserReadPermission>
       <useRepositoryPermissions>true</useRepositoryPermissions>
       <authenticatedUserCreateJobPermission>false</authenticatedUserCreateJobPermission>
       <allowGithubWebHookPermission>false</allowGithubWebHookPermission>
