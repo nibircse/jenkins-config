@@ -3,9 +3,7 @@
   <actions/>
   <description></description>
   <properties>
-    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Read:subutai-io</permission>
-    </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
+    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty/>
   </properties>
   <views>
     <hudson.model.AllView>
