@@ -14,7 +14,7 @@
         <string>p1gmale0n</string>
       </adminUserNameList>
       <authenticatedUserReadPermission>false</authenticatedUserReadPermission>
-      <useRepositoryPermissions>false</useRepositoryPermissions>
+      <useRepositoryPermissions>true</useRepositoryPermissions>
       <authenticatedUserCreateJobPermission>false</authenticatedUserCreateJobPermission>
       <allowGithubWebHookPermission>false</allowGithubWebHookPermission>
       <allowCcTrayPermission>false</allowCcTrayPermission>
