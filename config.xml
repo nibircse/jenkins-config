@@ -5,12 +5,47 @@
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
-    <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:p1gmale0n</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:p1gmale0n</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:p1gmale0n</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:p1gmale0n</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Build:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Configure:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Connect:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Create:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Delete:p1gmale0n</permission>
+    <permission>hudson.model.Computer.Disconnect:p1gmale0n</permission>
+    <permission>hudson.model.Hudson.Administer:p1gmale0n</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:p1gmale0n</permission>
+    <permission>hudson.model.Hudson.Read:p1gmale0n</permission>
+    <permission>hudson.model.Hudson.RunScripts:p1gmale0n</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:p1gmale0n</permission>
+    <permission>hudson.model.Item.Build:p1gmale0n</permission>
+    <permission>hudson.model.Item.Cancel:p1gmale0n</permission>
+    <permission>hudson.model.Item.Configure:p1gmale0n</permission>
+    <permission>hudson.model.Item.Create:p1gmale0n</permission>
+    <permission>hudson.model.Item.Delete:p1gmale0n</permission>
+    <permission>hudson.model.Item.Discover:p1gmale0n</permission>
+    <permission>hudson.model.Item.Move:p1gmale0n</permission>
+    <permission>hudson.model.Item.Read:p1gmale0n</permission>
+    <permission>hudson.model.Item.Workspace:p1gmale0n</permission>
+    <permission>hudson.model.Run.Delete:p1gmale0n</permission>
+    <permission>hudson.model.Run.Replay:p1gmale0n</permission>
+    <permission>hudson.model.Run.Update:p1gmale0n</permission>
+    <permission>hudson.model.View.Configure:p1gmale0n</permission>
+    <permission>hudson.model.View.Create:p1gmale0n</permission>
+    <permission>hudson.model.View.Delete:p1gmale0n</permission>
+    <permission>hudson.model.View.Read:p1gmale0n</permission>
+    <permission>hudson.scm.SCM.Tag:p1gmale0n</permission>
   </authorizationStrategy>
-  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
-    <disableSignup>true</disableSignup>
-    <enableCaptcha>false</enableCaptcha>
+  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
+    <githubWebUri>https://github.com</githubWebUri>
+    <githubApiUri>https://api.github.com</githubApiUri>
+    <clientID>eab7b0d87cbf93e4315f</clientID>
+    <clientSecret>SW38UV/hfZgUbf+F35kOT/VHb3P4hiYCzagjpN7MYhIk+jlAOimxLH3Z/2VIn0jEwtLSiBoQvFroBl9QoC3Lgw==</clientSecret>
+    <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
