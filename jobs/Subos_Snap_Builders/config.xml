@@ -3,30 +3,7 @@
   <actions/>
   <description></description>
   <properties>
-    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:subutai-io*sysnet</permission>
-      <permission>hudson.model.View.Delete:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Create:subutai-io*sysnet</permission>
-      <permission>hudson.model.Run.Delete:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Workspace:subutai-io*sysnet</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:subutai-io*sysnet</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:subutai-io*sysnet</permission>
-      <permission>hudson.model.View.Configure:subutai-io*sysnet</permission>
-      <permission>hudson.model.Run.Replay:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Configure:subutai-io*sysnet</permission>
-      <permission>hudson.model.View.Read:subutai-io*sysnet</permission>
-      <permission>hudson.model.View.Create:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Cancel:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Delete:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Read:subutai-io*sysnet</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:subutai-io*sysnet</permission>
-      <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Build:subutai-io*sysnet</permission>
-      <permission>hudson.scm.SCM.Tag:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Move:subutai-io*sysnet</permission>
-      <permission>hudson.model.Item.Discover:subutai-io*sysnet</permission>
-      <permission>hudson.model.Run.Update:subutai-io*sysnet</permission>
-    </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
+    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty/>
   </properties>
   <views>
     <hudson.model.AllView>
