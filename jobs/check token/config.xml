@@ -18,7 +18,6 @@
 	def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
 
 	String responseTemplate = sh (script: &quot;curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/template/info?name=${templateFileName}&quot;, returnStdout: true)
-	def id = sh (script: &quot;curl -k ${url}/file/info?name=${templateFileName}&quot;, returnStdout: true)
 	if (responseTemplate != &quot;Not found&quot;) {
 		def jsonTemplate = jsonParse(responseTemplate)
 		String paramsTemplate = &quot;id=${jsonTemplate[&quot;id&quot;]}&amp;token=${token}&quot;
