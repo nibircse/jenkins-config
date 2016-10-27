@@ -21,7 +21,7 @@
 	if (responseTemplate != &quot;Not found&quot;) {
 		def jsonTemplate = jsonParse(responseTemplate)
 		String paramsTemplate = &quot;id=${jsonTemplate[&quot;id&quot;]}&amp;token=${token}&quot;
-		sh &quot;curl -s -k -X DELETE ${url}/template/delete?id=${jsonTemplate[&quot;id&quot;]}%26token=${token}&quot;
+		sh &quot;curl -s -k -X DELETE ${url}/template/delete?id=${jsonTemplate[&quot;id&quot;]}&apos;&amp;&apos;token=${token}&quot;
 	}
 }
 
