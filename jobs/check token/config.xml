@@ -21,7 +21,7 @@
 	def id = sh (script: &quot;curl -k ${url}/file/info?name=${templateFileName}&quot;, returnStdout: true)
 	if (responseTemplate != &quot;Not found&quot;) {
 		def jsonTemplate = jsonParse(responseTemplate)
-		String paramsTemplate = &quot;id=${jsonTemplate[&quot;id&quot;]}&amp;token=${token}&quot;&quot;
+		String paramsTemplate = &quot;id=${jsonTemplate[&quot;id&quot;]}&amp;token=${token}&quot;
 		sh &quot;curl -s -k -X DELETE ${url}/template/delete?{$paramsTemplate}&quot;
 	}
 }
