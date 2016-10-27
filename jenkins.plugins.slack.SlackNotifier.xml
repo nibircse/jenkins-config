@@ -2,6 +2,6 @@
 <jenkins.plugins.slack.SlackNotifier_-DescriptorImpl plugin="slack@2.0.1">
   <teamDomain>https://subutai-io.slack.com/</teamDomain>
   <token>xoxp-34259182016-64344355953-64342561239-f480d5b2f1</token>
-  <room>ss-bots</room>
+  <room>#ss-bots</room>
   <buildServerUrl>https://jenkins.subut.ai/</buildServerUrl>
 </jenkins.plugins.slack.SlackNotifier_-DescriptorImpl>
