@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9">
+  <actions/>
+  <description></description>
   <properties/>
   <views>
     <hudson.model.AllView>
@@ -22,7 +24,28 @@
   </orphanedItemStrategy>
   <triggers/>
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11">
-    <data/>
+    <data>
+      <jenkins.branch.BranchSource>
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
+          <id>022b728b-f992-4008-84a9-a18aabfc7016</id>
+          <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <scanCredentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</scanCredentialsId>
+          <repoOwner>subutai-io</repoOwner>
+          <repository>base</repository>
+          <includes>master dev jenkinsfile</includes>
+          <excludes></excludes>
+          <buildOriginBranch>true</buildOriginBranch>
+          <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
+          <buildOriginPRMerge>false</buildOriginPRMerge>
+          <buildOriginPRHead>false</buildOriginPRHead>
+          <buildForkPRMerge>false</buildForkPRMerge>
+          <buildForkPRHead>false</buildForkPRHead>
+        </source>
+        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+          <properties class="empty-list"/>
+        </strategy>
+      </jenkins.branch.BranchSource>
+    </data>
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </sources>
   <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
