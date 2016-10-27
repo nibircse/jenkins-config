@@ -32,6 +32,7 @@
     <permission>hudson.model.Hudson.Administer:subutai-io*sysnet</permission>
     <permission>hudson.model.Hudson.ConfigureUpdateCenter:p1gmale0n</permission>
     <permission>hudson.model.Hudson.ConfigureUpdateCenter:subutai-io*sysnet</permission>
+    <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Hudson.Read:p1gmale0n</permission>
     <permission>hudson.model.Hudson.Read:subutai-io</permission>
     <permission>hudson.model.Hudson.Read:subutai-io*sysnet</permission>
