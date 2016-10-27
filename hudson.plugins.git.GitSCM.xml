@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson.plugins.git.GitSCM_-DescriptorImpl plugin="git@3.0.0">
   <generation>59</generation>
-  <globalConfigName></globalConfigName>
-  <globalConfigEmail></globalConfigEmail>
+  <globalConfigName>Jenkins Admin</globalConfigName>
+  <globalConfigEmail>admin@optimal-dynamics.com</globalConfigEmail>
   <createAccountBasedOnEmail>false</createAccountBasedOnEmail>
 </hudson.plugins.git.GitSCM_-DescriptorImpl>
