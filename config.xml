@@ -121,7 +121,7 @@
           <string>DISPLAY</string>
           <string>:20</string>
           <string>SS_TEST_NODE</string>
-          <string>52.59.236.52</string>
+          <string>172.31.2.211</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
