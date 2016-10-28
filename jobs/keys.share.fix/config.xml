@@ -19,7 +19,7 @@
 	def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
 
 	//String responseDeb = sh (script: &quot;curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/apt/info?name=${debFileName}&quot;, returnStdout: true)
-	sh &quot;curl -s -k -Ffile=@${debFileName} -Ftoken=${token} ${url}/apt/upload&quot;
+	sh &quot;curl -s -k -Ffile=@${debFileName} -Ftoken=${token} ${url}/raw/upload&quot;
 }</script>
     <sandbox>true</sandbox>
   </definition>
