@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.8">
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -8,17 +9,18 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.21">
-    <script>String debFileName = &quot;/tmp/jenkins/tempfile&quot;
+    <script>node (){
+	String debFileName = &quot;/tmp/jenkins/tempfile&quot;
 
-String url = &quot;https://eu0.cdn.subut.ai:8338/kurjun/rest&quot;
-String user = &quot;jenkins&quot;
+	String url = &quot;https://eu0.cdn.subut.ai:8338/kurjun/rest&quot;
+	String user = &quot;jenkins&quot;
 
-def authID = sh (script: &quot;curl -s -k ${url}/auth/token?user=${user} | gpg --clearsign --no-tty&quot;, returnStdout: true)
-def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
+	def authID = sh (script: &quot;curl -s -k ${url}/auth/token?user=${user} | gpg --clearsign --no-tty&quot;, returnStdout: true)
+	def token = sh (script: &quot;curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token&quot;, returnStdout: true)
 
-//String responseDeb = sh (script: &quot;curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/apt/info?name=${debFileName}&quot;, returnStdout: true)
-sh &quot;curl -s -k -Ffile=@${artifactDir}/${debFileName} -Ftoken=${token} ${url}/apt/upload&quot;
-</script>
+	//String responseDeb = sh (script: &quot;curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/apt/info?name=${debFileName}&quot;, returnStdout: true)
+	sh &quot;curl -s -k -Ffile=@${artifactDir}/${debFileName} -Ftoken=${token} ${url}/apt/upload&quot;
+}</script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
