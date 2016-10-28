@@ -15,7 +15,7 @@ import jenkins.model.Jenkins
 String slackCredentialsId = &apos;slack-test-bots&apos;
 def jenkins_creds = Jenkins.instance.getExtensionList(&apos;com.cloudbees.plugins.credentials.SystemCredentialsProvider&apos;)[0]
 
-String found_slack_token = jenkins_creds.getStore().getDomains().findResult { domain -&gt;
+@NonCPS String found_slack_token = jenkins_creds.getStore().getDomains().findResult { domain -&gt;
   jenkins_creds.getCredentials(domain).findResult { credential -&gt;
     if(slackCredentialsId.equals(credential.id)) {
       credential.getSecret()
