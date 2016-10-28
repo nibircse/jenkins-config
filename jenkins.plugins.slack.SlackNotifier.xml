@@ -3,5 +3,5 @@
   <teamDomain></teamDomain>
   <token></token>
   <room></room>
-  <buildServerUrl>/</buildServerUrl>
+  <buildServerUrl>https://jenkins.subut.ai/</buildServerUrl>
 </jenkins.plugins.slack.SlackNotifier_-DescriptorImpl>
