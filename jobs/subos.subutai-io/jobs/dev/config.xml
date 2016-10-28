@@ -95,25 +95,6 @@ curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers>
-    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.0.1">
-      <teamDomain>subuta-io</teamDomain>
-      <authToken>aeWzN0MFVDE2ZAgqmhSxfj22</authToken>
-      <buildServerUrl>/</buildServerUrl>
-      <room>#sysnet-bots</room>
-      <startNotification>true</startNotification>
-      <notifySuccess>true</notifySuccess>
-      <notifyAborted>true</notifyAborted>
-      <notifyNotBuilt>true</notifyNotBuilt>
-      <notifyUnstable>false</notifyUnstable>
-      <notifyFailure>true</notifyFailure>
-      <notifyBackToNormal>false</notifyBackToNormal>
-      <notifyRepeatedFailure>false</notifyRepeatedFailure>
-      <includeTestSummary>false</includeTestSummary>
-      <commitInfoChoice>NONE</commitInfoChoice>
-      <includeCustomMessage>false</includeCustomMessage>
-      <customMessage></customMessage>
-    </jenkins.plugins.slack.SlackNotifier>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>
