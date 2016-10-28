@@ -1,6 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.8">
+  <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.21">
+    <script>node(){
+	sh &quot;&quot;&quot;
+		set +x
+		echo &quot;Waiting SS&quot;
+		while [ $(curl -k -s -o /dev/null -w %{http_code} https://${env.SS_TEST_NODE}\\:8443/rest/v1/peer/ready) != &quot;200&quot; ]; do
+			sleep 5
+		done
+	&quot;&quot;&quot;
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
   <triggers/>
 </flow-definition>
