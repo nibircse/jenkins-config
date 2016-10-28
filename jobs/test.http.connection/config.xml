@@ -13,7 +13,7 @@
 	sh &quot;&quot;&quot;
 		set +x
 		echo &quot;Waiting SS&quot;
-		while [ $(curl -k -s -o /dev/null -w %{http_code} &apos;https://${env.SS_TEST_NODE}:8443/rest/v1/peer/ready&apos;) != &quot;200&quot; ]; do
+		while [ \$(curl -k -s -o /dev/null -w %{http_code} &apos;https://${env.SS_TEST_NODE}:8443/rest/v1/peer/ready&apos;) != &quot;200&quot; ]; do
 			sleep 5
 		done
 	&quot;&quot;&quot;
