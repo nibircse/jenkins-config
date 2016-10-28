@@ -9,8 +9,7 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.21">
-    <script>node(){
-//Job DSL script
+    <script>//Job DSL script
 import jenkins.model.Jenkins
 
 String slackCredentialsId = &apos;slack-test-bots&apos;
@@ -24,9 +23,7 @@ String found_slack_token = jenkins_creds.getStore().getDomains().findResult { do
   }
 }
 
-println &quot;Slack token credentials: ${found_slack_token}&quot;
-    
-}</script>
+println &quot;Slack token credentials: ${found_slack_token}&quot;</script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
