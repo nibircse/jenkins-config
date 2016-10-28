@@ -28,7 +28,7 @@ def getSlackToken(){
 }
 
 def slackToken = getSlackToken()
-slackSend channel: &apos;#test-bots&apos;, color: &apos;good&apos;, message: &apos;message from jenkinsfile&apos;, teamDomain: &apos;subutai-io&apos;, token: &apos;${slackToken}&apos;</script>
+slackSend channel: &apos;#test-bots&apos;, color: &apos;good&apos;, message: &apos;message from jenkinsfile&apos;, teamDomain: &apos;subutai-io&apos;, token: &quot;${slackToken}&quot;</script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
