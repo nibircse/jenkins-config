@@ -2,6 +2,7 @@
 <com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@5.13">
   <actions/>
   <description></description>
+  <displayName>Management Template Builders</displayName>
   <properties>
     <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Read:subutai-io</permission>
