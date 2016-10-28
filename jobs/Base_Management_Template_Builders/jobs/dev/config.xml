@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.21.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.3">
       <projectUrl>https://github.com/subutai-io/base/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
@@ -33,7 +33,7 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.21.1">
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.22.3">
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
@@ -75,7 +75,7 @@ echo &quot;id=$id&quot; &gt;&gt; ../env.properties
 echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
 </command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.92.1">
+    <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
@@ -133,7 +133,7 @@ echo &quot;file=$tmp/$filename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.92.1">
+    <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
@@ -152,7 +152,26 @@ curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.0.1">
+      <teamDomain>subutai-io</teamDomain>
+      <authToken>EBhjOQqbAeh6mPhXpUoVaNBp</authToken>
+      <buildServerUrl>/</buildServerUrl>
+      <room>#ss-bots</room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>false</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>false</notifyBackToNormal>
+      <notifyRepeatedFailure>false</notifyRepeatedFailure>
+      <includeTestSummary>false</includeTestSummary>
+      <commitInfoChoice>AUTHORS_AND_TITLES</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
   <buildWrappers>
     <org.jvnet.hudson.plugins.exclusion.IdAllocator plugin="Exclusion@0.12">
       <ids>
