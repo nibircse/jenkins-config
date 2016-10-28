@@ -12,18 +12,23 @@
     <script>//Job DSL script
 import jenkins.model.Jenkins
 
-String slackCredentialsId = &apos;slack-test-bots&apos;
-def jenkins_creds = Jenkins.instance.getExtensionList(&apos;com.cloudbees.plugins.credentials.SystemCredentialsProvider&apos;)[0]
+@NonCPS
+def getSlackToken(){
+	String slackCredentialsId = &apos;slack-test-bots&apos;
+	def jenkins_creds = Jenkins.instance.getExtensionList(&apos;com.cloudbees.plugins.credentials.SystemCredentialsProvider&apos;)[0]
 
-@NonCPS String found_slack_token = jenkins_creds.getStore().getDomains().findResult { domain -&gt;
-  jenkins_creds.getCredentials(domain).findResult { credential -&gt;
-    if(slackCredentialsId.equals(credential.id)) {
-      credential.getSecret()
-    }
-  }
+	String found_slack_token = jenkins_creds.getStore().getDomains().findResult { domain -&gt;
+	  jenkins_creds.getCredentials(domain).findResult { credential -&gt;
+	    if(slackCredentialsId.equals(credential.id)) {
+	      credential.getSecret()
+	    }
+	  }
+	}
+	return found_slack_token
 }
 
-println &quot;Slack token credentials: ${found_slack_token}&quot;</script>
+def token = getSlackToken()
+println &quot;Slack token credentials: ${token}&quot;</script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
