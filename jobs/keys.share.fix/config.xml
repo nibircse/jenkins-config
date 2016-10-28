@@ -24,12 +24,21 @@
 		curl -s -k -Fmessage=\&quot;${authID}\&quot; -Fuser=${user} ${url}/auth/token
 		&quot;&quot;&quot;, returnStdout: true)
 
-	String responseDeb = sh (script: &quot;curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/info?name=tmpfile&quot;, returnStdout: true)
-	sh &quot;curl -s -k -Ffile=@${debFileName} -Ftoken=${token} ${url}/raw/upload&quot;
+	String responseDeb = sh (script: &quot;&quot;&quot;
+		set +x
+		curl -s -k https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/info?name=tmpfile
+		&quot;&quot;&quot;, returnStdout: true)
+	sh &quot;&quot;&quot;
+		set +x
+		curl -s -k -Ffile=@${debFileName} -Ftoken=${token} ${url}/raw/upload
+	&quot;&quot;&quot;
 
 	if (responseDeb != &quot;Not found&quot;) {
 		def jsonDeb = jsonParse(responseDeb)	
-		sh &quot;curl -s -k -X DELETE ${url}/apt/delete?id=${jsonDeb[&quot;id&quot;]}&apos;&amp;&apos;token=${token}&quot;
+		sh &quot;&quot;&quot;
+			set +x
+			curl -s -k -X DELETE ${url}/apt/delete?id=${jsonDeb[&quot;id&quot;]}&apos;&amp;&apos;token=${token}
+		&quot;&quot;&quot;
 	}
 }
 
