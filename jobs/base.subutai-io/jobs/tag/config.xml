@@ -4,12 +4,12 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.3">
       <projectUrl>https://github.com/subutai-io/base/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.4">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -31,11 +31,11 @@
     <extensions/>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.19.1">
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.22.3">
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
@@ -77,7 +77,7 @@ echo &quot;id=$id&quot; &gt;&gt; ../env.properties
 echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
 </command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.92.1">
+    <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
@@ -135,7 +135,7 @@ echo &quot;file=$tmp/$filename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.92.1">
+    <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
