@@ -8,6 +8,14 @@
       <projectUrl>https://github.com/subutai-io/subos/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>1</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
     <configVersion>2</configVersion>
@@ -85,17 +93,18 @@ echo &quot;id=$id&quot; &gt;&gt; env.properties
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command>URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+      <command>set +x
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -k -s &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -k -s -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
 #curl -s -k -Ffile=@$file -Fversion=$version -Ftoken=$token &quot;$URL/$dir/upload&quot;
-SIGNATURE=$(curl -s -k -Ffile=@$file -Fversion=$version -Ftoken=$token &quot;$URL/$dir/upload&quot; | gpg --clearsign --no-tty)
-curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
+#SIGNATURE=$(curl -s -k -Ffile=@$file -Fversion=$version -Ftoken=$token &quot;$URL/$dir/upload&quot; | gpg --clearsign --no-tty)
+#curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
+#curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
