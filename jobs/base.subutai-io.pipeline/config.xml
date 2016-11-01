@@ -3,7 +3,15 @@
   <actions/>
   <description></description>
   <displayName>Management Template Pipeline Builder</displayName>
-  <properties/>
+  <properties>
+    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Read:subutai-io</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Cancel:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Build:subutai-io*subutai-core</permission>
+    </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
+  </properties>
   <views>
     <hudson.model.AllView>
       <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../../.."/>
