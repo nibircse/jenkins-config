@@ -84,7 +84,8 @@ echo &quot;dir=raw&quot; &gt;&gt; env.properties
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command>URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+      <command>set +x
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
@@ -97,6 +98,25 @@ curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$
 curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
+      <teamDomain>subutai-io</teamDomain>
+      <authToken></authToken>
+      <authTokenCredentialId>sysnet-bots-slack-token</authTokenCredentialId>
+      <room>#sysnet-bots</room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>true</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>true</notifyBackToNormal>
+      <notifyRepeatedFailure>true</notifyRepeatedFailure>
+      <includeTestSummary>true</includeTestSummary>
+      <commitInfoChoice>NONE</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
   <buildWrappers/>
 </project>
