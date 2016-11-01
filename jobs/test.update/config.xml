@@ -15,7 +15,7 @@
 		ssh root@172.31.2.211 &lt;&lt;- EOF
 		set +x
 		set -e
-		if [[ \&quot;\$(subutai update rh -c || true)\&quot; != *\&quot;No update is available\&quot;* ]]; then subutai update rh; fi
+		if [[ \&quot;`subutai update rh -c || true`\&quot; != *\&quot;No update is available\&quot;* ]]; then subutai update rh; fi
 	EOF&quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
