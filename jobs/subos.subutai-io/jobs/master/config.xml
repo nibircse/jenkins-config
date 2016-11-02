@@ -46,8 +46,7 @@
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
-version=&apos;4.0.6&apos;
-#$(cat subutai/etc/agent.gcfg | grep version | cut -d &apos; &apos; -f3)
+version=$(cat subutai/etc/agent.gcfg | grep version | cut -d &apos; &apos; -f3)
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
