@@ -50,6 +50,7 @@
     <permission>hudson.model.Item.Create:subutai-io*sysnet</permission>
     <permission>hudson.model.Item.Delete:p1gmale0n</permission>
     <permission>hudson.model.Item.Delete:subutai-io*sysnet</permission>
+    <permission>hudson.model.Item.Discover:anonymous</permission>
     <permission>hudson.model.Item.Discover:p1gmale0n</permission>
     <permission>hudson.model.Item.Discover:subutai-io*sysnet</permission>
     <permission>hudson.model.Item.Move:p1gmale0n</permission>
