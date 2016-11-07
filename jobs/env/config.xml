@@ -10,7 +10,9 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.21">
     <script>node{
-    println &quot;${env.JENKINS_URL}&quot;
+    String serenityReportDir = &quot;&quot;
+    serenityReportDir = &quot;asd&quot;
+    println &quot;${serenityReportDir}&quot;
 }</script>
     <sandbox>true</sandbox>
   </definition>
