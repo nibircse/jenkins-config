@@ -41,7 +41,7 @@
           <scanCredentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>base</repository>
-          <includes>master dev jenkinsfile</includes>
+          <includes>master dev issue-1402</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
