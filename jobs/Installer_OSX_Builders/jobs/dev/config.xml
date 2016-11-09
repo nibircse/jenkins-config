@@ -4,12 +4,12 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.19.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.3">
       <projectUrl>https://github.com/subutai-io/installers/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.4">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.0.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -60,6 +60,7 @@ id=`jsonval`
 git checkout scripts.rh/postinstall
 #sed -i &apos;s/&quot;subutai_4.0.3_amd64.snap/&quot;subutai_4.0.3_amd64-dev.snap/&apos; scripts.rh/postinstall
 sed -i &quot;s/subutai_subutaiversion_amd64.snap/subutai_${version}_amd64-${JOB_NAME##Installer_OSX_Builders/}.snap/&quot; scripts.rh/postinstall
+sed -i &quot;s/SubutaiTray.app_osx.tar.gz/SubutaiTray_dev.app_osx.tar.gz/&quot; scripts.services/postinstall
 
 # Build pkg
 ( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
@@ -94,7 +95,7 @@ echo &quot;file=$tmp/$filename&quot; &gt;&gt; ../env.properties
 echo &quot;dir=raw&quot; &gt;&gt; ../env.properties
 echo &quot;id=$id&quot; &gt;&gt; ../env.properties</command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.92.1">
+    <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
