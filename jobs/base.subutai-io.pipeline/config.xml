@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9">
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9.2">
   <actions/>
   <description></description>
   <displayName>Management Template Pipeline Builder</displayName>
@@ -32,7 +32,7 @@
     <numToKeep>0</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
-  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11">
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11.1">
     <data>
       <jenkins.branch.BranchSource>
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
@@ -41,7 +41,7 @@
           <scanCredentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>base</repository>
-          <includes>master dev issue-1412</includes>
+          <includes>master </includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
