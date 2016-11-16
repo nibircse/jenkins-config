@@ -13,7 +13,7 @@
     sh &quot;wget --no-check-certificate -O p2p https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_dev&quot;
     sh &quot;chmod a+x p2p&quot;
     String p2pVersion = sh (script: &quot;&quot;&quot;
-		./p2p version | cut -d &quot; &quot; -f 4 | tr -d &apos;\n&apos;
+		./p2p version | cut -d &quot; &quot; -f 4
 		&quot;&quot;&quot;, returnStdout: true)
 	println(&quot;!${p2pVersion}!&quot;)
 }</script>
