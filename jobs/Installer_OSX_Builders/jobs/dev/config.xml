@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.3">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.4">
       <projectUrl>https://github.com/subutai-io/installers/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
@@ -61,6 +61,8 @@ git checkout scripts.rh/postinstall
 #sed -i &apos;s/&quot;subutai_4.0.3_amd64.snap/&quot;subutai_4.0.3_amd64-dev.snap/&apos; scripts.rh/postinstall
 sed -i &quot;s/subutai_subutaiversion_amd64.snap/subutai_${version}_amd64-${JOB_NAME##Installer_OSX_Builders/}.snap/&quot; scripts.rh/postinstall
 sed -i &quot;s/SubutaiTray.app_osx.tar.gz/SubutaiTray_dev.app_osx.tar.gz/&quot; scripts.services/postinstall
+sed -i &quot;s/p2p_osx/p2p_osx_dev/&quot; scripts.services/postinstall
+
 
 # Build pkg
 ( cd root.rh &amp;&amp; find . | cpio -o --format odc --owner 0:80 | gzip -c ) &gt; flat/rh.pkg/Payload
