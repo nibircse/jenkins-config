@@ -12,7 +12,7 @@
     <script>#!groovy
 node() {
 agentVersion = sh (script: &quot;&quot;&quot;
-    version=&apos;1.0.0-pre&apos;
+    version=&apos;v1.0.0-pre&apos;
     [[ &quot;\$version&quot; =~ (.*)([0-9]+)([^0-9]*)\$ ]] &amp;&amp; version=&quot;\${BASH_REMATCH[1]}\$((\${BASH_REMATCH[2]} + 1))\${BASH_REMATCH[3]}&quot;;
 &quot;&quot;&quot;, returnStdout: true)
 }</script>
