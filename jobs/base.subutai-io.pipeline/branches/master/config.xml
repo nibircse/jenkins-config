@@ -32,11 +32,7 @@
           </branches>
           <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
           <submoduleCfg class="empty-list"/>
-          <extensions>
-            <hudson.plugins.git.extensions.impl.BuildChooserSetting>
-              <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
-            </hudson.plugins.git.extensions.impl.BuildChooserSetting>
-          </extensions>
+          <extensions/>
         </scm>
         <properties class="java.util.concurrent.CopyOnWriteArrayList"/>
       </branch>
