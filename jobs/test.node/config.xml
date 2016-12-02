@@ -19,6 +19,11 @@ node() {
 			&quot;&quot;&quot;, returnStdout: true)
 	def users = jsonParse(userslist)
 	println list.find { it == &apos;Dmitry Shihovtsev&apos; }
+}
+
+@NonCPS
+def jsonParse(def json) {
+    new groovy.json.JsonSlurperClassic().parseText(json)
 }</script>
     <sandbox>true</sandbox>
   </definition>
