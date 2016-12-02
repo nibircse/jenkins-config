@@ -9,22 +9,7 @@
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
-    <script>#!groovy
-import groovy.json.JsonSlurper
-
-node() {
-	String userslist = sh (script: &quot;&quot;&quot;
-			set +x
-			curl -Ftoken=&apos;xoxp-34259182016-34255821014-111676445219-7e6e58c65bbc322895b1cc793a904053&apos; https://slack.com/api/users.list
-			&quot;&quot;&quot;, returnStdout: true)
-	def users = jsonParse(userslist)
-	println list.find { it == &apos;Dmitry Shihovtsev&apos; }
-}
-
-@NonCPS
-def jsonParse(def json) {
-    new groovy.json.JsonSlurperClassic().parseText(json)
-}</script>
+    <script></script>
     <sandbox>true</sandbox>
   </definition>
   <triggers/>
