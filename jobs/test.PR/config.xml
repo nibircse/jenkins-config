@@ -29,7 +29,7 @@
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
           <id>d6e9c476-c6f5-4b67-9b0b-07957e6b2c9b</id>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
-          <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
+          <scanCredentialsId>p1github</scanCredentialsId>
           <repoOwner>p1gmale0n</repoOwner>
           <repository>getSlackName</repository>
           <includes>*</includes>
