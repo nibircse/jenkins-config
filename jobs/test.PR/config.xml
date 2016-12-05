@@ -35,7 +35,7 @@
           <includes>*</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
-          <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
           <buildOriginPRMerge>true</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
           <buildForkPRMerge>true</buildForkPRMerge>
