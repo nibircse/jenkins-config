@@ -32,13 +32,13 @@
           <scanCredentialsId>p1github</scanCredentialsId>
           <repoOwner>p1gmale0n</repoOwner>
           <repository>getSlackName</repository>
-          <includes>master</includes>
+          <includes>master hotfix-*</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
-          <buildOriginPRMerge>true</buildOriginPRMerge>
+          <buildOriginPRMerge>false</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
-          <buildForkPRMerge>true</buildForkPRMerge>
+          <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
