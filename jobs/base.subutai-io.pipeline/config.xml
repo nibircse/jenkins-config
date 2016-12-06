@@ -38,10 +38,10 @@
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
           <id>022b728b-f992-4008-84a9-a18aabfc7016</id>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
-          <scanCredentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</scanCredentialsId>
+          <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>base</repository>
-          <includes>master dev</includes>
+          <includes>master dev hotfix-*</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
