@@ -32,7 +32,7 @@
           <scanCredentialsId>p1github</scanCredentialsId>
           <repoOwner>p1gmale0n</repoOwner>
           <repository>getSlackName</repository>
-          <includes>master hotfix-*</includes>
+          <includes>master hotfix-* dev</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
