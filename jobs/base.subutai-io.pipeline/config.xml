@@ -41,7 +41,7 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>base</repository>
-          <includes>master dev hotfix-*</includes>
+          <includes>master dev hotfix-* jenkinsfile</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
