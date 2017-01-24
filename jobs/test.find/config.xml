@@ -13,7 +13,7 @@
     
     
     sh &quot;&quot;&quot;
-        echo \$(ls ../subutai-p2p*changes)
+        echo {env.BUILD_NUMBER}
     &quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
