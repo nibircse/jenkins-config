@@ -12,7 +12,7 @@
     
     
     sh &quot;&quot;&quot;
-        
+        echo `ls ../subutai-p2p*changes`
     &quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
