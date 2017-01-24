@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.9">
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -12,7 +13,7 @@
     
     
     sh &quot;&quot;&quot;
-        echo `ls ../subutai-p2p*changes`
+        echo \$(ls ../subutai-p2p*changes)`
     &quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
