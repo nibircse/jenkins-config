@@ -12,9 +12,8 @@
     <script>node(){
     
     
-    sh &quot;&quot;&quot;
-        pwd
-    &quot;&quot;&quot;
+    def retstat = sh(script: &apos;ls /tmp&apos;, returnStatus: true)
+    println retstat
 }</script>
     <sandbox>true</sandbox>
   </definition>
