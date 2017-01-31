@@ -12,7 +12,7 @@
     <script>node(){
     
     
-    def retstat = sh(script: &apos;ls /tmp&apos;, returnStatus: true)
+    def retstat = sh(script: &apos;ls /tmp2&apos;, returnStatus: true)
     println retstat
 }</script>
     <sandbox>true</sandbox>
