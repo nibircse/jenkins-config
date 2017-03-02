@@ -11,9 +11,9 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
     <script>node(){
     
-    
-    def retstat = sh(script: &apos;ls /tmp2&apos;, returnStatus: true)
-    println retstat
+    sh &quot;&quot;&quot;
+    echo -e &quot;[CDN]\nnode = https://devcdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg
+    &quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
   </definition>
