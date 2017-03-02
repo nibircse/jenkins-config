@@ -12,7 +12,7 @@
     <script>node(){
     
     sh &quot;&quot;&quot;
-    echo -e &quot;[CDN]\nnode = https://devcdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg
+    echo -e &quot;[CDN]\nnode = https://devcdn.subut.ai:8338&quot; &gt; /tmp/gorjun.gcfg
     &quot;&quot;&quot;
 }</script>
     <sandbox>true</sandbox>
