@@ -17,7 +17,7 @@
 			&quot;&quot;&quot;, returnStdout: true)
 	def jsonDeb = jsonParse(responseDeb)
 	sh &quot;&quot;&quot;
-				echo ${jsonDeb}[0]
+				echo ${jsonDeb[0]}
 		&quot;&quot;&quot;
 }
 
