@@ -11,13 +11,13 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
     <script>node(){
     String debFileName = &quot;management-dev.deb&quot;
-    url = &quot;https://cdn.subut.ai:8338/kurjun/rest&quot;
+    url = &quot;https://devcdn.subut.ai:8338/kurjun/rest&quot;
 	String responseDeb = sh (script: &quot;&quot;&quot;
 			curl -s -k ${url}/apt/info?name=${debFileName}
 			&quot;&quot;&quot;, returnStdout: true)
 	def jsonDeb = jsonParse(responseDeb)
 	sh &quot;&quot;&quot;
-				echo ${jsonDeb}
+				echo ${jsonDeb}[0]
 		&quot;&quot;&quot;
 }
 
