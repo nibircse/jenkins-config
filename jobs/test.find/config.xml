@@ -17,7 +17,7 @@
 			&quot;&quot;&quot;, returnStdout: true)
 	def jsonDeb = jsonParse(responseDeb)
 	sh &quot;&quot;&quot;
-				echo ${url}/apt/delete?id=${jsonDeb[0][&quot;id&quot;]}&apos;&amp;&apos;token=
+				echo ${url}/apt/delete?id=${jsonDeb[&quot;id&quot;]}&apos;&amp;&apos;token=
 		&quot;&quot;&quot;
 }
 
