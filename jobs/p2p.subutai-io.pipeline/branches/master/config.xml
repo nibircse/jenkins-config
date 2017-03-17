@@ -6,7 +6,7 @@
     <org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty plugin="workflow-multibranch@2.14">
       <branch plugin="branch-api@2.0.8">
         <sourceId>0c542c4d-0e52-4155-9164-99a7e6c5fc53</sourceId>
-        <head plugin="scm-api@2.1.0">
+        <head class="org.jenkinsci.plugins.github_branch_source.BranchSCMHead" plugin="github-branch-source@2.0.4">
           <name>master</name>
         </head>
         <scm class="hudson.plugins.git.GitSCM" plugin="git@3.1.0">
