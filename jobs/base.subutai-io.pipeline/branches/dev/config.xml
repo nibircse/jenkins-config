@@ -31,6 +31,9 @@
             </hudson.plugins.git.BranchSpec>
           </branches>
           <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <browser class="hudson.plugins.git.browser.GithubWeb">
+            <url>https://github.com/subutai-io/base</url>
+          </browser>
           <submoduleCfg class="empty-list"/>
           <extensions/>
         </scm>
