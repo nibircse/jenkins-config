@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>2.34</version>
+  <version>2.50</version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -80,7 +80,7 @@
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>vHXUoljalCX4yy90FY6U7Z5Sxf7eKRP7yrWRG58cyvAmCeskbWFy1sN/8ufE/t2bwtLSiBoQvFroBl9QoC3Lgw==</clientSecret>
+    <clientSecret>{AQAAABAAAAAw1g96mHdMvisjhkRXl7ch9MxGkDuvfOO9j7kUNYrtTh47PTpzcRefRGMQdYWpagpwZ3Y5kvEO2n+Yw3WoSQjzuw==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
@@ -97,13 +97,13 @@
   <views>
     <hudson.model.AllView>
       <owner class="hudson" reference="../../.."/>
-      <name>All</name>
+      <name>all</name>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
   </views>
-  <primaryView>All</primaryView>
+  <primaryView>all</primaryView>
   <slaveAgentPort>0</slaveAgentPort>
   <label></label>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
@@ -118,11 +118,13 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>2</int>
+          <int>3</int>
           <string>DISPLAY</string>
           <string>:20</string>
           <string>SS_TEST_NODE</string>
           <string>172.31.2.211</string>
+          <string>SS_TEST_NODE_CORE16</string>
+          <string>172.31.13.254</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
