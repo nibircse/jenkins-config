@@ -21,15 +21,13 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <name>def</name>
-          <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
           <url>https://github.com/p1gmale0n/getSlackName</url>
           <credentialsId>hub-optdyn-github-auth</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
         <hudson.plugins.git.BranchSpec>
-          <name>*/tags/*</name>
+          <name>refs/tags/${TAG_NAME}</name>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
