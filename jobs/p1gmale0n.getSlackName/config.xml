@@ -31,15 +31,16 @@
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.0.4">
           <id>06eefe85-1561-4634-907b-b5b680dd6add</id>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>p1gmale0n</repoOwner>
           <repository>getSlackName</repository>
           <includes>*</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
-          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
+          <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
-          <buildForkPRMerge>true</buildForkPRMerge>
+          <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
