@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9.2">
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.14">
   <actions/>
   <description></description>
   <displayName>SnapCraft Pipeline Builder</displayName>
@@ -11,37 +11,38 @@
       <permission>hudson.model.Item.Cancel:subutai-io*sysnet</permission>
       <permission>hudson.model.Item.Build:subutai-io*sysnet</permission>
     </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.1.1">
+      <dockerLabel></dockerLabel>
+      <registry plugin="docker-commons@1.6"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
   </properties>
-  <views>
-    <hudson.model.AllView>
-      <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../../.."/>
-      <name>All</name>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-    </hudson.model.AllView>
-  </views>
-  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.8">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </folderViews>
   <healthMetrics>
-    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@5.13"/>
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.0.2">
+      <nonRecursive>false</nonRecursive>
+    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
   </healthMetrics>
-  <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon" plugin="cloudbees-folder@5.13"/>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@5.13">
+  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.8">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </icon>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.0.2">
     <pruneDeadBranches>true</pruneDeadBranches>
     <daysToKeep>0</daysToKeep>
     <numToKeep>0</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
-  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11.1">
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.8">
     <data>
       <jenkins.branch.BranchSource>
-        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.0.4">
           <id>79611400-7f42-41e3-913c-6d96d7cd21a1</id>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>snap</repository>
-          <includes>dev master</includes>
+          <includes>dev master jenkinsfile</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
