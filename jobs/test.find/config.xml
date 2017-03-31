@@ -12,9 +12,6 @@
     <script>node(){
     sh &quot;&quot;&quot;
         export TEST=&quot;test&quot;
-    &quot;&quot;&quot;
-    
-    sh &quot;&quot;&quot;
         echo \$TEST
     &quot;&quot;&quot;
 }
