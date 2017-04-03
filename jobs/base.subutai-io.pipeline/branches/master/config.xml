@@ -9,7 +9,7 @@
         <head class="org.jenkinsci.plugins.github_branch_source.BranchSCMHead" plugin="github-branch-source@2.0.4">
           <name>master</name>
         </head>
-        <scm class="hudson.plugins.git.GitSCM" plugin="git@3.1.0">
+        <scm class="hudson.plugins.git.GitSCM" plugin="git@3.2.0">
           <configVersion>2</configVersion>
           <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
@@ -43,11 +43,11 @@
             <iconClassName>icon-github-branch</iconClassName>
             <url>https://github.com/subutai-io/base/tree/master</url>
           </org.jenkinsci.plugins.github__branch__source.GitHubLink>
-          <jenkins.scm.api.metadata.ObjectMetadataAction plugin="scm-api@2.1.0">
+          <jenkins.scm.api.metadata.ObjectMetadataAction plugin="scm-api@2.1.1">
             <objectDisplayName>master</objectDisplayName>
             <objectUrl>https://github.com/subutai-io/base/tree/master</objectUrl>
           </jenkins.scm.api.metadata.ObjectMetadataAction>
-          <jenkins.scm.api.metadata.PrimaryInstanceMetadataAction plugin="scm-api@2.1.0"/>
+          <jenkins.scm.api.metadata.PrimaryInstanceMetadataAction plugin="scm-api@2.1.1"/>
         </actions>
       </branch>
     </org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty>
