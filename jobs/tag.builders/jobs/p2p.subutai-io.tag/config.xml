@@ -69,10 +69,10 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 dir=raw
 
 filename=&quot;p2p&quot;
-json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
+json=`curl -k -s -X GET $URL/raw/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+curl -s -k -Ffile=@$filename -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
 curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;
 
@@ -80,17 +80,17 @@ filename=&quot;p2p.exe&quot;
 json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+curl -s -k -Ffile=@$filename -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;
+curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
 
 filename=&quot;p2p_osx&quot;
-json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
+json=`curl -k -s -X GET $URL/raw/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+curl -s -k -Ffile=@$filename -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;</command>
+curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
