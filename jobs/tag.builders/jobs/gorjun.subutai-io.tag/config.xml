@@ -63,7 +63,7 @@ scp -P 8022 gorjun root@eu0.cdn.subut.ai:/tmp
 ssh root@eu0.cdn.subut.ai -p8022 &lt;&lt;- EOF
 set -e
 /bin/mv /tmp/gorjun /mnt/lib/lxc/gorjun/opt/gorjun/bin/gorjun
-/apps/bin/lxc-attach -n gorjun -- systemctl restart gorjun
+/apps/bin/lxc-attach -n gorjun -- service gorjun restart
 EOF
 
 [ &quot;${version}&quot; == &quot;\$(ssh root@eu0.cdn.subut.ai -p8022 /apps/bin/lxc-attach -n gorjun -- curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
