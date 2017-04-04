@@ -51,10 +51,10 @@
 goenvDir=&quot;.goenv&quot;
 
 if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/subutai-io/; fi
-ln -s ${workspace} ${workspace}/${goenvDir}/src/github.com/subutai-io/gorjun
+ln -s ${WORKSPACE} ${WORKSPACE}/${goenvDir}/src/github.com/subutai-io/gorjun
 
-export GOPATH=${goenvDir}
-export GOBIN=${goenvDir}/bin
+export GOPATH=${WORKSPACE}/${goenvDir}
+export GOBIN=${WORKSPACE}/${goenvDir}/bin
 export GIT_BRANCH=tag
 go get
 version=$(make | cut -d &apos; &apos; -f 7 | cut -d &apos;=&apos; -f 2 | tr -d &apos;\&quot;&apos;)
