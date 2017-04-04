@@ -120,6 +120,7 @@ id=`jsonval`
 
 # build template
 ssh root@gw.intra.lan &lt;&lt;- EOF
+set -x
 /apps/bin/subutai destroy management
 /apps/bin/subutai clone openjre16 management
 sleep 20
@@ -130,7 +131,7 @@ sleep 20
 /apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem
 /apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;
 /apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/
-/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = ${cdnHost}:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
+/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
 /apps/bin/lxc-attach -n management -- systemctl stop management
 /apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/
 /apps/bin/lxc-attach -n management -- sync
