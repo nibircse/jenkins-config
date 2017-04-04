@@ -64,7 +64,7 @@ set -e
 /apps/bin/lxc-attach -n gorjun -- service gorjun restart
 EOF
 
-[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;\$(ssh root@eu0.cdn.subut.ai -p8022 /apps/bin/lxc-attach -n gorjun -- curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
+[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;$(ssh root@eu0.cdn.subut.ai -p8022 /apps/bin/lxc-attach -n gorjun -- curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
 </command>
     </hudson.tasks.Shell>
   </builders>
