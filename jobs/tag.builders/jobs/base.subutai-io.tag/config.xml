@@ -68,7 +68,6 @@ id=`jsonval`
 
 # build template
 ssh root@gw.intra.lan &lt;&lt;- EOF
-set -x
 /apps/bin/subutai destroy management
 /apps/bin/subutai clone openjre16 management
 sleep 20
