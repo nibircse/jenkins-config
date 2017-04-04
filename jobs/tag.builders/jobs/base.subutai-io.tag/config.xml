@@ -121,13 +121,19 @@ id=`jsonval`
 # build template
 ssh root@gw.intra.lan &quot;/apps/bin/subutai destroy management&quot;
 #ssh root@gw.intra.lan &quot;/bin/rm /mnt/lib/lxc/tmpdir/management-subutai-template*&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/subutai clone openjre8 management&quot;
-sleep 5
+ssh root@gw.intra.lan &quot;/apps/bin/subutai clone openjre16 management&quot;
+sleep 20
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt update&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade procps&quot;
-ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install --only-upgrade udev&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- apt -y --force-yes install management-stable&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- wget -q &apos;https://cdn.subut.ai:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = ${cdnHost}:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- systemctl stop management&quot;
+ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/&quot;
+
 ssh root@gw.intra.lan &quot;/apps/bin/lxc-attach -n management -- sync&quot;
 ssh root@gw.intra.lan &quot;/apps/bin/subutai export management -v ${version}&quot;
 
