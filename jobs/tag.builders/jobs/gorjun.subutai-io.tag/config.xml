@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -52,8 +53,8 @@ goenvDir=&quot;.goenv&quot;
 if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/subutai-io/; fi
 ln -s ${workspace} ${workspace}/${goenvDir}/src/github.com/subutai-io/gorjun
 
-export GOPATH=${workspace}/${goenvDir}
-export GOBIN=${workspace}/${goenvDir}/bin
+export GOPATH=${goenvDir}
+export GOBIN=${goenvDir}/bin
 export GIT_BRANCH=tag
 go get
 version=$(make | cut -d &apos; &apos; -f 7 | cut -d &apos;=&apos; -f 2 | tr -d &apos;\&quot;&apos;)
