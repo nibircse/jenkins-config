@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -65,31 +66,31 @@ URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
-
+dir=raw
 
 filename=&quot;p2p&quot;
-json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;
+curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;
 
 filename=&quot;p2p.exe&quot;
-json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;
+curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;
 
 filename=&quot;p2p_osx&quot;
-json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+json=`curl -k -s -X GET $URL/$dir/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+curl -s -k -X DELETE &quot;$URL/$dir/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
