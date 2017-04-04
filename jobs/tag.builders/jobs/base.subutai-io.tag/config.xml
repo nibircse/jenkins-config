@@ -52,7 +52,8 @@ mkdir -p $tmp
 
 # ENV
 URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-filename=&quot;management-stable.deb&quot;
+version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
+filename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
 
 # get current file id
 function jsonval {
@@ -60,25 +61,37 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+json=`curl -k -s -X GET $URL/template/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
-cd management
 
-# build deb
-mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=stable
+# build template
+ssh root@gw.intra.lan &lt;&lt;- EOF
+/apps/bin/subutai destroy management
+/apps/bin/subutai clone openjre16 management
+sleep 20
+/apps/bin/lxc-attach -n management -- apt-get update
+/apps/bin/lxc-attach -n management -- sync
+/apps/bin/lxc-attach -n management -- apt-get -y --force-yes install management-stable
+/apps/bin/lxc-attach -n management -- wget -q &apos;https://cdn.subut.ai:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf
+/apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem
+/apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;
+/apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/
+/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
+/apps/bin/lxc-attach -n management -- systemctl stop management
+/apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/
+/apps/bin/lxc-attach -n management -- sync
+/apps/bin/subutai export management -v ${version}
+EOF
 
-
-# move builded file
-#mv `ls server/server-karaf/target/*.deb` $tmp/$filename
-find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} $tmp/$filename
+# move template to jenkins instance
+ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
 
 #preparing data for uploader
-echo &quot;file=$tmp/$filename&quot; &gt; ../env.properties
-echo &quot;id=$id&quot; &gt;&gt; ../env.properties
-echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
-</command>
+echo &quot;file=$tmp/$filename&quot; &gt; env.properties
+echo &quot;id=$id&quot; &gt;&gt; env.properties
+echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
     <EnvInjectBuilder plugin="envinject@1.93.1">
       <info>
