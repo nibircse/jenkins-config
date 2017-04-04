@@ -44,7 +44,9 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>./configure
+      <command>export GIT_BRANCH=&quot;&quot;
+
+./configure
 
 snapcraft
 
