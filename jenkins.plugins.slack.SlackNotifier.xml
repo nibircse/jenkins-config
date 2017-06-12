@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jenkins.plugins.slack.SlackNotifier_-DescriptorImpl plugin="slack@2.1-SNAPSHOT">
-  <teamDomain>subutai-io</teamDomain>
-  <token>jgbZ8ynjUTgZRke07Px0d1cC</token>
+  <teamDomain></teamDomain>
+  <token></token>
   <tokenCredentialId></tokenCredentialId>
-  <room>ss-bots</room>
+  <room></room>
 </jenkins.plugins.slack.SlackNotifier_-DescriptorImpl>
