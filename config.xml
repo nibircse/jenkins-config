@@ -124,7 +124,7 @@
           <string>SS_TEST_NODE</string>
           <string>172.31.2.211</string>
           <string>SS_TEST_NODE_CORE16</string>
-          <string>172.31.4.216</string>
+          <string>172.31.1.230</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
