@@ -6,81 +6,45 @@
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:p1gmale0n</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:p1gmale0n</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:p1gmale0n</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:p1gmale0n</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:p1gmale0n</permission>
     <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Build:p1gmale0n</permission>
     <permission>hudson.model.Computer.Build:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Configure:p1gmale0n</permission>
     <permission>hudson.model.Computer.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Connect:p1gmale0n</permission>
     <permission>hudson.model.Computer.Connect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Create:p1gmale0n</permission>
     <permission>hudson.model.Computer.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Delete:p1gmale0n</permission>
     <permission>hudson.model.Computer.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Disconnect:p1gmale0n</permission>
     <permission>hudson.model.Computer.Disconnect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.Administer:p1gmale0n</permission>
     <permission>hudson.model.Hudson.Administer:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.ConfigureUpdateCenter:p1gmale0n</permission>
-    <permission>hudson.model.Hudson.ConfigureUpdateCenter:subutai-io*sysnet</permission>
     <permission>hudson.model.Hudson.Read:anonymous</permission>
-    <permission>hudson.model.Hudson.Read:p1gmale0n</permission>
     <permission>hudson.model.Hudson.Read:subutai-io</permission>
     <permission>hudson.model.Hudson.Read:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.RunScripts:p1gmale0n</permission>
-    <permission>hudson.model.Hudson.RunScripts:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.UploadPlugins:p1gmale0n</permission>
-    <permission>hudson.model.Hudson.UploadPlugins:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Build:p1gmale0n</permission>
     <permission>hudson.model.Item.Build:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Cancel:p1gmale0n</permission>
     <permission>hudson.model.Item.Cancel:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Configure:p1gmale0n</permission>
     <permission>hudson.model.Item.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Create:p1gmale0n</permission>
     <permission>hudson.model.Item.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Delete:p1gmale0n</permission>
     <permission>hudson.model.Item.Delete:subutai-io*sysnet</permission>
     <permission>hudson.model.Item.Discover:anonymous</permission>
-    <permission>hudson.model.Item.Discover:p1gmale0n</permission>
     <permission>hudson.model.Item.Discover:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Move:p1gmale0n</permission>
     <permission>hudson.model.Item.Move:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Read:p1gmale0n</permission>
     <permission>hudson.model.Item.Read:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Workspace:p1gmale0n</permission>
     <permission>hudson.model.Item.Workspace:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Delete:p1gmale0n</permission>
     <permission>hudson.model.Run.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Replay:p1gmale0n</permission>
     <permission>hudson.model.Run.Replay:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Update:p1gmale0n</permission>
     <permission>hudson.model.Run.Update:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Configure:p1gmale0n</permission>
     <permission>hudson.model.View.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Create:p1gmale0n</permission>
     <permission>hudson.model.View.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Delete:p1gmale0n</permission>
     <permission>hudson.model.View.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Read:p1gmale0n</permission>
     <permission>hudson.model.View.Read:subutai-io*sysnet</permission>
-    <permission>hudson.scm.SCM.Tag:p1gmale0n</permission>
     <permission>hudson.scm.SCM.Tag:subutai-io*sysnet</permission>
   </authorizationStrategy>
   <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAw1g96mHdMvisjhkRXl7ch9MxGkDuvfOO9j7kUNYrtTh47PTpzcRefRGMQdYWpagpwZ3Y5kvEO2n+Yw3WoSQjzuw==}</clientSecret>
+    <clientSecret>{AQAAABAAAAAwrwFOP+p1WLZQF2V8D7xXxkGPwab3d0Aausxk/P3tcqLnQBmLwNoteqWTOOfScJ8JSk/qU/S0PetjAZNdEXG/PA==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
