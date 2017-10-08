@@ -4,15 +4,18 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.26.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
       <projectUrl>https://github.com/subutai-io/gorjun/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
-    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.11.2">
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
       <resourceNames>rh-node</resourceNames>
+      <resourceNamesVar></resourceNamesVar>
+      <resourceNumber></resourceNumber>
+      <labelName></labelName>
     </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.2.0">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -58,11 +61,11 @@ version=$(make | cut -d &apos; &apos; -f 7 | cut -d &apos;=&apos; -f 2 | tr -d &
 scp -P 8022 gorjun root@eu0.cdn.subut.ai:/tmp
 ssh root@eu0.cdn.subut.ai -p8022 &lt;&lt;- EOF
 set -e
-/bin/mv /tmp/gorjun /mnt/lib/lxc/gorjun/opt/gorjun/bin/gorjun
-/apps/bin/lxc-attach -n gorjun -- service gorjun restart
+/bin/mv /tmp/gorjun /var/snap/subutai/common/lxc/gorjun/opt/gorjun/bin/
+sudo subutai attach gorjun systemctl restart gorjun
 EOF
 
-[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;$(ssh root@eu0.cdn.subut.ai -p8022 /apps/bin/lxc-attach -n gorjun -- curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
+[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;$(ssh root@eu0.cdn.subut.ai -p8022 sudo subutai attach gorjun curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
 </command>
     </hudson.tasks.Shell>
   </builders>
@@ -87,7 +90,7 @@ EOF
     </jenkins.plugins.slack.SlackNotifier>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.32">
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
       <deleteDirs>false</deleteDirs>
       <cleanupParameter></cleanupParameter>
       <externalDelete></externalDelete>
