@@ -34,7 +34,7 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>optdyn</repoOwner>
           <repository>p2p</repository>
-          <includes>*</includes>
+          <includes>master dev</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
