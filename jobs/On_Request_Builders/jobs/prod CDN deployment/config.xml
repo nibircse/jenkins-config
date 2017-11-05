@@ -32,7 +32,7 @@
     <hudson.tasks.Shell>
       <command>depoly_in=( us-west-1 )
 
-cp /home/jenkins/secrets cdn/
+cp -r /home/jenkins/secrets cdn/
 cp /tmp/cp-master cdn/secrets/cp
 
 for region in ${deploy_in[@]}; do
