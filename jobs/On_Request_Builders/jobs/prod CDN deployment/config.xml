@@ -30,7 +30,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>depoly_in=( us-west-1 )
+      <command>deploy_in=( us-west-1 )
 
 cp -r /home/jenkins/secrets cdn/
 cp /tmp/cp-master cdn/secrets/cp
