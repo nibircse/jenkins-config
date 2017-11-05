@@ -30,9 +30,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>deploy_in=( us-west-1 )
+      <command>deploy_in=( us-west-1 sa-east-1 )
 
 cp -r /home/jenkins/secrets cdn/
+
+# Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
 cp /tmp/cp-master cdn/secrets/cp
 
 for region in ${deploy_in[@]}; do
