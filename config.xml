@@ -44,7 +44,7 @@
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAwrwFOP+p1WLZQF2V8D7xXxkGPwab3d0Aausxk/P3tcqLnQBmLwNoteqWTOOfScJ8JSk/qU/S0PetjAZNdEXG/PA==}</clientSecret>
+    <clientSecret>{AQAAABAAAAAwFtoafrreikziRxrJl4JzxE0qWlsNMkbszJP6YiupH3+p0D8SQOb8XJpsfxQ3evYmuSDI2pDH5/gU6SLsNSWMNg==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
@@ -68,7 +68,7 @@
     </hudson.model.AllView>
   </views>
   <primaryView>all</primaryView>
-  <slaveAgentPort>0</slaveAgentPort>
+  <slaveAgentPort>18954</slaveAgentPort>
   <label></label>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
     <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
