@@ -28,7 +28,6 @@
     <permission>hudson.model.Computer.Delete:subutai-io*sysnet</permission>
     <permission>hudson.model.Computer.Disconnect:dilshat</permission>
     <permission>hudson.model.Computer.Disconnect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Provision:dilshat</permission>
     <permission>hudson.model.Hudson.Administer:dilshat</permission>
     <permission>hudson.model.Hudson.Administer:subutai-io*sysnet</permission>
     <permission>hudson.model.Hudson.Read:anonymous</permission>
@@ -71,13 +70,12 @@
     <permission>hudson.model.View.Read:subutai-io*sysnet</permission>
     <permission>hudson.scm.SCM.Tag:dilshat</permission>
     <permission>hudson.scm.SCM.Tag:subutai-io*sysnet</permission>
-    <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve:dilshat</permission>
   </authorizationStrategy>
   <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAwF1/9BLC85VhwmX0e2VtOKOd3tDY9JpT/TVLcW1aLnI0Qr/UqGNGk4Faw4BSCeWKW/r1lBsQAo2qVG53x7sINNg==}</clientSecret>
+    <clientSecret>{AQAAABAAAAAwvFoe4vd8h4boc0XwbhExMOY/vd7azcQwkBA1NPNrcgV/1Bxn20mKCMzUMhUQyhX8KOyj9JHorNRIwIFlF4na+A==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
