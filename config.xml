@@ -17,7 +17,6 @@
     <permission>hudson.model.Computer.Create:subutai-io*sysnet</permission>
     <permission>hudson.model.Computer.Delete:subutai-io*sysnet</permission>
     <permission>hudson.model.Computer.Disconnect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Provision:subutai-io*sysnet</permission>
     <permission>hudson.model.Hudson.Administer:subutai-io*sysnet</permission>
     <permission>hudson.model.Hudson.Read:anonymous</permission>
     <permission>hudson.model.Hudson.Read:subutai-io</permission>
@@ -45,7 +44,7 @@
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAweaZ/3sxsgE8a5/Q1L+tfenbH+3A79mnRhvnBBghS+FZCZBWc96vhEzWuOEAiEiGetUN7NCugUMLH123keaesjQ==}</clientSecret>
+    <clientSecret>{AQAAABAAAAAwIdGb9XaibI8Cj3bHKFHQcB+PEnaKYVntRX03BuWHLmZjE0GY2iwCGlXIJI1Zh6Q4H18UBL7FSk4ABllq8Xf+vQ==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
