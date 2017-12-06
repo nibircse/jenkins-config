@@ -82,13 +82,15 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>3</int>
+          <int>4</int>
           <string>DISPLAY</string>
           <string>:20</string>
           <string>SS_TEST_NODE</string>
           <string>172.31.2.211</string>
           <string>SS_TEST_NODE_CORE16</string>
           <string>172.31.1.230</string>
+          <string>SS_TEST_NODE_NEW</string>
+          <string>172.31.6.148</string>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
