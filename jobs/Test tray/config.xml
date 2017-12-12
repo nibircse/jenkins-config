@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
@@ -28,7 +29,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>start &quot;c:\windows\system32&quot; notepad.exe </command>
+      <command>start &quot;C:\Program Files (x86)\Internet Explorer&quot; iexplore.exe</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
