@@ -29,7 +29,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>start &quot;C:\Program Files (x86)\Internet Explorer&quot; iexplore.exe</command>
+      <command>echo &quot;Test&quot;</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
