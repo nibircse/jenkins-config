@@ -1,7 +1,55 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.10">
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty plugin="workflow-multibranch@2.14">
+      <branch plugin="branch-api@2.0.8">
+        <sourceId>79611400-7f42-41e3-913c-6d96d7cd21a1</sourceId>
+        <head class="org.jenkinsci.plugins.github_branch_source.BranchSCMHead" plugin="github-branch-source@2.0.8">
+          <name>sysnet</name>
+        </head>
+        <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+          <configVersion>2</configVersion>
+          <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+              <name>origin</name>
+              <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+              <url>https://github.com/subutai-io/snap.git</url>
+              <credentialsId>hub-optdyn-github-auth</credentialsId>
+            </hudson.plugins.git.UserRemoteConfig>
+            <hudson.plugins.git.UserRemoteConfig>
+              <name>origin</name>
+              <refspec>+refs/pull/*/head:refs/remotes/origin/pr/*</refspec>
+              <url>https://github.com/subutai-io/snap.git</url>
+              <credentialsId>hub-optdyn-github-auth</credentialsId>
+            </hudson.plugins.git.UserRemoteConfig>
+          </userRemoteConfigs>
+          <branches class="singleton-list">
+            <hudson.plugins.git.BranchSpec>
+              <name>sysnet</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <browser class="hudson.plugins.git.browser.GithubWeb">
+            <url>https://github.com/subutai-io/snap</url>
+          </browser>
+          <submoduleCfg class="empty-list"/>
+          <extensions/>
+        </scm>
+        <properties/>
+        <actions>
+          <org.jenkinsci.plugins.github__branch__source.GitHubLink plugin="github-branch-source@2.0.8">
+            <iconClassName>icon-github-branch</iconClassName>
+            <url>https://github.com/subutai-io/snap/tree/sysnet</url>
+          </org.jenkinsci.plugins.github__branch__source.GitHubLink>
+          <jenkins.scm.api.metadata.ObjectMetadataAction plugin="scm-api@2.1.1">
+            <objectDisplayName>sysnet</objectDisplayName>
+            <objectUrl>https://github.com/subutai-io/snap/tree/sysnet</objectUrl>
+          </jenkins.scm.api.metadata.ObjectMetadataAction>
+        </actions>
+      </branch>
+    </org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty>
+  </properties>
   <definition class="org.jenkinsci.plugins.workflow.multibranch.SCMBinder" plugin="workflow-multibranch@2.14"/>
   <triggers/>
 </flow-definition>
