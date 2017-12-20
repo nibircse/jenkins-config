@@ -4,15 +4,18 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.26.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
       <projectUrl>https://github.com/subutai-io/base/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
-    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@1.11.2">
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
       <resourceNames>rh-node</resourceNames>
+      <resourceNamesVar></resourceNamesVar>
+      <resourceNumber></resourceNumber>
+      <labelName></labelName>
     </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.2.0">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -76,7 +79,7 @@ echo &quot;id=$id&quot; &gt;&gt; ../env.properties
 echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
 </command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.93.1">
+    <EnvInjectBuilder plugin="envinject@2.0">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
@@ -88,7 +91,7 @@ USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
-curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
 
 # delete old file
 curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
@@ -142,7 +145,7 @@ echo &quot;file=$tmp/$filename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@1.93.1">
+    <EnvInjectBuilder plugin="envinject@2.0">
       <info>
         <propertiesFilePath>env.properties</propertiesFilePath>
       </info>
@@ -155,7 +158,7 @@ AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --n
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
 #curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
-SIGNATURE=$(curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
+SIGNATURE=$(curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
 curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
 
 # delete old file
