@@ -23,7 +23,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo Test123</command>
+      <command>cd /home/builder
+./build_dev.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
