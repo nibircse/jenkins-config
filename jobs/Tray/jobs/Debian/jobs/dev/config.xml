@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
-      <projectUrl>https://github.com/optdyn/devops/</projectUrl>
+      <projectUrl>https://github.com/subutai-io/tray/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
@@ -23,8 +23,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd /home/builder
-./build_dev.sh</command>
+      <command></command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
