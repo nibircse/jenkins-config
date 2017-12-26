@@ -23,7 +23,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command></command>
+      <command>touch test123</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
