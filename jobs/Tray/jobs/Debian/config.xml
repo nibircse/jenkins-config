@@ -42,11 +42,11 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>tray</repository>
-          <includes>dev</includes>
+          <includes>dev master</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
-          <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
-          <buildOriginPRMerge>false</buildOriginPRMerge>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
+          <buildOriginPRMerge>true</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
           <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
