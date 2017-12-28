@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.14">
   <actions/>
-  <description>Required files to build SS snap package using snapcraft tool</description>
+  <description>windows, linux, macOS</description>
+  <displayName>Tray builder</displayName>
   <properties>
     <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Read:subutai-io*sysnet</permission>
@@ -40,14 +41,14 @@
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>snap</repository>
-          <includes>sysnet dev master</includes>
+          <repository>tray</repository>
+          <includes>dev master</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
-          <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
-          <buildForkPRMerge>false</buildForkPRMerge>
+          <buildForkPRMerge>true</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
