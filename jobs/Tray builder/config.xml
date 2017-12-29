@@ -48,7 +48,7 @@
           <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
-          <buildForkPRMerge>false</buildForkPRMerge>
+          <buildForkPRMerge>true</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
