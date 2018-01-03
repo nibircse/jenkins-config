@@ -39,6 +39,8 @@
       <command>set +x 
 /home/builder/./build_prod.sh
 
+tray_version=&apos;cat /home/builder/SRC/tray/version&apos;
+
 FILE=/home/builder/build_prod/subutai-tray.deb
 URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
 USER=jenkins
@@ -49,7 +51,7 @@ rm -rf /tmp/filetosign.asc
 gpg --armor -u $EMAIL --clearsign /tmp/filetosign
 TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
-curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
+curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 
 FILE=/home/builder/build_prod/SubutaiTray
 URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
@@ -61,7 +63,7 @@ rm -rf /tmp/filetosign.asc
 gpg --armor -u $EMAIL --clearsign /tmp/filetosign
 TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
-curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
+curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
