@@ -21,7 +21,7 @@
 tray_version=&quot;$(cat /home/builder/SRC/tray/version)&quot;
 
 FILE=/home/builder/build_prod/subutai-tray.deb
-URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
@@ -33,7 +33,7 @@ echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/up
 curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 
 FILE=/home/builder/build_prod/SubutaiTray
-URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
