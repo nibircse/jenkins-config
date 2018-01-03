@@ -18,7 +18,7 @@
       <command>set +x 
 /home/builder/./build_prod.sh
 
-tray_version=&apos;cat /home/builder/SRC/tray/version&apos;
+tray_version=&quot;$(cat /home/builder/SRC/tray/version)&quot;
 
 FILE=/home/builder/build_prod/subutai-tray.deb
 URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
