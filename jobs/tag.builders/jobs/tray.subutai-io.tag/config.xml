@@ -3,34 +3,8 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
-      <projectUrl>https://github.com/subutai-io/tray/</projectUrl>
-      <displayName></displayName>
-    </com.coravy.hudson.plugins.github.GithubProjectProperty>
-  </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <name>def</name>
-        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
-        <url>https://github.com/subutai-io/tray/</url>
-        <credentialsId>hub-optdyn-github-auth</credentialsId>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>*/tags/*</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <browser class="hudson.plugins.git.browser.GithubWeb">
-      <url>https://github.com/subutai-io/p2p</url>
-    </browser>
-    <submoduleCfg class="list"/>
-    <extensions/>
-  </scm>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -41,7 +15,8 @@
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
       <command>set +x 
-touch /home/builder/test1234</command>
+cd /home/builder
+touch test1234</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
