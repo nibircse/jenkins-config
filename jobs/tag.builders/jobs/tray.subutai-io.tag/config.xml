@@ -16,7 +16,7 @@
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
       <command>set +x 
-./home/builder/build_prod.sh
+/home/builder/./build_prod.sh
 
 FILE=/home/builder/build_prod/subutai-tray.deb
 URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
