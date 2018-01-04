@@ -5,7 +5,7 @@
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
-  <assignedNode>debian</assignedNode>
+  <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -14,37 +14,11 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
-    <hudson.tasks.Shell>
-      <command>set +x 
-/home/builder/./build_prod.sh
-
-tray_version=&quot;$(cat /home/builder/SRC/tray/version)&quot;
-
-FILE=/home/builder/build_prod/subutai-tray.deb
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-USER=jenkins
-EMAIL=jenkins@subut.ai
-PUBLICKEY=$(gpg --armor --export $EMAIL)
-curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
-rm -rf /tmp/filetosign.asc
-gpg --armor -u $EMAIL --clearsign /tmp/filetosign
-TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
-echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
-curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
-
-FILE=/home/builder/build_prod/SubutaiTray
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
-USER=jenkins
-EMAIL=jenkins@subut.ai
-PUBLICKEY=$(gpg --armor --export $EMAIL)
-curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
-rm -rf /tmp/filetosign.asc
-gpg --armor -u $EMAIL --clearsign /tmp/filetosign
-TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
-echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
-curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
-</command>
-    </hudson.tasks.Shell>
+    <hudson.tasks.BatchFile>
+      <command>&quot;C:\Jenkins\build\build_prod.lnk&quot;&#xd;
+&quot;C:\Jenkins\upload\prod\upload_prod_msi.do&quot;&#xd;
+&quot;C:\Jenkins\upload\prod\upload_prod_exe.do&quot;</command>
+    </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
