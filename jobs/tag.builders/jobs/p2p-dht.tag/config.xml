@@ -56,6 +56,24 @@ make
 
 </command>
     </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>deploy_in=( ap-southeast-1 )
+
+cp -r /home/jenkins/secrets cdn/
+
+# Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
+cp /tmp/cp-HEAD cdn/secrets/cp
+
+for region in ${deploy_in[@]}; do
+	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook cdn/cdn.yml -c paramiko \
+                    -e &quot;ansible_ssh_user=ubuntu&quot; \
+                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/id_rsa&quot; \
+                    -e &quot;aws_key_name=ansible&quot; \
+                    -e &quot;cdn_domain=cdn&quot; \
+                    -e &quot;kurjun_master=eu0.cdn.subut.ai&quot; \
+                    -e &quot;aws_region=$region&quot;
+done</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
