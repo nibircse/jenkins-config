@@ -49,6 +49,7 @@ ln -s ${WORKSPACE} ${WORKSPACE}/${goenvDir}/src/github.com/optdyn/p2p
 export GOPATH=${WORKSPACE}/${goenvDir}
 export GOBIN=${WORKSPACE}/${goenvDir}/bin
 export PATH=${PATH}:/usr/local/go/bin
+export GIT_BRANCH=tag
 
 go get
 make	
