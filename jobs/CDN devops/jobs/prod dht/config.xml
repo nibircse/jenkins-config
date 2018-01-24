@@ -8,16 +8,19 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/optdyn/devops</url>
+        <url>https://github.com/optdyn/p2p/</url>
         <credentialsId>hub-optdyn-github-auth</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
+        <name>*/tags/*</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/optdyn/p2p/</url>
+    </browser>
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
@@ -30,22 +33,17 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>deploy_in=( us-west-1 sa-east-1 eu-central-1 ap-southeast-1 )
-
-cp -r /home/jenkins/secrets cdn/
-
-# Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
-cp /tmp/cp-master cdn/secrets/cp
-
-for region in ${deploy_in[@]}; do
-	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook cdn/cdn.yml -c paramiko \
-                    -e &quot;ansible_ssh_user=ubuntu&quot; \
-                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/id_rsa&quot; \
-                    -e &quot;aws_key_name=ansible&quot; \
-                    -e &quot;cdn_domain=cdn&quot; \
-                    -e &quot;kurjun_master=eu0.cdn.subut.ai&quot; \
-                    -e &quot;aws_region=$region&quot;
-done</command>
+      <command>set +x
+mkdir -p ${goenvDir}/src/github.com/optdyn/
+ln -s ${workspace} ${workspace}/${goenvDir}/src/github.com/optdyn/p2p</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>set +x
+export GOPATH=${workspace}/${goenvDir}
+export GOBIN=${workspace}/${goenvDir}/bin
+export PATH=${PATH}:/usr/local/go/bin
+go get
+make		</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
