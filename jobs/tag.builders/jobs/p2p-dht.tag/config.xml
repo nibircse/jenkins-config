@@ -41,6 +41,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>set +x
+goenvDir=&quot;.goenv&quot;
 mkdir -p ${goenvDir}/src/github.com/optdyn/
 ln -s ${workspace} ${workspace}/${goenvDir}/src/github.com/optdyn/p2p</command>
     </hudson.tasks.Shell>
