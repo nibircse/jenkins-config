@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
+      <projectUrl>https://github.com/subutai-io/base/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
+      <resourceNames>rh-node</resourceNames>
+      <resourceNamesVar></resourceNamesVar>
+      <resourceNumber></resourceNumber>
+      <labelName></labelName>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>def</name>
+        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
+        <url>https://github.com/subutai-io/base/</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tags/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/subutai-io/base/</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
+    <hudson.tasks.Shell>
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+filename=&quot;management-stable.deb&quot;
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+prop=&apos;id&apos;
+id=`jsonval`
+
+cd management
+
+# build deb
+mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=stable
+
+
+# move builded file
+#mv `ls server/server-karaf/target/*.deb` $tmp/$filename
+find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} $tmp/$filename
+
+#preparing data for uploader
+echo &quot;file=$tmp/$filename&quot; &gt; ../env.properties
+echo &quot;id=$id&quot; &gt;&gt; ../env.properties
+echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
+</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@2.0">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>set +x
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+
+curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
+
+# delete old file
+curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+
+# ENV
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
+filename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
+
+# get current file id
+function jsonval {
+    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+    echo ${temp##*|}
+}
+
+json=`curl -k -s -X GET $URL/template/info?name=$filename`
+prop=&apos;id&apos;
+id=`jsonval`
+
+
+# build template
+ssh root@gw.intra.lan &lt;&lt;- EOF
+set -x
+/apps/bin/subutai destroy management
+/apps/bin/subutai clone openjre16 management
+sleep 20
+/apps/bin/lxc-attach -n management -- apt-get update
+/apps/bin/lxc-attach -n management -- sync
+/apps/bin/lxc-attach -n management -- apt-get -y --force-yes install management-stable
+/apps/bin/lxc-attach -n management -- wget -q &apos;https://cdn.subut.ai:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf
+/apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem
+/apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;
+/apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/
+/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
+/apps/bin/lxc-attach -n management -- systemctl stop management
+/apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/
+/apps/bin/lxc-attach -n management -- sync
+/apps/bin/subutai export management -v ${version}
+EOF
+
+# move template to jenkins instance
+ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
+
+#preparing data for uploader
+echo &quot;file=$tmp/$filename&quot; &gt; env.properties
+echo &quot;id=$id&quot; &gt;&gt; env.properties
+echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
+    </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@2.0">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
+    <hudson.tasks.Shell>
+      <command>set +x
+URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+USER=jenkins
+AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+
+#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
+SIGNATURE=$(curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
+curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
+
+# delete old file
+curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
+      <teamDomain>subutai-io</teamDomain>
+      <authToken></authToken>
+      <authTokenCredentialId>ss-bots-slack-token</authTokenCredentialId>
+      <room>#ss-bots</room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>true</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>true</notifyBackToNormal>
+      <notifyRepeatedFailure>true</notifyRepeatedFailure>
+      <includeTestSummary>true</includeTestSummary>
+      <commitInfoChoice>NONE</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
+  <buildWrappers/>
+</project>
