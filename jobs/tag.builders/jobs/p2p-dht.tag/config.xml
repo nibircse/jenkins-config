@@ -41,6 +41,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>set +x
+rm /home/jenkins/workspace/tag.builders/p2p-dht.tag/p2p-dht.tag
 goenvDir=&quot;.goenv&quot;
 
 if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
@@ -58,7 +59,7 @@ make
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>deploy_in=( ap-southeast-1 )
+      <command>deploy_in=( us-west-1 sa-east-1 eu-central-1 ap-southeast-1 )
 
 cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
 
