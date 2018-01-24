@@ -60,6 +60,8 @@ make
     <hudson.tasks.Shell>
       <command>deploy_in=( ap-southeast-1 )
 
+cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
+
 cp -r /home/jenkins/secrets cdn/
 
 # Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
