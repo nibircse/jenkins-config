@@ -41,7 +41,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>set +x
-rm /home/jenkins/workspace/tag.builders/p2p-dht.tag/p2p-dht.tag
+
 goenvDir=&quot;.goenv&quot;
 
 if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
