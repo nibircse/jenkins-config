@@ -39,27 +39,20 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>node(&quot;debian&quot;) {
-  sh &quot;&quot;&quot;
-    set -x
-    rm -rf /tmp/p2p-packaging
-    git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
-    cd /tmp/p2p-packaging
-    wget --no-check-certificate https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p -O /tmp/p2p-packaging/linux/debian/p2p
-    chmod +x /tmp/p2p-packaging/linux/debian/p2p
-    ./configure --debian --branch=HEAD
-    cd linux
-    debuild -B -d
-  &quot;&quot;&quot;
-  String debfile = sh (script: &quot;&quot;&quot;
-  set +x
-  ls /tmp/p2p-packaging | grep .deb | tr -d &apos;\n&apos;
-  &quot;&quot;&quot;, returnStdout: true)
-  
-  sh &quot;&quot;&quot;
-  /tmp/p2p-packaging/upload.sh debian HEAD /tmp/p2p-packaging/${debfile}
-  &quot;&quot;&quot;
-}</command>
+      <command>
+set -x
+rm -rf /tmp/p2p-packaging
+git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
+cd /tmp/p2p-packaging
+wget --no-check-certificate https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p -O /tmp/p2p-packaging/linux/debian/p2p
+chmod +x /tmp/p2p-packaging/linux/debian/p2p
+./configure --debian --branch=HEAD
+cd linux
+debuild -B -d
+debfile=`ls /tmp/p2p-packaging | grep .deb | tr -d &apos;\n&apos;`
+
+/tmp/p2p-packaging/upload.sh debian HEAD /tmp/p2p-packaging/${debfile}
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
