@@ -55,7 +55,7 @@ go get golang.org/x/sys/windows
 
 make all
 
-# get current file id
+# get current file id!
 function jsonval {
     temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
     echo ${temp##*|}
