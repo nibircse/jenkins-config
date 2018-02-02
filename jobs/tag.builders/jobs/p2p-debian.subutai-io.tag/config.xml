@@ -40,9 +40,7 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>
-set -x
-rm -rf /tmp/p2p-packaging
+      <command>rm -rf /tmp/p2p-packaging
 git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
 cd /tmp/p2p-packaging
 wget --no-check-certificate https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p -O /tmp/p2p-packaging/linux/debian/p2p
