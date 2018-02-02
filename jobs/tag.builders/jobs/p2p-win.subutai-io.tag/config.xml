@@ -56,7 +56,10 @@
 &#xd;
 c:\\tmp\\p2p-win.do&#xd;
 c:\\tmp\\p2p-pack.bat&#xd;
-c:\\tmp\\p2p-win-upload.do</command>
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>c:\\tmp\\p2p-win-upload.do</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
