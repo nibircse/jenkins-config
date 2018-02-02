@@ -54,9 +54,9 @@
     echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat&#xd;
     echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
 &#xd;
-  bat &quot;c:\\tmp\\p2p-win.do&quot;&#xd;
-  bat &quot;c:\\tmp\\p2p-pack.bat&quot;&#xd;
-  bat &quot;c:\\tmp\\p2p-win-upload.do&quot;</command>
+c:\\tmp\\p2p-win.do&#xd;
+c:\\tmp\\p2p-pack.bat&#xd;
+c:\\tmp\\p2p-win-upload.do</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
