@@ -38,28 +38,25 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
-    <hudson.tasks.Shell>
-      <command>node(&quot;windows&quot;) {
-  bat &quot;&quot;&quot;
-    if exist &quot;C:\\tmp&quot; RD /S /Q &quot;c:\\tmp&quot;
-    if not exist &quot;C:\\tmp&quot; mkdir &quot;C:\\tmp&quot;
-    echo rm -rf /c/tmp/p2p-packaging &gt; c:\\tmp\\p2p-win.do
-    echo git clone git@github.com:optdyn/p2p-packaging.git /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do
-    echo cd /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do
-    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_osx -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do
-    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do
-    
-    echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do
-    
-    echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat
-    echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat
-  &quot;&quot;&quot;
-  bat &quot;c:\\tmp\\p2p-win.do&quot;
-  bat &quot;c:\\tmp\\p2p-pack.bat&quot;
-  bat &quot;c:\\tmp\\p2p-win-upload.do&quot;
-}
-</command>
-    </hudson.tasks.Shell>
+    <hudson.tasks.BatchFile>
+      <command>&#xd;
+    if exist &quot;C:\\tmp&quot; RD /S /Q &quot;c:\\tmp&quot;&#xd;
+    if not exist &quot;C:\\tmp&quot; mkdir &quot;C:\\tmp&quot;&#xd;
+    echo rm -rf /c/tmp/p2p-packaging &gt; c:\\tmp\\p2p-win.do&#xd;
+    echo git clone git@github.com:optdyn/p2p-packaging.git /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    echo cd /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_osx -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    &#xd;
+    echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do&#xd;
+    &#xd;
+    echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat&#xd;
+    echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
+&#xd;
+  bat &quot;c:\\tmp\\p2p-win.do&quot;&#xd;
+  bat &quot;c:\\tmp\\p2p-pack.bat&quot;&#xd;
+  bat &quot;c:\\tmp\\p2p-win-upload.do&quot;</command>
+    </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
