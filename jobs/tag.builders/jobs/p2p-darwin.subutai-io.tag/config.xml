@@ -39,18 +39,16 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>node(&quot;mac&quot;) {
-  sh &quot;&quot;&quot;
-    set -x
-    rm -rf /tmp/p2p-packaging
-    git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
-    cd /tmp/p2p-packaging
-    curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_osx -o /tmp/p2p-packaging/darwin/p2p_osx
-    chmod +x /tmp/p2p-packaging/darwin/p2p_osx
-    /tmp/p2p-packaging/darwin/pack.sh /tmp/p2p-packaging/darwin/p2p_osx HEAD
-    /tmp/p2p-packaging/upload.sh darwin HEAD /tmp/p2p-packaging/darwin/p2p.pkg
-  &quot;&quot;&quot;
-}</command>
+      <command>
+set -x
+rm -rf /tmp/p2p-packaging
+git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
+cd /tmp/p2p-packaging
+curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_osx -o /tmp/p2p-packaging/darwin/p2p_osx
+chmod +x /tmp/p2p-packaging/darwin/p2p_osx
+/tmp/p2p-packaging/darwin/pack.sh /tmp/p2p-packaging/darwin/p2p_osx HEAD
+/tmp/p2p-packaging/upload.sh darwin HEAD /tmp/p2p-packaging/darwin/p2p.pkg
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
