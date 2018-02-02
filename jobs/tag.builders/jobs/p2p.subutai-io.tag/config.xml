@@ -154,7 +154,9 @@ bat &quot;c:\\tmp\\p2p-pack.bat&quot;
 
 notifyBuildDetails = &quot;\nFailed on stage - Uploading Windows package&quot;
 bat &quot;c:\\tmp\\p2p-win-upload.do&quot;
-}</command>
+}
+
+echo 1</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
