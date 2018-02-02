@@ -93,7 +93,14 @@ curl -s -k -H &quot;token: $token&quot;  -Ffile=@$filename -Fversion=$p2pVersion
 # delete old file
 curl -s -k -X DELETE &quot;$URL/raw/delete?id=$id&amp;token=$token&quot;
 
-node(&quot;debian&quot;) {
+
+
+
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>node(&quot;debian&quot;) {
   sh &quot;&quot;&quot;
     set -x
     rm -rf /tmp/p2p-packaging
@@ -113,9 +120,10 @@ node(&quot;debian&quot;) {
   sh &quot;&quot;&quot;
   /tmp/p2p-packaging/upload.sh debian HEAD /tmp/p2p-packaging/${debfile}
   &quot;&quot;&quot;
-}
-
-node(&quot;mac&quot;) {
+}</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>node(&quot;mac&quot;) {
   sh &quot;&quot;&quot;
     set -x
     rm -rf /tmp/p2p-packaging
@@ -126,9 +134,10 @@ node(&quot;mac&quot;) {
     /tmp/p2p-packaging/darwin/pack.sh /tmp/p2p-packaging/darwin/p2p_osx HEAD
     /tmp/p2p-packaging/upload.sh darwin HEAD /tmp/p2p-packaging/darwin/p2p.pkg
   &quot;&quot;&quot;
-}
-
-node(&quot;windows&quot;) {
+}</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>node(&quot;windows&quot;) {
   bat &quot;&quot;&quot;
     if exist &quot;C:\\tmp&quot; RD /S /Q &quot;c:\\tmp&quot;
     if not exist &quot;C:\\tmp&quot; mkdir &quot;C:\\tmp&quot;
