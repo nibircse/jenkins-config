@@ -51,7 +51,7 @@ export GIT_BRANCH=tag
 go get
 go get golang.org/x/sys/windows
 
-./configure --dht=mdht.subut.ai:6881 --branch=HEAD
+./configure --dht=mdht.subut.ai:6881
 
 make all
 
