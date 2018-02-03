@@ -45,7 +45,6 @@
 goenvDir=&quot;.goenv&quot;
 
 if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
-ln -s ${WORKSPACE} ${WORKSPACE}/${goenvDir}/src/github.com/optdyn/p2p
 
 export GOPATH=${WORKSPACE}/${goenvDir}
 export GOBIN=${WORKSPACE}/${goenvDir}/bin
