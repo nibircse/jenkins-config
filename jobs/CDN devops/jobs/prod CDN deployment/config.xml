@@ -35,7 +35,7 @@
 cp -r /home/jenkins/secrets cdn/
 
 # Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
-cp /tmp/cp-master cdn/secrets/cp
+cp /tmp/cp-HEAD cdn/secrets/cp
 
 for region in ${deploy_in[@]}; do
 	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook cdn/cdn.yml -c paramiko \
