@@ -51,6 +51,7 @@ export GOBIN=${WORKSPACE}/${goenvDir}/bin
 export PATH=${PATH}:/usr/local/go/bin
 
 go get
+./configure
 make	
 
 
