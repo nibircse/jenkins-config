@@ -1,14 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.14">
-  <properties/>
+  <actions/>
+  <description></description>
+  <displayName>Audit</displayName>
+  <properties>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.1.3">
+      <dockerLabel></dockerLabel>
+      <registry plugin="docker-commons@1.8"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+  </properties>
   <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </folderViews>
-  <healthMetrics>
-    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.0.3">
-      <nonRecursive>false</nonRecursive>
-    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
-  </healthMetrics>
+  <healthMetrics/>
   <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
@@ -19,7 +23,28 @@
   </orphanedItemStrategy>
   <triggers/>
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.8">
-    <data/>
+    <data>
+      <jenkins.branch.BranchSource>
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.0.8">
+          <id>28074233-5de7-438d-ab50-c4e2092bbbd5</id>
+          <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
+          <repoOwner>optdyn</repoOwner>
+          <repository>devops</repository>
+          <includes>audit</includes>
+          <excludes></excludes>
+          <buildOriginBranch>true</buildOriginBranch>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
+          <buildOriginPRMerge>false</buildOriginPRMerge>
+          <buildOriginPRHead>false</buildOriginPRHead>
+          <buildForkPRMerge>true</buildForkPRMerge>
+          <buildForkPRHead>false</buildForkPRHead>
+        </source>
+        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+          <properties class="empty-list"/>
+        </strategy>
+      </jenkins.branch.BranchSource>
+    </data>
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </sources>
   <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
