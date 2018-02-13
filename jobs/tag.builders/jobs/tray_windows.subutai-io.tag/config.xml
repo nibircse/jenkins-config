@@ -4,7 +4,22 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.scm.NullSCM"/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/subutai-io/tray</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tags/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
   <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
@@ -15,9 +30,8 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Jenkins\build\build_prod.lnk&quot;&#xd;
-&quot;C:\Jenkins\upload\prod\upload_prod_msi.do&quot;&#xd;
-&quot;C:\Jenkins\upload\prod\upload_prod_exe.do&quot;</command>
+      <command>&#xd;
+</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
