@@ -41,7 +41,7 @@
           <checkoutCredentialsId>hub-optdyn-github-auth</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>gorjun</repository>
+          <repository>cdn</repository>
           <includes>dev master sysnet</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
