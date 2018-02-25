@@ -41,7 +41,7 @@
           <checkoutCredentialsId>hub-optdyn-github-auth</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>tray</repository>
+          <repository>control-center</repository>
           <includes>dev master</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
