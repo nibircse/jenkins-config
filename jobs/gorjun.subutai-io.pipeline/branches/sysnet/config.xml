@@ -15,13 +15,13 @@
             <hudson.plugins.git.UserRemoteConfig>
               <name>origin</name>
               <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
-              <url>https://github.com/subutai-io/gorjun.git</url>
+              <url>https://github.com/subutai-io/cdn.git</url>
               <credentialsId>hub-optdyn-github-auth</credentialsId>
             </hudson.plugins.git.UserRemoteConfig>
             <hudson.plugins.git.UserRemoteConfig>
               <name>origin</name>
               <refspec>+refs/pull/*/head:refs/remotes/origin/pr/*</refspec>
-              <url>https://github.com/subutai-io/gorjun.git</url>
+              <url>https://github.com/subutai-io/cdn.git</url>
               <credentialsId>hub-optdyn-github-auth</credentialsId>
             </hudson.plugins.git.UserRemoteConfig>
           </userRemoteConfigs>
@@ -32,7 +32,7 @@
           </branches>
           <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
           <browser class="hudson.plugins.git.browser.GithubWeb">
-            <url>https://github.com/subutai-io/gorjun</url>
+            <url>https://github.com/subutai-io/cdn</url>
           </browser>
           <submoduleCfg class="empty-list"/>
           <extensions/>
@@ -41,11 +41,11 @@
         <actions>
           <org.jenkinsci.plugins.github__branch__source.GitHubLink plugin="github-branch-source@2.0.8">
             <iconClassName>icon-github-branch</iconClassName>
-            <url>https://github.com/subutai-io/gorjun/tree/sysnet</url>
+            <url>https://github.com/subutai-io/cdn/tree/sysnet</url>
           </org.jenkinsci.plugins.github__branch__source.GitHubLink>
           <jenkins.scm.api.metadata.ObjectMetadataAction plugin="scm-api@2.1.1">
             <objectDisplayName>sysnet</objectDisplayName>
-            <objectUrl>https://github.com/subutai-io/gorjun/tree/sysnet</objectUrl>
+            <objectUrl>https://github.com/subutai-io/cdn/tree/sysnet</objectUrl>
           </jenkins.scm.api.metadata.ObjectMetadataAction>
         </actions>
       </branch>
