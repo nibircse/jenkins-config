@@ -41,7 +41,7 @@
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>base</repository>
+          <repository>peer-os</repository>
           <includes>sysnet master dev hotfix-* jenkinsfile</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
