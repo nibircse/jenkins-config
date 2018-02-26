@@ -31,7 +31,7 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>optdyn</repoOwner>
           <repository>devops</repository>
-          <includes>sysnet</includes>
+          <includes></includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
