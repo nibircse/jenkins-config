@@ -42,7 +42,7 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>peer-os</repository>
-          <includes>testnode sysnet master dev hotfix-* jenkinsfile</includes>
+          <includes>sysnet master dev hotfix-* jenkinsfile</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
