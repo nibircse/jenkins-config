@@ -1,62 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>2.70</version>
+  <version>1.0</version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class="hudson.security.ProjectMatrixAuthorizationStrategy">
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:subutai-io*sysnet</permission>
-    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Build:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Connect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.Computer.Disconnect:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.Administer:subutai-io*sysnet</permission>
-    <permission>hudson.model.Hudson.Read:anonymous</permission>
-    <permission>hudson.model.Hudson.Read:subutai-io</permission>
-    <permission>hudson.model.Hudson.Read:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Build:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Cancel:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Discover:anonymous</permission>
-    <permission>hudson.model.Item.Discover:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Move:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Read:subutai-io*sysnet</permission>
-    <permission>hudson.model.Item.Workspace:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Replay:subutai-io*sysnet</permission>
-    <permission>hudson.model.Run.Update:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Configure:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Create:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Delete:subutai-io*sysnet</permission>
-    <permission>hudson.model.View.Read:subutai-io*sysnet</permission>
-    <permission>hudson.scm.SCM.Tag:subutai-io*sysnet</permission>
-  </authorizationStrategy>
-  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
-    <githubWebUri>https://github.com</githubWebUri>
-    <githubApiUri>https://api.github.com</githubApiUri>
-    <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAwIdGb9XaibI8Cj3bHKFHQcB+PEnaKYVntRX03BuWHLmZjE0GY2iwCGlXIJI1Zh6Q4H18UBL7FSk4ABllq8Xf+vQ==}</clientSecret>
-    <oauthScopes>read:org,user:email</oauthScopes>
-  </securityRealm>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.SecurityRealm$None"/>
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
-  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
-  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
   <jdks/>
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>
-  <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>
     <hudson.model.AllView>
@@ -68,33 +26,8 @@
     </hudson.model.AllView>
   </views>
   <primaryView>all</primaryView>
-  <slaveAgentPort>8002</slaveAgentPort>
+  <slaveAgentPort>0</slaveAgentPort>
   <label></label>
-  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
-    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
-  </crumbIssuer>
   <nodeProperties/>
-  <globalNodeProperties>
-    <hudson.slaves.EnvironmentVariablesNodeProperty>
-      <envVars serialization="custom">
-        <unserializable-parents/>
-        <tree-map>
-          <default>
-            <comparator class="hudson.util.CaseInsensitiveComparator"/>
-          </default>
-          <int>5</int>
-          <string>debian_slave_node</string>
-          <string>172.31.11.37</string>
-          <string>DISPLAY</string>
-          <string>:20</string>
-          <string>SS_TEST_NODE</string>
-          <string>172.31.2.211</string>
-          <string>SS_TEST_NODE_CORE16</string>
-          <string>172.31.1.230</string>
-          <string>SS_TEST_NODE_NEW</string>
-          <string>172.31.0.126</string>
-        </tree-map>
-      </envVars>
-    </hudson.slaves.EnvironmentVariablesNodeProperty>
-  </globalNodeProperties>
+  <globalNodeProperties/>
 </hudson>
