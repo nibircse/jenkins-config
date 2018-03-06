@@ -30,7 +30,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>deploy_in=( us-west-1 sa-east-1 eu-central-1 ap-southeast-1 )
+      <command>deploy_in=( eu-central-1 us-west-1 sa-east-1 ap-southeast-1 )
 
 cp -r /home/jenkins/secrets cdn/
 
@@ -40,10 +40,10 @@ cp /tmp/cp-HEAD cdn/secrets/cp
 for region in ${deploy_in[@]}; do
 	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook cdn/cdn.yml -c paramiko \
                     -e &quot;ansible_ssh_user=ubuntu&quot; \
-                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/id_rsa&quot; \
-                    -e &quot;aws_key_name=ansible&quot; \
+                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/infra-cdn.pem&quot; \
+                    -e &quot;aws_key_name=infra-cdn.pem&quot; \
                     -e &quot;cdn_domain=cdn&quot; \
-                    -e &quot;kurjun_master=eu0.cdn.subut.ai&quot; \
+                    -e &quot;kurjun_master=eu0.cdn.subutai.io&quot; \
                     -e &quot;aws_region=$region&quot;
 done</command>
     </hudson.tasks.Shell>
