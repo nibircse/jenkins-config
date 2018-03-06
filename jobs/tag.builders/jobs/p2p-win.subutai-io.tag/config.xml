@@ -46,8 +46,8 @@
     echo rm -rf /c/tmp/p2p-packaging &gt; c:\\tmp\\p2p-win.do&#xd;
     echo git clone git@github.com:optdyn/p2p-packaging.git /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
     echo cd /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
-    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=p2p_osx -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
-    echo curl -fsSLk https://eu0.cdn.subut.ai:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=p2p_osx -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+    echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
     &#xd;
     echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do&#xd;
     &#xd;
