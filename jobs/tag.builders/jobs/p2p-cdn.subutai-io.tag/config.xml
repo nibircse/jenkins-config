@@ -59,11 +59,7 @@ make
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>
-
-cd &apos;/home/jenkins/workspace/tag.builders/p2p-cdn.subutai-io.tag&apos; 
-
-#cp -r /home/jenkins/secrets cdn/
+      <command>#cp -r /home/jenkins/secrets cdn/
 
 # Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
 cp /tmp/cp-HEAD /home/jenkins/secrets/cp
