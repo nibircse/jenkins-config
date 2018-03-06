@@ -9,7 +9,7 @@
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
-      <resourceNames>rh-node</resourceNames>
+      <resourceNames>debian_slave_node</resourceNames>
       <resourceNamesVar></resourceNamesVar>
       <resourceNumber></resourceNumber>
       <labelName></labelName>
@@ -100,6 +100,7 @@ curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</comman
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
+cdnHost=eu0.cdn.subutai.io
 
 # ENV
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
@@ -118,28 +119,33 @@ id=`jsonval`
 
 
 # build template
-ssh root@gw.intra.lan &lt;&lt;- EOF
+ssh root@debian_slave_node &lt;&lt;- EOF
 set -x
-/apps/bin/subutai destroy management
-/apps/bin/subutai import debian-stretch
-/apps/bin/subutai clone debian-stretch management
-sleep 20
-/apps/bin/lxc-attach -n management -- apt-get update
-/apps/bin/lxc-attach -n management -- sync
-/apps/bin/lxc-attach -n management -- apt-get -y --force-yes install management-stable
-/apps/bin/lxc-attach -n management -- wget -q &apos;https://cdn.subutai.io:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf
-/apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem
-/apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;
-/apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/
-/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subutai.io:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
-/apps/bin/lxc-attach -n management -- systemctl stop management
-/apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/
-/apps/bin/lxc-attach -n management -- sync
-/apps/bin/subutai export management -v ${version}
+subutai destroy management
+subutai import debian-stretch
+subutai clone debian-stretch management
+/bin/sleep 20
+#scp root@172.31.5.61:/mnt/lib/lxc/jenkins/${workspace}/${fileName} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
+subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
+subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
+subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
+subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
+subutai attach management &quot;apt-get update&quot;
+subutai attach management &quot;sync&quot;
+subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
+subutai attach management &quot;wget -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+subutai attach management &quot;dpkg -i /tmp/${fileName}&quot;
+subutai attach management &quot;systemctl stop management&quot;
+subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
+subutai attach management &quot;apt-get clean&quot;
+subutai attach management &quot;sync&quot;
+#rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${fileName}
+subutai export management -v ${version}
+scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/$tmp
 EOF
 
 # move template to jenkins instance
-ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
+#ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
 
 #preparing data for uploader
 echo &quot;file=$tmp/$filename&quot; &gt; env.properties
