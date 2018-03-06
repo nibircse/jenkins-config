@@ -51,7 +51,7 @@ export GIT_BRANCH=tag
 go get
 go get golang.org/x/sys/windows
 
-./configure --dht=mdht.subut.ai:6881
+./configure --dht=eu0.cdn.subutai.io:6881
 
 make all
 
@@ -61,7 +61,7 @@ function jsonval {
     echo ${temp##*|}
 }
 
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
