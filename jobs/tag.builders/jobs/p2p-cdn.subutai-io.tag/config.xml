@@ -59,7 +59,7 @@ make
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>deploy_in=( eu-central-1 )
+      <command>
 
 cd &apos;/home/jenkins/workspace/tag.builders/p2p-cdn.subutai-io.tag&apos; 
 
@@ -68,15 +68,20 @@ cd &apos;/home/jenkins/workspace/tag.builders/p2p-cdn.subutai-io.tag&apos;
 # Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
 cp /tmp/cp-HEAD /home/jenkins/secrets/cp
 
-for region in ${deploy_in[@]}; do
+#for region in ${deploy_in[@]}; do
+#	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook p2p-master/p2p-master.yml -c paramiko \
+#                    -e &quot;ansible_ssh_user=ubuntu&quot; \
+#                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/infra-cdn.pem&quot; \
+#                    -e &quot;aws_key_name=ansible&quot; \
+#                    -e &quot;cdn_domain=eu0.cdn&quot; \
+#                    -e &quot;kurjun_master=eu0.cdn.subutai&quot; \
+#                    -e &quot;aws_region=$region&quot;
+#done
 	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook p2p-master/p2p-master.yml -c paramiko \
                     -e &quot;ansible_ssh_user=ubuntu&quot; \
                     -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/infra-cdn.pem&quot; \
-#                    -e &quot;aws_key_name=ansible&quot; \
                     -e &quot;cdn_domain=eu0.cdn&quot; \
-#                    -e &quot;kurjun_master=eu0.cdn.subutai&quot; \
-                    -e &quot;aws_region=$region&quot;
-done</command>
+                    -e &quot;aws_region=eu-central-1&quot; \</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
