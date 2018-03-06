@@ -50,7 +50,7 @@ tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
 # ENV
-URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+URL=https://cdn.subutai.io:8338/kurjun/rest
 filename=&quot;management-stable.deb&quot;
 
 # get current file id
@@ -100,10 +100,10 @@ curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</comman
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
-cdnHost=eu0.cdn.subutai.io
+cdnHost=cdn.subutai.io
 
 # ENV
-URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+URL=https://cdn.subutai.io:8338/kurjun/rest
 version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
 templatefilename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
 filename=&quot;management-stable.deb&quot;
