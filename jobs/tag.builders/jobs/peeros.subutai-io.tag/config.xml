@@ -119,7 +119,7 @@ id=`jsonval`
 
 
 # build template
-ssh root@debian_slave_node &lt;&lt;- EOF
+ssh root@172.31.11.37 &lt;&lt;- EOF
 set -x
 subutai destroy management
 subutai import debian-stretch
