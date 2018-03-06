@@ -92,7 +92,7 @@ AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --n
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
 curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
-curl -k -H &quot;token: ${token}&quot; &quot;https://${URL}/apt/generate&quot;
+curl -k -H &quot;token:$token&quot; &quot;$URL/apt/generate&quot;
 # delete old file
 curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
