@@ -141,7 +141,7 @@ subutai attach management &quot;apt-get clean&quot;
 subutai attach management &quot;sync&quot;
 #rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${fileName}
 subutai export management -v ${version}
-scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/$tmp
+scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp
 EOF
 
 # move template to jenkins instance
