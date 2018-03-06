@@ -50,7 +50,7 @@ tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
 # ENV
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 filename=&quot;management-stable.deb&quot;
 
 # get current file id
@@ -86,7 +86,7 @@ echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
@@ -102,7 +102,7 @@ tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
 # ENV
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
 filename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
 
@@ -130,7 +130,7 @@ sleep 20
 /apps/bin/lxc-attach -n management -- openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -subj &apos;/C=KG/ST=Subutai/L=Bishkek/O=Kyrgyzstan/CN=gw.intra.lan&apos; -keyout /etc/influxdb/influxkey.pem -out etc/influxdb/influxcert.pem
 /apps/bin/lxc-attach -n management -- sh -c &apos;cat /etc/influxdb/influxkey.pem /etc/influxdb/influxcert.pem &gt; /etc/influxdb/influxdb.pem&apos;
 /apps/bin/lxc-attach -n management -- mkdir -p /opt/gorjun/etc/
-/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subut.ai:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
+/apps/bin/lxc-attach -n management -- sh -c &apos;echo &quot;[CDN]\nnode = cdn.subutai.io:8338&quot; &gt; /opt/gorjun/etc/gorjun.gcfg&apos;
 /apps/bin/lxc-attach -n management -- systemctl stop management
 /apps/bin/lxc-attach -n management -- rm -rf /opt/subutai-mng/keystores/
 /apps/bin/lxc-attach -n management -- sync
@@ -152,7 +152,7 @@ echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
