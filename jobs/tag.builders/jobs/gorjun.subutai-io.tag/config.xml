@@ -58,14 +58,14 @@ export GIT_BRANCH=tag
 go get
 version=$(make | cut -d &apos; &apos; -f 7 | cut -d &apos;=&apos; -f 2 | tr -d &apos;\&quot;&apos;)
 
-scp -P 8022 gorjun root@eu0.cdn.subut.ai:/tmp
-ssh root@eu0.cdn.subut.ai -p8022 &lt;&lt;- EOF
+scp -P 8022 gorjun root@eu0.cdn.subutai.io:/tmp
+ssh root@eu0.cdn.subutai.io -p8022 &lt;&lt;- EOF
 set -e
 /bin/mv /tmp/gorjun /var/snap/subutai/common/lxc/gorjun/opt/gorjun/bin/
 sudo subutai attach gorjun systemctl restart gorjun
 EOF
 
-[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;$(ssh root@eu0.cdn.subut.ai -p8022 sudo subutai attach gorjun curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
+[ &quot;${version//$&apos;\n&apos;}&quot; == &quot;$(ssh root@eu0.cdn.subutai.io -p8022 sudo subutai attach gorjun curl -s -q http://127.0.0.1:8080/kurjun/rest/about)&quot; ]
 </command>
     </hudson.tasks.Shell>
   </builders>
