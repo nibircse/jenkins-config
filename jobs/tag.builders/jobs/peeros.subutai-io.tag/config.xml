@@ -133,7 +133,7 @@ subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/res
 subutai attach management &quot;apt-get update&quot;
 subutai attach management &quot;sync&quot;
 subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
-subutai attach management &quot;wget -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+subutai attach management &quot;wget --no-check-certificate -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
 subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
 subutai attach management &quot;systemctl stop management&quot;
 subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
