@@ -59,7 +59,7 @@ make
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>deploy_in=(eu-central-1 )
+      <command>deploy_in=( eu-central-1 )
 
 #cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
 
