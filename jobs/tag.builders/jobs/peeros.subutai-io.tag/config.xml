@@ -105,15 +105,15 @@ cdnHost=eu0.cdn.subutai.io
 # ENV
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
-filename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
-
+templatefilename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
+filename=&quot;management-${version}.deb&quot;
 # get current file id
 function jsonval {
     temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/template/info?name=$filename`
+json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
 prop=&apos;id&apos;
 id=`jsonval`
 
@@ -141,14 +141,14 @@ subutai attach management &quot;apt-get clean&quot;
 subutai attach management &quot;sync&quot;
 rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
 subutai export management -v ${version}
-scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp
+scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
 EOF
 
 # move template to jenkins instance
 #ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
 
 #preparing data for uploader
-echo &quot;file=$tmp/$filename&quot; &gt; env.properties
+echo &quot;file=$tmp/$templatefilename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
