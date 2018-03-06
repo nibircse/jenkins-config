@@ -125,7 +125,7 @@ subutai destroy management
 subutai import debian-stretch
 subutai clone debian-stretch management
 /bin/sleep 20
-#scp root@172.31.5.61:/mnt/lib/lxc/jenkins/${workspace}/${fileName} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
+scp root@172.31.5.61:/mnt/lib/lxc/jenkins/$tmp/${fileName} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
 subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
 subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
 subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
