@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
+      <projectUrl>https://github.com/optdyn/p2p/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>def</name>
+        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
+        <url>https://github.com/optdyn/p2p/</url>
+        <credentialsId>hub-optdyn-github-auth</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tags/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/optdyn/p2p/</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>ansible</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>set +x
+
+goenvDir=&quot;.goenv&quot;
+
+if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
+
+export GOPATH=${WORKSPACE}/${goenvDir}
+export GOBIN=${WORKSPACE}/${goenvDir}/bin
+export PATH=${PATH}:/usr/local/go/bin
+
+go get
+./configure
+make	
+
+
+
+</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>deploy_in=( us-west-1 sa-east-1 eu-central-1 ap-southeast-1 )
+
+cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
+
+cp -r /home/jenkins/secrets cdn/
+
+# Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
+cp /tmp/cp-HEAD cdn/secrets/cp
+
+for region in ${deploy_in[@]}; do
+	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook cdn/cdn.yml -c paramiko \
+                    -e &quot;ansible_ssh_user=ubuntu&quot; \
+                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/id_rsa&quot; \
+                    -e &quot;aws_key_name=ansible&quot; \
+                    -e &quot;cdn_domain=cdn&quot; \
+                    -e &quot;kurjun_master=eu0.cdn.subut.ai&quot; \
+                    -e &quot;aws_region=$region&quot;
+done</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>deploy_in=(eu-central-1 )
+
+#cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
+
+#cp -r /home/jenkins/secrets cdn/
+
+# Here we are assuming that cp-master build run before and we have binary. Otherwise need to deploy master first. Need to fix it in future
+cp /tmp/cp-HEAD /home/jenkins/secrets/cp
+
+for region in ${deploy_in[@]}; do
+	ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook p2p-master/p2p-master.yml -c paramiko \
+                    -e &quot;ansible_ssh_user=ubuntu&quot; \
+                    -e &quot;ansible_ssh_private_key_file=/home/jenkins/.ssh/infra-cdn.pem&quot; \
+#                    -e &quot;aws_key_name=ansible&quot; \
+                    -e &quot;cdn_domain=eu0.cdn&quot; \
+#                    -e &quot;kurjun_master=eu0.cdn.subutai&quot; \
+                    -e &quot;aws_region=$region&quot;
+done</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
+      <teamDomain>subutai-io</teamDomain>
+      <authToken></authToken>
+      <authTokenCredentialId>sysnet</authTokenCredentialId>
+      <room>#p2p-bots</room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>true</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>true</notifyBackToNormal>
+      <notifyRepeatedFailure>true</notifyRepeatedFailure>
+      <includeTestSummary>true</includeTestSummary>
+      <commitInfoChoice>NONE</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
+  <buildWrappers/>
+</project>
