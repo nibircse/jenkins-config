@@ -125,7 +125,7 @@ subutai destroy management
 subutai import debian-stretch
 subutai clone debian-stretch management
 /bin/sleep 20
-scp root@172.31.5.61:/mnt/lib/lxc/jenkins/$tmp/${fileName} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
+scp root@172.31.5.61:/mnt/lib/lxc/jenkins/$tmp/${filename} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
 subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
 subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
 subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
@@ -134,7 +134,7 @@ subutai attach management &quot;apt-get update&quot;
 subutai attach management &quot;sync&quot;
 subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
 subutai attach management &quot;wget -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
-subutai attach management &quot;dpkg -i /tmp/${fileName}&quot;
+subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
 subutai attach management &quot;systemctl stop management&quot;
 subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
 subutai attach management &quot;apt-get clean&quot;
