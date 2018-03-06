@@ -20,8 +20,8 @@
 
 tray_version=&quot;$(cat /home/builder/SRC/tray/version)&quot;
 
-FILE=/home/builder/build_prod/subutai-tray.deb
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+FILE=/home/builder/build_prod/subutai-control-center.deb
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
@@ -32,8 +32,8 @@ TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER 
 echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
 curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 
-FILE=/home/builder/build_prod/SubutaiTray
-URL=https://eu0.cdn.subut.ai:8338/kurjun/rest
+FILE=/home/builder/build_prod/SubutaiControlCenter
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
