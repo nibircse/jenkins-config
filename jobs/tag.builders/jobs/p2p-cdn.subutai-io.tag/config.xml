@@ -61,7 +61,7 @@ make
     <hudson.tasks.Shell>
       <command>deploy_in=( eu-central-1 )
 
-#cd &apos;/home/jenkins/workspace/CDN devops/prod CDN deployment/&apos; 
+cd &apos;/home/jenkins/workspace/tag.builders/p2p-cdn.subutai-io.tag&apos; 
 
 #cp -r /home/jenkins/secrets cdn/
 
