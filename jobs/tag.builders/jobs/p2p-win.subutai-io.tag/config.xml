@@ -52,7 +52,9 @@
     echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do&#xd;
     &#xd;
     echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat&#xd;
+    echo signtool.exe sign /tr http://timestamp.comodoca.com/authenticode /f &quot;c:\\users\\tray\\od.p12&quot; /p testpassword &quot;c:\\tmp\\p2p-packaging\\p2p.exe&quot; &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
     echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
+    echo signtool.exe sign /tr http://timestamp.comodoca.com/authenticode /f &quot;c:\\users\\tray\\od.p12&quot; /p testpassword &quot;c:\\tmp\\p2p-packaging\\windows\\P2PInstaller\\Release\\P2PInstaller.msi&quot; &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
 &#xd;
 c:\\tmp\\p2p-win.do&#xd;
 c:\\tmp\\p2p-pack.bat&#xd;
