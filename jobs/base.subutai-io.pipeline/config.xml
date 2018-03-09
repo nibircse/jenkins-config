@@ -5,11 +5,12 @@
   <displayName>Management Template Pipeline Builder</displayName>
   <properties>
     <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Read:subutai-io</permission>
-      <permission>hudson.model.Item.Read:anonymous</permission>
-      <permission>hudson.model.Item.Read:subutai-io*subutai-core</permission>
-      <permission>hudson.model.Item.Cancel:subutai-io*subutai-core</permission>
+      <inheritanceStrategy class="org.jenkinsci.plugins.matrixauth.inheritance.InheritParentStrategy"/>
       <permission>hudson.model.Item.Build:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Cancel:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:subutai-io</permission>
+      <permission>hudson.model.Item.Read:subutai-io*subutai-core</permission>
     </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
     <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.1.3">
       <dockerLabel></dockerLabel>
@@ -20,19 +21,20 @@
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </folderViews>
   <healthMetrics>
-    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.0.3">
+    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.3">
       <nonRecursive>false</nonRecursive>
     </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
   </healthMetrics>
   <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.0.3">
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.3">
     <pruneDeadBranches>true</pruneDeadBranches>
-    <daysToKeep>0</daysToKeep>
-    <numToKeep>0</numToKeep>
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>-1</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
+  <disabled>false</disabled>
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.8">
     <data>
       <jenkins.branch.BranchSource>
@@ -42,7 +44,7 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>peer-os</repository>
-          <includes>sysnet master dev hotfix-* jenkinsfile</includes>
+          <includes>sysnet master dev</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
