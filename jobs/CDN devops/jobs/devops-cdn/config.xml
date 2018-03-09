@@ -16,12 +16,13 @@
   <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.0.3">
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.3">
     <pruneDeadBranches>true</pruneDeadBranches>
-    <daysToKeep>0</daysToKeep>
-    <numToKeep>0</numToKeep>
+    <daysToKeep>5</daysToKeep>
+    <numToKeep>5</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
+  <disabled>false</disabled>
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.8">
     <data>
       <jenkins.branch.BranchSource>
