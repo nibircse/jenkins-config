@@ -40,20 +40,20 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.BatchFile>
-      <command>&#xd;
-    if exist &quot;C:\\tmp&quot; RD /S /Q &quot;c:\\tmp&quot;&#xd;
-    if not exist &quot;C:\\tmp&quot; mkdir &quot;C:\\tmp&quot;&#xd;
-    echo rm -rf /c/tmp/p2p-packaging &gt; c:\\tmp\\p2p-win.do&#xd;
-    echo git clone git@github.com:optdyn/p2p-packaging.git /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
-    echo cd /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
-    echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=p2p_osx -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
-    echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+      <command>if exist &quot;C:\\tmp&quot; RD /S /Q &quot;c:\\tmp&quot;&#xd;
+if not exist &quot;C:\\tmp&quot; mkdir &quot;C:\\tmp&quot;&#xd;
+echo rm -rf /c/tmp/p2p-packaging &gt; c:\\tmp\\p2p-win.do&#xd;
+echo git clone git@github.com:optdyn/p2p-packaging.git /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+echo cd /c/tmp/p2p-packaging &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=p2p.exe -o /c/tmp/p2p-packaging/p2p.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
+echo curl -fsSLk https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=tap-windows-9.21.2.exe -o /c/tmp/p2p-packaging/tap-windows-9.21.2.exe &gt;&gt; c:\\tmp\\p2p-win.do&#xd;
     &#xd;
-    echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do&#xd;
+echo /c/tmp/p2p-packaging/upload.sh windows HEAD /c/tmp/p2p-packaging/windows/P2PInstaller/Release/P2PInstaller.msi &gt; c:\\tmp\\p2p-win-upload.do&#xd;
     &#xd;
-    echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat&#xd;
-    echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
-    echo signtool.exe sign /tr http://timestamp.comodoca.com/authenticode /f &quot;c:\\users\\tray\\od.p12&quot; /p testpassword &quot;c:\\tmp\\p2p-packaging\\windows\\P2PInstaller\\Release\\P2PInstaller.msi&quot; &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
+echo call &quot;C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\VsDevCmd.bat&quot; &gt; c:\\tmp\\p2p-pack.bat&#xd;
+echo signtool.exe sign /tr http://timestamp.comodoca.com/authenticode /f &quot;c:\\users\\tray\\od.p12&quot; /p testpassword &quot;c:\\tmp\\p2p-packaging\\p2p.exe&quot; &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
+echo devenv.com c:\\tmp\\p2p-packaging\\windows\\win.sln /Rebuild Release &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
+echo signtool.exe sign /tr http://timestamp.comodoca.com/authenticode /f &quot;c:\\users\\tray\\od.p12&quot; /p testpassword &quot;c:\\tmp\\p2p-packaging\\windows\\P2PInstaller\\Release\\P2PInstaller.msi&quot; &gt;&gt; c:\\tmp\\p2p-pack.bat&#xd;
 &#xd;
 c:\\tmp\\p2p-win.do&#xd;
 c:\\tmp\\p2p-pack.bat&#xd;
