@@ -94,7 +94,7 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
 curl -k -H &quot;token:$token&quot; &quot;$URL/apt/generate&quot;
 # delete old file
-curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+#curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command># Preparing
@@ -139,6 +139,10 @@ subutai attach management &quot;systemctl stop management&quot;
 subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
 subutai attach management &quot;apt-get clean&quot;
 subutai attach management &quot;sync&quot;
+subutai attach management &quot;sed -i &quot;s/weekly/dayly/g&quot; /etc/logrotate.d/rsyslog&quot;
+subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrotate.d/rsyslog&quot;
+subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
+subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
 subutai export management -v ${version}
 scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
