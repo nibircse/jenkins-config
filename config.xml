@@ -82,11 +82,13 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>5</int>
+          <int>6</int>
           <string>debian_slave_node</string>
           <string>172.31.11.37</string>
           <string>DISPLAY</string>
           <string>:20</string>
+          <string>master_node</string>
+          <string>172.31.5.61</string>
           <string>SS_TEST_NODE</string>
           <string>172.31.2.211</string>
           <string>SS_TEST_NODE_CORE16</string>
