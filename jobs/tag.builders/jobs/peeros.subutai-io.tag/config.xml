@@ -94,7 +94,7 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
 curl -k -H &quot;token:$token&quot; &quot;$URL/apt/generate&quot;
 
-echo &quot;token=$token&quot; &gt;&gt; ../env.properties</command>
+echo &quot;token=$token&quot; &gt;&gt; env.properties</command>
     </hudson.tasks.Shell>
     <EnvInjectBuilder plugin="envinject@2.0">
       <info>
