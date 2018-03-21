@@ -93,9 +93,14 @@ token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/to
 
 curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
 curl -k -H &quot;token:$token&quot; &quot;$URL/apt/generate&quot;
-# delete old file
-#curl -s -k -X DELETE &quot;$URL/apt/delete?id=$id&amp;token=$token&quot;</command>
+
+echo &quot;token=$token&quot; &gt;&gt; ../env.properties</command>
     </hudson.tasks.Shell>
+    <EnvInjectBuilder plugin="envinject@2.0">
+      <info>
+        <propertiesFilePath>env.properties</propertiesFilePath>
+      </info>
+    </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command># Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
@@ -144,7 +149,7 @@ subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrota
 subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
-subutai export management -v ${version}
+subutai export management -v ${version} --local -t $token
 scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
 EOF
 
