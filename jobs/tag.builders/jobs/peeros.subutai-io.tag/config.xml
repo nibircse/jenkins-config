@@ -86,7 +86,7 @@ echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+URL=https://cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
@@ -168,7 +168,7 @@ echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+URL=https://cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
 token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
