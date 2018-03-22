@@ -61,7 +61,7 @@ version=$(make | cut -d &apos; &apos; -f 7 | cut -d &apos;=&apos; -f 2 | tr -d &
 scp -P 8022 gorjun ubuntu@eu0.cdn.subutai.io:/tmp
 ssh ubuntu@eu0.cdn.subutai.io -p8022 &lt;&lt;- EOF
 set -e
-/bin/mv /tmp/gorjun /var/snap/subutai/common/lxc/gorjun/opt/gorjun/bin/
+sudo /bin/mv /tmp/gorjun /var/snap/subutai/common/lxc/gorjun/opt/gorjun/bin/
 sudo subutai attach gorjun systemctl restart gorjun
 EOF
 
