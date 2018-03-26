@@ -4,39 +4,12 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkinsci.plugins.workflow.multibranch.BranchJobProperty plugin="workflow-multibranch@2.14">
-      <branch plugin="branch-api@2.0.8">
-        <sourceId>79611400-7f42-41e3-913c-6d96d7cd21a1</sourceId>
+      <branch class="jenkins.branch.Branch$Dead" plugin="branch-api@2.0.8">
+        <sourceId>::NullSCMSource::</sourceId>
         <head class="org.jenkinsci.plugins.github_branch_source.BranchSCMHead" plugin="github-branch-source@2.0.8">
           <name>master</name>
         </head>
-        <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
-          <configVersion>2</configVersion>
-          <userRemoteConfigs>
-            <hudson.plugins.git.UserRemoteConfig>
-              <name>origin</name>
-              <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
-              <url>https://github.com/subutai-io/control-center.git</url>
-              <credentialsId>hub-optdyn-github-auth</credentialsId>
-            </hudson.plugins.git.UserRemoteConfig>
-            <hudson.plugins.git.UserRemoteConfig>
-              <name>origin</name>
-              <refspec>+refs/pull/*/head:refs/remotes/origin/pr/*</refspec>
-              <url>https://github.com/subutai-io/control-center.git</url>
-              <credentialsId>hub-optdyn-github-auth</credentialsId>
-            </hudson.plugins.git.UserRemoteConfig>
-          </userRemoteConfigs>
-          <branches class="singleton-list">
-            <hudson.plugins.git.BranchSpec>
-              <name>master</name>
-            </hudson.plugins.git.BranchSpec>
-          </branches>
-          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-          <browser class="hudson.plugins.git.browser.GithubWeb">
-            <url>https://github.com/subutai-io/control-center</url>
-          </browser>
-          <submoduleCfg class="empty-list"/>
-          <extensions/>
-        </scm>
+        <scm class="hudson.scm.NullSCM"/>
         <properties/>
         <actions>
           <org.jenkinsci.plugins.github__branch__source.GitHubLink plugin="github-branch-source@2.0.8">
