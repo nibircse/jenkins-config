@@ -30,7 +30,7 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Jenkins\build\build_prod.lnk&quot;&#xd;
+      <command>&quot;C:\SRC\build-prod.bat&quot;&#xd;
 &quot;C:\Jenkins\upload\prod\upload_prod_msi.do&quot;&#xd;
 &quot;C:\Jenkins\upload\prod\upload_prod_exe.do&quot;&#xd;
 &#xd;
