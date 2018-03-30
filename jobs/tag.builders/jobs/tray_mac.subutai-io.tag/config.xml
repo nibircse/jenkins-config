@@ -18,7 +18,7 @@
       <command>set +x 
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet/bin
 FILE=/Users/dev/slave.jar
-URL=https://eu0.devcdn.subut.ai:8338/kurjun/rest
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
