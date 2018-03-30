@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.0.3">
+<com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.3">
   <actions/>
   <description></description>
   <displayName>Release Version Builders</displayName>
   <properties>
     <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Read:subutai-io</permission>
-      <permission>hudson.model.Item.Read:anonymous</permission>
-      <permission>hudson.model.Item.Read:subutai-io*subutai-core</permission>
-      <permission>hudson.model.Item.Cancel:subutai-io*subutai-core</permission>
+      <inheritanceStrategy class="org.jenkinsci.plugins.matrixauth.inheritance.InheritParentStrategy"/>
       <permission>hudson.model.Item.Build:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Cancel:subutai-io*subutai-core</permission>
+      <permission>hudson.model.Item.Read:anonymous</permission>
+      <permission>hudson.model.Item.Read:subutai-io</permission>
+      <permission>hudson.model.Item.Read:subutai-io*subutai-core</permission>
     </com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty>
   </properties>
   <folderViews class="com.cloudbees.hudson.plugins.folder.views.DefaultFolderViewHolder">
