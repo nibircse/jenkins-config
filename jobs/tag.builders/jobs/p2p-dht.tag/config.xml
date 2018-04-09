@@ -50,7 +50,7 @@ export GOPATH=${WORKSPACE}/${goenvDir}
 export GOBIN=${WORKSPACE}/${goenvDir}/bin
 export PATH=${PATH}:/usr/local/go/bin
 
-go get
+go get -u
 ./configure
 make	
 
