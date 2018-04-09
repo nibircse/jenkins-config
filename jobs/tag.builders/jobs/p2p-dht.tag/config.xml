@@ -50,8 +50,8 @@ export GOPATH=${WORKSPACE}/${goenvDir}
 export GOBIN=${WORKSPACE}/${goenvDir}/bin
 export PATH=${PATH}:/usr/local/go/bin
 
-go get
 go get -u github.com/subutai-io/p2p
+go get
 ./configure
 make	
 
