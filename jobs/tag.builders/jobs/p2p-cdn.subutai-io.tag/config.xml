@@ -40,20 +40,20 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>#set +x
+      <command>set +x
 
-#goenvDir=&quot;.goenv&quot;
+goenvDir=&quot;.goenv&quot;
 
-#if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
+if test ! -d ${goenvDir}; then mkdir -p ${goenvDir}/src/github.com/optdyn/; fi
 
-#export GOPATH=${WORKSPACE}/${goenvDir}
-#export GOBIN=${WORKSPACE}/${goenvDir}/bin
-#export PATH=${PATH}:/usr/local/go/bin
+export GOPATH=${WORKSPACE}/${goenvDir}
+export GOBIN=${WORKSPACE}/${goenvDir}/bin
+export PATH=${PATH}:/usr/local/go/bin
 
-#go get -u github.com/subutai-io/p2p
-#go get
-#./configure
-#make	
+go get -u github.com/subutai-io/p2p
+go get
+./configure
+make	
 
 
 
