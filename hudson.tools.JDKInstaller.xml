@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.tools.JDKInstaller_-DescriptorImpl>
+  <username>infra</username>
+  <password>{AQAAABAAAAAQWY9HyB/oUzEyD2CgmzB7MEH6r4Ferf4ETdYgUMa5OGs=}</password>
+</hudson.tools.JDKInstaller_-DescriptorImpl>
