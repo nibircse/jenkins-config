@@ -18,7 +18,20 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>git clone https://github.com/subutai-io/agent &amp;&amp; cd agent &amp;&amp; git checkout --track origin/no-snap &amp;&amp; rm -rf .git* &amp;&amp; cd ..
+
+git clone https://github.com/happyaron/subutai-agent &amp;&amp; cp -r subutai-agent/debian/ agent/
+VER=6.4.12+$(date +%Y%m%d%H%M%S)
+cd agent &amp;&amp; sed -i &quot;s/quit/native/&quot; debian/source/format
+dch -v $VER -D stable &quot;Test build for $VER&quot; 1&gt;/dev/null 2&gt;/dev/null
+dpkg-buildpackage -rfakeroot`
+
+
+#rm -rf agent subutai-agent</command>
+    </hudson.tasks.Shell>
+  </builders>
   <publishers/>
   <buildWrappers/>
 </project>
