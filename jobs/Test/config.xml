@@ -1,8 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
+      <resourceNames>deb </resourceNames>
+      <resourceNamesVar></resourceNamesVar>
+      <resourceNumber></resourceNumber>
+      <labelName></labelName>
+    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
+  </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
