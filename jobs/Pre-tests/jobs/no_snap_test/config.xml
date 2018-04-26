@@ -16,7 +16,6 @@
       <dockerLabel></dockerLabel>
       <registry plugin="docker-commons@1.8"/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
-    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty reference="../com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty"/>
   </properties>
   <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
@@ -44,8 +43,8 @@
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>snap</repository>
-          <includes>sysnet dev master</includes>
+          <repository>agent</repository>
+          <includes>no-snap</includes>
           <excludes></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
