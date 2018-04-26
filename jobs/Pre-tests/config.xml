@@ -18,37 +18,6 @@
         <filterQueue>false</filterQueue>
         <properties class="hudson.model.View$PropertyList"/>
       </hudson.model.AllView>
-      <hudson.plugins.view.dashboard.Dashboard plugin="dashboard-view@2.9.10">
-        <owner class="com.cloudbees.hudson.plugins.folder.Folder" reference="../../../.."/>
-        <name>agent-nosnap</name>
-        <filterExecutors>false</filterExecutors>
-        <filterQueue>false</filterQueue>
-        <properties class="hudson.model.View$PropertyList"/>
-        <jobNames>
-          <comparator class="hudson.util.CaseInsensitiveComparator"/>
-          <string>agent-nosnap</string>
-        </jobNames>
-        <jobFilters/>
-        <columns>
-          <hudson.views.StatusColumn/>
-          <hudson.views.WeatherColumn/>
-          <hudson.views.JobColumn/>
-          <hudson.views.LastSuccessColumn/>
-          <hudson.views.LastFailureColumn/>
-          <hudson.views.LastDurationColumn/>
-          <hudson.views.BuildButtonColumn/>
-        </columns>
-        <recurse>false</recurse>
-        <useCssStyle>false</useCssStyle>
-        <includeStdJobList>false</includeStdJobList>
-        <hideJenkinsPanels>false</hideJenkinsPanels>
-        <leftPortletWidth>50%</leftPortletWidth>
-        <rightPortletWidth>50%</rightPortletWidth>
-        <leftPortlets/>
-        <rightPortlets/>
-        <topPortlets/>
-        <bottomPortlets/>
-      </hudson.plugins.view.dashboard.Dashboard>
     </views>
     <tabBar class="hudson.views.DefaultViewsTabBar"/>
   </folderViews>
