@@ -3,14 +3,7 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
-      <resourceNames></resourceNames>
-      <resourceNamesVar>deb</resourceNamesVar>
-      <resourceNumber></resourceNumber>
-      <labelName>deb </labelName>
-    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -20,9 +13,15 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>git clone https://github.com/subutai-io/agent &amp;&amp; cd agent &amp;&amp; git checkout --track origin/no-snap &amp;&amp; rm -rf .git* &amp;&amp; cd ..</command>
+      <command>#git clone https://github.com/subutai-io/agent &amp;&amp; cd agent &amp;&amp; git checkout --track origin/no-snap &amp;&amp; rm -rf .git* &amp;&amp; cd ..</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>
