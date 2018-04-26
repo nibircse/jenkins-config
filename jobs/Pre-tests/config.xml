@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.3">
+  <actions/>
   <description>After tests here jobs will move to production</description>
   <displayName>Test preparation jobs</displayName>
   <properties>
