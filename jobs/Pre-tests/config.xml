@@ -26,6 +26,7 @@
         <properties class="hudson.model.View$PropertyList"/>
         <jobNames>
           <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          <string>agent-nosnap</string>
         </jobNames>
         <jobFilters/>
         <columns>
