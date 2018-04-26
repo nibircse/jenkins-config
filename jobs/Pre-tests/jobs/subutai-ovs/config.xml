@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
       <resourceNames></resourceNames>
-      <resourceNamesVar></resourceNamesVar>
+      <resourceNamesVar>deb</resourceNamesVar>
       <resourceNumber></resourceNumber>
       <labelName>deb </labelName>
     </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
