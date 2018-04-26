@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.17">
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -28,7 +29,9 @@
         stage(&apos;Tweaks&apos;) {
             steps {
                 sh &apos;&apos;&apos;
-                
+                    VER=6.4.12+$(date +%Y%m%d%H%M%S)
+                    cd agent &amp;&amp; sed -i &quot;s/quit/native/&quot; debian/source/format
+                    dch -v $VER -D stable &quot;Test build for $VER&quot; 1&gt;/dev/null 2&gt;/dev/null
                 &apos;&apos;&apos;
                 sh &apos;ls -lt&apos;
             }
