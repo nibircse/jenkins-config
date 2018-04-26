@@ -22,7 +22,6 @@
              sh &apos;&apos;&apos;
                 git clone https://github.com/subutai-io/agent &amp;&amp; cd agent &amp;&amp; git checkout --track origin/no-snap &amp;&amp; rm -rf .git* &amp;&amp; cd .. 
                 git clone https://github.com/happyaron/subutai-agent &amp;&amp; cp -r subutai-agent/debian/ agent/
-                
              &apos;&apos;&apos;
            }
        }
