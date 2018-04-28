@@ -91,7 +91,7 @@
           <string>:20</string>
           <string>master_node</string>
           <string>172.31.5.61</string>
-          <string>peer-os-builder</string>
+          <string>peer_os_builder</string>
           <string>85.93.89.193</string>
           <string>SS_TEST_NODE</string>
           <string>172.31.2.211</string>
