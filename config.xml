@@ -82,7 +82,7 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>9</int>
+          <int>10</int>
           <string>deb</string>
           <string>85.93.89.193</string>
           <string>debian_slave_node</string>
@@ -93,6 +93,8 @@
           <string>172.31.5.61</string>
           <string>master_rh</string>
           <string>54.93.90.23</string>
+          <string>peer_os</string>
+          <string>172.31.6.66</string>
           <string>peer_os_builder</string>
           <string>85.93.89.193</string>
           <string>SS_TEST_NODE</string>
