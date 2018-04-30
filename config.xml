@@ -92,7 +92,7 @@
           <string>master_node</string>
           <string>172.31.5.61</string>
           <string>master_rh</string>
-          <string>54.93.90.23</string>
+          <string>172.31.5.61</string>
           <string>peer_os</string>
           <string>172.31.6.66</string>
           <string>peer_os_builder</string>
