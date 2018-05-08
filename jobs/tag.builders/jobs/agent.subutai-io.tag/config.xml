@@ -61,7 +61,20 @@ echo &apos;VERSION is ${agent_version}&apos;
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
 dch -v &apos;${agent_version}&apos; -D stable &apos;Test build for ${agent_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
-</command>
+
+cd ${CWD}/agent
+dpkg-buildpackage -rfakeroot
+cd ${CWD} || exit 1
+for i in *.deb; do
+    echo &apos;\$i:&apos;;
+    dpkg -c \$i;
+done
+
+
+cd ${CWD}
+touch uploading_agent
+scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${release}/
+ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh ${release} agent</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
