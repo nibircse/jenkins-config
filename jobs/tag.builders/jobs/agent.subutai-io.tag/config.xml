@@ -62,6 +62,7 @@ cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/form
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
 dch -v &apos;${agent_version}&apos; -D stable &apos;Test build for ${agent_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
 
+echo &quot;Build package .................&quot;
 cd ${CWD}/agent
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
@@ -70,7 +71,7 @@ for i in *.deb; do
     dpkg -c \$i;
 done
 
-
+echo &quot;Uploading .....................&quot;
 cd ${CWD}
 touch uploading_agent
 scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${release}/
