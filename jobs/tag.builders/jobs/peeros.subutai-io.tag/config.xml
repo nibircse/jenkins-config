@@ -124,35 +124,68 @@ id=`jsonval`
 
 
 # build template
-ssh root@172.31.11.37 &lt;&lt;- EOF
-set -x
-subutai destroy management
-subutai import debian-stretch
-subutai clone debian-stretch management
+ssh admin@${env.peer_os_builder} &lt;&lt;- EOF
+set -e
+sudo subutai destroy management
+sudo subutai import debian-stretch
+sudo subutai clone debian-stretch management
 /bin/sleep 20
-scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
-subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
-subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
-subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
-subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
-subutai attach management &quot;apt-get update&quot;
-subutai attach management &quot;sync&quot;
-subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
-subutai attach management &quot;wget --no-check-certificate -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
-subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
-subutai attach management &quot;systemctl stop management&quot;
-subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
-subutai attach management &quot;apt-get clean&quot;
-subutai attach management &quot;sync&quot;
-subutai attach management &quot;sed -i &quot;s/weekly/dayly/g&quot; /etc/logrotate.d/rsyslog&quot;
-subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrotate.d/rsyslog&quot;
-subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
-subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
-rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
-sudo sed &apos;s/URL =.*/URL = cdn.subutai.io/g&apos; -i /var/snap/subutai-dev/current/agent.gcfg
-subutai export management -v ${version} --local -t $token
-scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+scp ubuntu@${env.master_rh}:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/subutai/lxc/management/rootfs/tmp/
+sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
+sudo cp /opt/key/cdn-pub.key /var/lib/subutai/lxc/management/rootfs/tmp/
+sudo subutai attach management &quot;gpg --import /tmp/cdn-pub.key&quot;
+sudo subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
+sudo subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
+sudo subutai attach management &quot;apt-get update&quot;
+sudo subutai attach management &quot;sync&quot;
+sudo subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
+sudo subutai attach management &quot;wget -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+sudo subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
+sudo subutai attach management &quot;systemctl stop management&quot;
+sudo subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
+sudo subutai attach management &quot;apt-get clean&quot;
+sudo subutai attach management &quot;sync&quot;
+sudo subutai attach management &quot;sed -i &quot;s/weekly/dayly/g&quot; /etc/logrotate.d/rsyslog&quot;
+sudo subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrotate.d/rsyslog&quot;
+sudo subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
+sudo subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
+sudo rm /var/lib/subutai/lxc/management/rootfs/tmp/${filename}
+#echo &quot;Using CDN token ${token}&quot;  
+#sudo sed &apos;s/branch = .*/branch = ${env.BRANCH_NAME}/g&apos; -i /var/lib/subutai/agent.gcfg
+sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
+#echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
+sudo subutai export management -v ${version} --local -t ${token}
 EOF
+
+#ssh root@172.31.11.37 &lt;&lt;- EOF
+#set -x
+#subutai destroy management
+#subutai import debian-stretch
+#subutai clone debian-stretch management
+#/bin/sleep 20
+#scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
+#subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
+#subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
+#subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
+#subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
+#subutai attach management &quot;apt-get update&quot;
+#subutai attach management &quot;sync&quot;
+#subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
+#subutai attach management &quot;wget --no-check-certificate -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+#subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
+#subutai attach management &quot;systemctl stop management&quot;
+#subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
+#subutai attach management &quot;apt-get clean&quot;
+#subutai attach management &quot;sync&quot;
+#subutai attach management &quot;sed -i &quot;s/weekly/dayly/g&quot; /etc/logrotate.d/rsyslog&quot;
+#subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrotate.d/rsyslog&quot;
+#subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
+#subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
+#rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
+#sudo sed &apos;s/URL =.*/URL = cdn.subutai.io/g&apos; -i /var/snap/subutai-dev/current/agent.gcfg
+#subutai export management -v ${version} --local -t $token
+#scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+#EOF
 
 # move template to jenkins instance
 #ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
