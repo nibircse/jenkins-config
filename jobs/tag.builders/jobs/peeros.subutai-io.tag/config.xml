@@ -156,7 +156,7 @@ sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
 #echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
 sudo subutai export management -v ${version} --local -t ${token}
 EOF
-
+scp admin@${env.peer_os_builder}:/var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz . #${workspace}
 #ssh root@172.31.11.37 &lt;&lt;- EOF
 #set -x
 #subutai destroy management
