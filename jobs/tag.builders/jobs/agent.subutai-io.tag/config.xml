@@ -40,13 +40,28 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>export GIT_BRANCH=&quot;&quot;
+      <command>set +x
 
-./configure
+current_date = &quot;$(date +&quot;%F_%T&quot;)&quot;
+agent_version = &quot;6.4.12+${current_date}&quot;
+cdnHost = &quot;cdn.subutai.io&quot;
+release = &quot;HEAD&quot;
 
-snapcraft
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
 
-snapcraft push $(ls subutai*_amd64.snap) --release beta</command>
+cd ../
+CWD = &quot;$(pwd)&quot;
+
+git clone https://github.com/happyaron/subutai-agent
+cp -r subutai-agent/debian/ agent/
+echo &quot;Copied debian directory&quot;
+
+echo &apos;VERSION is ${agent_version}&apos;
+cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
+cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
+dch -v &apos;${agent_version}&apos; -D stable &apos;Test build for ${agent_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
