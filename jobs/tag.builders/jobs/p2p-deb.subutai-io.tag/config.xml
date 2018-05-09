@@ -69,7 +69,7 @@ done
 
 cd ${CWD}
 ls 
-touch uploading_agent
+touch uploading_p2p
 scp uploading_p2p subutai*.deb dak@deb.subutai.io:incoming/prod/
 ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh prod p2p
 
