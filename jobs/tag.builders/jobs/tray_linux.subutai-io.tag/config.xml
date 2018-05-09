@@ -72,7 +72,7 @@ cd deb-packages/deb-packages-internal
 cd ../..
 
 
-cd $HOME/build_prod
+cd /home/builder/build_prod
 cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/*.deb .
 cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/deb-packages-internal/debian/SubutaiControlCenter/bin/subutai-control-center .
 
