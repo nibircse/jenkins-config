@@ -71,7 +71,7 @@ cd ${CWD}
 ls 
 touch uploading_agent
 scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/prod/
-ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh prod agent
+ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh prod p2p
 
 </command>
     </hudson.tasks.Shell>
