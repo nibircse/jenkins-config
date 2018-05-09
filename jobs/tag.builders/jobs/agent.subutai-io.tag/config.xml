@@ -51,11 +51,10 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 cd ../
-export CWD=&quot;$(pwd)&quot;
-
-rm -rf subutai-agent
 git clone https://github.com/happyaron/subutai-agent
-cp -r subutai-agent/debian agent/
+cp -r subutai-agent/debian/ agent/
+echo &quot;Copied debian directory&quot;
+export CWD=&quot;$(pwd)&quot;
 
 echo &apos;VERSION is ${agent_version}&apos;
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
