@@ -40,17 +40,58 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>rm -rf /tmp/p2p-packaging
-git clone git@github.com:optdyn/p2p-packaging.git /tmp/p2p-packaging
-cd /tmp/p2p-packaging
-wget --no-check-certificate https://eu0.cdn.subutai.io:8338/kurjun/rest/raw/get?name=p2p -O /tmp/p2p-packaging/linux/debian/p2p
-chmod +x /tmp/p2p-packaging/linux/debian/p2p
-./configure --debian --branch=HEAD
-cd linux
-debuild -B -d
-debfile=`ls /tmp/p2p-packaging | grep .deb | tr -d &apos;\n&apos;`
+      <command>echo &quot;Building Debian Package&quot;
+cd ../
 
-/tmp/p2p-packaging/upload.sh debian HEAD /tmp/p2p-packaging/${debfile}
+			String date = new Date().format( &apos;yyyyMMddHHMMSS&apos; )
+			
+			def CWD = pwd()
+
+			sh &quot;&quot;&quot;
+			rm -rf ${CWD}/p2p
+			git clone https://github.com/subutai-io/p2p
+			&quot;&quot;&quot;
+
+			if (env.BRANCH_NAME != &apos;master&apos;) {
+				sh &quot;&quot;&quot;
+				cd ${CWD}/p2p
+				git checkout --track origin/${env.BRANCH_NAME} &amp;&amp; rm -rf .git*
+				&quot;&quot;&quot;
+			}
+
+			String plain_version = sh (script: &quot;&quot;&quot;
+					cat ${CWD}/p2p/VERSION | tr -d &apos;\n&apos;
+					&quot;&quot;&quot;, returnStdout: true)
+			def p2p_version = &quot;${plain_version}+${date}&quot;
+
+			sh &quot;&quot;&quot;
+			cd ${CWD}/p2p
+			sed -i &apos;s/quilt/native/&apos; debian/source/format
+			sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
+			sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
+			dch -v &apos;${p2p_version}&apos; -D stable &apos;Test build for ${p2p_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
+			&quot;&quot;&quot;
+
+			stage(&quot;Build P2P package&quot;)
+			notifyBuildDetails = &quot;\nFailed on Stage - Build package&quot;
+			sh &quot;&quot;&quot;
+			cd p2p
+			dpkg-buildpackage -rfakeroot
+			cd ${CWD} || exit 1
+			for i in *.deb; do
+				echo &apos;\$i:&apos;;
+				dpkg -c \$i;
+			done
+			&quot;&quot;&quot;
+
+			stage(&quot;Upload Packages&quot;)
+			notifyBuildDetails = &quot;\nFailed on Stage - Upload&quot;
+			sh &quot;&quot;&quot;
+			cd ${CWD}
+			touch uploading_agent
+			scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${env.BRANCH_NAME}/
+			ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh ${env.BRANCH_NAME} agent
+			&quot;&quot;&quot;
 </command>
     </hudson.tasks.Shell>
   </builders>
