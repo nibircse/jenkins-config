@@ -52,7 +52,7 @@ export CWD=&quot;$(pwd)&quot;
 
 
 
-export p2p_version=&quot;${plain_version}+${date}&quot;
+export p2p_version=&quot;${plain_version}+${date}-2&quot;
 
 cd ${CWD}/p2p-deb.subutai-io.tag
 sed -i &apos;s/quilt/native/&apos; debian/source/format
