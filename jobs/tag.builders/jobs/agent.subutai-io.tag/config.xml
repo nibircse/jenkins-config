@@ -45,7 +45,7 @@
 export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
 export agent_version=&quot;$(git describe --abbrev=0 --tags)+$(date +%Y%m%d%H%M%S)&quot;
 export cdnHost=&quot;cdn.subutai.io&quot;
-export release=&quot;&quot;
+export release=&quot;prod&quot;
 
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
@@ -66,6 +66,7 @@ cd ${CWD}/agent.subutai-io.tag &amp;&amp; sed -i &quot;s/Debug = true/Debug = fa
 dch -v ${agent_version} -D stable &quot;Build for ${agent_version}&quot; 1&gt;/dev/null 2&gt;/dev/null
 
 echo &quot;Build package .................&quot;
+rm -f ${CWD}/*.deb
 cd ${CWD}/agent.subutai-io.tag
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
