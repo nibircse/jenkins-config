@@ -46,6 +46,7 @@ export plain_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export p2p_version=&quot;${plain_version}+${date}&quot;
 export cdnHost=&quot;cdn.subutai.io&quot;
 export dhtHost=&quot;eu0.cdn.subutai.io&quot;
+export 
 cd ../
 export CWD=&quot;$(pwd)&quot;
 
@@ -67,9 +68,10 @@ for i in *.deb; do
 done
 
 cd ${CWD}
+ls 
 touch uploading_agent
-scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${env.BRANCH_NAME}/
-ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh ${env.BRANCH_NAME} agent
+scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${release}/
+ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh ${release} agent
 
 </command>
     </hudson.tasks.Shell>
