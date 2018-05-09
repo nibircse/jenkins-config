@@ -42,11 +42,14 @@
     <hudson.tasks.Shell>
       <command>echo &quot;Getting date&quot;
 export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
-export agent_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export p2p_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export cdnHost=&quot;cdn.subutai.io&quot;
 export dhtHost=&quot;eu0.cdn.subutai.io&quot;
 cd ../
 export CWD=&quot;$(pwd)&quot;
+
+pwd
+ls
 
 export plain_version=&quot;$(cat ${CWD}/p2p/VERSION | tr -d &apos;\n&apos;)&quot;
 
