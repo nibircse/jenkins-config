@@ -39,6 +39,7 @@ export TRAYDIR=/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.t
 export QTBINPATH=/home/builder/qt_static/bin/
 Version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export PATH=$QTBINPATH:$PATH
+export BRANCH=HEAD
 
 rm -rf $HOME/build_prod/
 mkdir $HOME/build_prod
