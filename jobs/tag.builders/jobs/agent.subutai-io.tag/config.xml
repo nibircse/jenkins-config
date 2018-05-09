@@ -42,10 +42,10 @@
     <hudson.tasks.Shell>
       <command>set +x
 
-current_date = &quot;$(date +&quot;%F_%T&quot;)&quot;
-agent_version = &quot;$(git describe --abbrev=0 --tags)&quot;
-cdnHost = &quot;cdn.subutai.io&quot;
-release = &quot;&quot;
+export current_date = &quot;$(date +&quot;%F_%T&quot;)&quot;
+export agent_version = &quot;$(git describe --abbrev=0 --tags)&quot;
+export cdnHost = &quot;cdn.subutai.io&quot;
+export release = &quot;&quot;
 
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
