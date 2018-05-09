@@ -64,10 +64,9 @@ rm *.o *.cpp *.h
 mv ../*.qm .
 cd ../
 
-if [ $? -eq 0 ]; then
-  cd deb-packages/deb-packages-internal
-  ./clear.sh
-  ./pack_debian.sh 
+cd deb-packages/deb-packages-internal
+./clear.sh
+./pack_debian.sh 
 cd ../..
 
 
