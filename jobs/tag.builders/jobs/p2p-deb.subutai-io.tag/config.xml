@@ -63,7 +63,7 @@ dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
 for i in *.deb; do
 	echo &apos;$i:&apos;;
-	dpkg -c \$i;
+	dpkg -c $i;
 done
 
 cd ${CWD}
