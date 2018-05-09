@@ -44,6 +44,7 @@ rm -rf $HOME/build_prod/
 mkdir $HOME/build_prod
 
 cd $TRAYDIR
+qmake --version
 ./configure --maintainer=&quot;$MAINTAINER&quot; --maintainer-email=&quot;$MAINTAINER_EMAIL&quot;
 PKGNAME=&quot;subutai-control-center.deb&quot;
 
