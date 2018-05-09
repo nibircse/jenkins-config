@@ -51,7 +51,7 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 cd ../
-CWD = &quot;$(pwd)&quot;
+export CWD=&quot;$(pwd)&quot;
 
 git clone https://github.com/happyaron/subutai-agent
 cp -r subutai-agent/debian/ agent/
