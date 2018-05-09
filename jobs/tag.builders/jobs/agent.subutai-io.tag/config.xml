@@ -53,10 +53,6 @@ export LANG=C.UTF-8
 cd ../
 export CWD=&quot;$(pwd)&quot;
 
-git clone https://github.com/happyaron/subutai-agent
-cp -r subutai-agent/debian/ agent/
-echo &quot;Copied debian directory&quot;
-
 echo &apos;VERSION is ${agent_version}&apos;
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
