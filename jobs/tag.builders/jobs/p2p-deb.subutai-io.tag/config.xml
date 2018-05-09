@@ -62,7 +62,7 @@ dch -v &quot;${p2p_version}&quot; -D stable &quot;Test build for ${p2p_version}&
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
 for i in *.deb; do
-	echo &apos;\$i:&apos;;
+	echo &apos;$i:&apos;;
 	dpkg -c \$i;
 done
 
