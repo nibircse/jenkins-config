@@ -57,24 +57,19 @@ sed -i &apos;s/quilt/native/&apos; debian/source/format
 sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
 sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
 dch -v &apos;${p2p_version}&apos; -D stable &apos;Test build for ${p2p_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
-&quot;&quot;&quot;
 
-sh &quot;&quot;&quot;
-cd p2p
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
 for i in *.deb; do
 	echo &apos;\$i:&apos;;
 	dpkg -c \$i;
 done
-&quot;&quot;&quot;
 
-sh &quot;&quot;&quot;
 cd ${CWD}
 touch uploading_agent
 scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/${env.BRANCH_NAME}/
 ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh ${env.BRANCH_NAME} agent
-&quot;&quot;&quot;
+
 </command>
     </hudson.tasks.Shell>
   </builders>
