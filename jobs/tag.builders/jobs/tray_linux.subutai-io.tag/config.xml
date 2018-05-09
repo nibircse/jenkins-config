@@ -18,7 +18,7 @@
       <command>set +x 
 /home/builder/./build_prod.sh
 
-tray_version=&quot;$(cat /home/builder/SRC/tray/version)&quot;
+tray_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 
 FILE=/home/builder/build_prod/subutai-control-center.deb
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
