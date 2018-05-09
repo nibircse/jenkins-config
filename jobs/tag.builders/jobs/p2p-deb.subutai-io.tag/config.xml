@@ -52,7 +52,7 @@ export CWD=&quot;$(pwd)&quot;
 
 
 
-export p2p_version=&quot;${plain_version}+${date}.2&quot;
+export p2p_version=&quot;${plain_version}+${date}2&quot;
 
 cd ${CWD}/p2p-deb.subutai-io.tag
 sed -i &apos;s/quilt/native/&apos; debian/source/format
@@ -70,7 +70,7 @@ done
 cd ${CWD}
 ls 
 touch uploading_agent
-scp uploading_agent subutai*.deb dak@deb.subutai.io:incoming/prod/
+scp uploading_p2p subutai*.deb dak@deb.subutai.io:incoming/prod/
 ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh prod p2p
 
 </command>
