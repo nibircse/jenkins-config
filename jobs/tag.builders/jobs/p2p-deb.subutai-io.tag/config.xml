@@ -55,9 +55,9 @@ export p2p_version=&quot;${plain_version}+${date}&quot;
 
 cd ${CWD}/p2p-deb.subutai-io.tag
 sed -i &apos;s/quilt/native/&apos; debian/source/format
-sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
+sed -i &quot;s/DHT_ENDPOINT/${dhtHost}/&quot; debian/rules
 sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
-dch -v &apos;${p2p_version}&apos; -D stable &apos;Test build for ${p2p_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
+dch -v &quot;${p2p_version}&quot; -D stable &quot;Test build for ${p2p_version}&quot; 1&gt;/dev/null 2&gt;/dev/null
 
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
