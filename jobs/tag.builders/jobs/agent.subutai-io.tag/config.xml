@@ -43,7 +43,7 @@
       <command>set -x
 
 export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
-export agent_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export agent_version=&quot;$(git describe --abbrev=0 --tags)+${current_date}&quot;
 export cdnHost=&quot;cdn.subutai.io&quot;
 export release=&quot;&quot;
 
