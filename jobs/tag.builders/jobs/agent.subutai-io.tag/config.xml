@@ -59,10 +59,10 @@ export CWD=&quot;$(pwd)&quot;
 
 pwd
 
-echo &apos;VERSION is ${agent_version}&apos;
+echo &quot;VERSION is ${agent_version}&quot;
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
-dch -v &apos;${agent_version}&apos; -D stable &apos;Test build for ${agent_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
+dch -v ${agent_version} -D stable &quot;Build for ${agent_version}&quot; 1&gt;/dev/null 2&gt;/dev/null
 
 echo &quot;Build package .................&quot;
 cd ${CWD}/agent
