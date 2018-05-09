@@ -41,8 +41,8 @@ Version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export PATH=$QTBINPATH:$PATH
 export BRANCH=HEAD
 
-rm -rf $HOME/build_prod/
-mkdir $HOME/build_prod
+rm -rf /home/builder/build_prod/
+mkdir /home/builder/build_prod
 
 cd $TRAYDIR
 qmake --version
