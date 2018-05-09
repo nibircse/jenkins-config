@@ -9,7 +9,6 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <url>https://github.com/subutai-io/control-center</url>
-        <credentialsId>hub-optdyn-github-auth</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
