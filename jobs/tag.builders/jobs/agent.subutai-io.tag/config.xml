@@ -53,19 +53,19 @@ export LANG=C.UTF-8
 cd ../
 rm -rf subutai-agent
 git clone https://github.com/happyaron/subutai-agent
-cp -r subutai-agent/debian/ agent/
+cp -r subutai-agent/debian/ agent.subutai-io.tag/
 echo &quot;Copied debian directory&quot;
 export CWD=&quot;$(pwd)&quot;
 
 pwd
 
 echo &quot;VERSION is ${agent_version}&quot;
-cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
-cd ${CWD}/agent &amp;&amp; sed -i &quot;s/@cdnHost@/${cdnHost}/&quot; debian/tree/agent.conf
+cd ${CWD}/agent.subutai-io.tag &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
+cd ${CWD}/agent.subutai-io.tag &amp;&amp; sed -i &quot;s/@cdnHost@/${cdnHost}/&quot; debian/tree/agent.conf
 dch -v ${agent_version} -D stable &quot;Build for ${agent_version}&quot; 1&gt;/dev/null 2&gt;/dev/null
 
 echo &quot;Build package .................&quot;
-cd ${CWD}/agent
+cd ${CWD}/agent.subutai-io.tag
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
 for i in *.deb; do
