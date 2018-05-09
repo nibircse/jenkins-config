@@ -35,8 +35,8 @@
     <hudson.tasks.Shell>
       <command>export MAINTAINER=&quot;Jenkins Admin&quot;
 export MAINTAINER_EMAIL=&quot;jenkins@subut.ai&quot;
-export TRAYDIR=&quot;/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag&quot;
-export QTBINPATH=&quot;/home/builder/qt_static/bin/&quot;
+export TRAYDIR=/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag
+export QTBINPATH=/home/builder/qt_static/bin/
 Version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export PATH=$QTBINPATH:$PATH
 
