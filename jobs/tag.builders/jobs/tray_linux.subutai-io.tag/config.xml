@@ -17,10 +17,22 @@
     <hudson.tasks.Shell>
       <command>set +x 
 
-tray_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+Version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export MAINTAINER=&quot;Jenkins Admin&quot;
+export MAINTAINER_EMAIL=&quot;jenkins@subut.ai&quot;
+cd /home/builder/SRC/devops/tray/linux
+./build_linux.sh /home/builder/qt_static/bin/ $VERSION /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag &quot;$MAINTAINER&quot; &quot;$MAINTAINER_EMAIL&quot;
 
-/home/builder/./build_prod.sh
+rm -rf $HOME/build_prod/
+mkdir $HOME/build_prod
 
+cd $HOME/build_prod
+cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/*.deb .
+cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/deb-packages-internal/debian/SubutaiControlCenter/bin/subutai-control-center .
+
+
+mv *.deb subutai-control-center.deb
+mv subutai-control-center SubutaiControlCenter
 
 
 FILE=/home/builder/build_prod/subutai-control-center.deb
