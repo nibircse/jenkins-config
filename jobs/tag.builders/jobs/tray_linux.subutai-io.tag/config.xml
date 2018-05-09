@@ -37,7 +37,7 @@
 export MAINTAINER_EMAIL=&quot;jenkins@subut.ai&quot;
 export TRAYDIR=/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag
 export QTBINPATH=/home/builder/qt_static/bin/
-Version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export tray_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export PATH=$QTBINPATH:$PATH
 export BRANCH=HEAD
 
