@@ -119,7 +119,7 @@ id=`jsonval`
 
 # build template
 ssh admin@172.31.6.66 &lt;&lt;- EOF
-set -e
+set -xe
 sudo subutai destroy management
 sudo subutai import debian-stretch
 sudo subutai clone debian-stretch management
