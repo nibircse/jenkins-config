@@ -40,8 +40,10 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>String date = new Date().format(&apos;yyyyMMddHHMMSS&apos;)
+      <command>echo &quot;Getting date&quot;
+String date = new Date().format(&apos;yyyyMMddHHMMSS&apos;)
 
+echo &quot;Getting path&quot;
 def CWD = pwd()
 
 sh &quot;&quot;&quot;
