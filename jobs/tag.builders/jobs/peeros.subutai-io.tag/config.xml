@@ -119,14 +119,12 @@ id=`jsonval`
 
 # build template
 ssh admin@172.31.6.66 &lt;&lt;- EOF
-
-export cdnHost=cdn.subutai.io
-
+set -x
 sudo subutai destroy management
 sudo subutai import debian-stretch
 sudo subutai clone debian-stretch management
 /bin/sleep 20
-scp ubuntu@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/subutai/lxc/management/rootfs/tmp/
+scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/subutai/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
 sudo cp /opt/key/cdn-pub.key /var/lib/subutai/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;gpg --import /tmp/cdn-pub.key&quot;
@@ -146,15 +144,15 @@ sudo subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/lo
 sudo subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo rm /var/lib/subutai/lxc/management/rootfs/tmp/${filename}
+sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
+sudo subutai export management -v ${version} --local -t $token
+scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+EOF
+#echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
 #echo &quot;Using CDN token ${token}&quot;  
 #sudo sed &apos;s/branch = .*/branch = ${env.BRANCH_NAME}/g&apos; -i /var/lib/subutai/agent.gcfg
-sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
-#echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
-sudo subutai export management -v ${version} --local -t $token
-
-scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
 #scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
-EOF
+
 #ssh root@172.31.11.37 &lt;&lt;- EOF
 #set -x
 #subutai destroy management
