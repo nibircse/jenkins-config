@@ -120,6 +120,8 @@ id=`jsonval`
 # build template
 ssh admin@172.31.6.66 &lt;&lt;- EOF
 set -xe
+export cdnHost=cdn.subutai.io
+
 sudo subutai destroy management
 sudo subutai import debian-stretch
 sudo subutai clone debian-stretch management
