@@ -42,20 +42,17 @@
     <hudson.tasks.Shell>
       <command>echo &quot;Getting date&quot;
 export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
-export p2p_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export agent_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 export cdnHost=&quot;cdn.subutai.io&quot;
 export dhtHost=&quot;eu0.cdn.subutai.io&quot;
 cd ../
 export CWD=&quot;$(pwd)&quot;
 
-pwd
-ls
-
-export plain_version=&quot;$(cat ${CWD}/p2p/VERSION | tr -d &apos;\n&apos;)&quot;
+export plain_version=&quot;$(cat ${CWD}/p2p-deb.subutai-io.tag/VERSION | tr -d &apos;\n&apos;)&quot;
 
 export p2p_version=&quot;${plain_version}+${date}&quot;
 
-cd ${CWD}/p2p
+cd ${CWD}/p2p-deb.subutai-io.tag
 sed -i &apos;s/quilt/native/&apos; debian/source/format
 sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
 sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
