@@ -69,8 +69,8 @@ cd ${CWD}/agent.subutai-io.tag
 dpkg-buildpackage -rfakeroot
 cd ${CWD} || exit 1
 for i in *.deb; do
-    echo &apos;\$i:&apos;;
-    dpkg -c \$i;
+    echo &apos;$i:&apos;;
+    dpkg -c $i;
 done
 
 echo &quot;Uploading .....................&quot;
