@@ -8,12 +8,6 @@
       <projectUrl>https://github.com/subutai-io/base/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
-    <org.jenkins.plugins.lockableresources.RequiredResourcesProperty plugin="lockable-resources@2.0">
-      <resourceNames>debian_slave_node</resourceNames>
-      <resourceNamesVar></resourceNamesVar>
-      <resourceNumber></resourceNumber>
-      <labelName></labelName>
-    </org.jenkins.plugins.lockableresources.RequiredResourcesProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
     <configVersion>2</configVersion>
