@@ -57,6 +57,7 @@ echo &quot;Copied debian directory&quot;
 export CWD=&quot;$(pwd)&quot;
 
 echo &apos;VERSION is ${agent_version}&apos;
+echo ${CWD}
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/quilt/native/&apos; debian/source/format
 cd ${CWD}/agent &amp;&amp; sed -i &apos;s/@cdnHost@/${cdnHost}/&apos; debian/tree/agent.conf
 dch -v &apos;${agent_version}&apos; -D stable &apos;Test build for ${agent_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
