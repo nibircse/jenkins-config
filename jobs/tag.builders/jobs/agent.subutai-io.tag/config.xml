@@ -43,7 +43,7 @@
       <command>set +x
 
 current_date = &quot;$(date +&quot;%F_%T&quot;)&quot;
-agent_version = &quot;6.4.12+${current_date}&quot;
+agent_version = &quot;$(git describe --abbrev=0 --tags)&quot;
 cdnHost = &quot;cdn.subutai.io&quot;
 release = &quot;HEAD&quot;
 
