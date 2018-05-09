@@ -40,7 +40,7 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>set +x
+      <command>set -x
 
 export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
 export agent_version=&quot;$(git describe --abbrev=0 --tags)&quot;
