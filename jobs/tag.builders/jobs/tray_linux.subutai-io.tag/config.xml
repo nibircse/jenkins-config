@@ -35,12 +35,40 @@
     <hudson.tasks.Shell>
       <command>export MAINTAINER=&quot;Jenkins Admin&quot;
 export MAINTAINER_EMAIL=&quot;jenkins@subut.ai&quot;
+export TRAYDIR=&quot;/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag&quot;
+export QTBINPATH=&quot;/home/builder/qt_static/bin/&quot;
 Version=&quot;$(git describe --abbrev=0 --tags)&quot;
-cd /home/builder/SRC/devops/tray/linux
-./build_linux.sh /home/builder/qt_static/bin/ $VERSION /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag $MAINTAINER $MAINTAINER_EMAIL
 
 rm -rf $HOME/build_prod/
 mkdir $HOME/build_prod
+
+cd $TRAYDIR
+./configure --maintainer=&quot;$MAINTAINER&quot; --maintainer-email=&quot;$MAINTAINER_EMAIL&quot;
+PKGNAME=&quot;subutai-control-center.deb&quot;
+
+nproc_count=&quot;$(nproc)&quot;
+core_number=$((nproc_count*2+1))
+subutai_control_center_bin=&quot;subutai_control_center_bin&quot;
+
+if [ -d &quot;$subutai_control_center_bin&quot; ]; then 
+	echo &quot;Try to remove subutai_control_center_bin&quot;
+  rm -rf subutai_control_center_bin
+fi 
+mkdir subutai_control_center_bin
+cd subutai_control_center_bin
+lrelease ../SubutaiControlCenter.pro
+qmake ../SubutaiControlCenter.pro -r -spec linux-g++
+make -j$core_number 
+rm *.o *.cpp *.h
+mv ../*.qm .
+cd ../
+
+if [ $? -eq 0 ]; then
+  cd deb-packages/deb-packages-internal
+  ./clear.sh
+  ./pack_debian.sh 
+cd ../..
+
 
 cd $HOME/build_prod
 cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/*.deb .
