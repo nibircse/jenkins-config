@@ -43,34 +43,26 @@
       <command>echo &quot;Building Debian Package&quot;
 cd ../
 
-			String date = new Date().format( &apos;yyyyMMddHHMMSS&apos; )
-			
-			def CWD = pwd()
+export current_date=&quot;$(date +&quot;%F_%T&quot;)&quot;
+export cdnHost=&quot;cdn.subutai.io&quot;
+export dhtHost=&quot;eu0.mastercdn.subutai.io:6881&quot;
 
-			sh &quot;&quot;&quot;
-			rm -rf ${CWD}/p2p
-			git clone https://github.com/subutai-io/p2p
-			&quot;&quot;&quot;
+cd ../
+export CWD=&quot;$(pwd)&quot;
 
-			if (env.BRANCH_NAME != &apos;master&apos;) {
-				sh &quot;&quot;&quot;
-				cd ${CWD}/p2p
-				git checkout --track origin/${env.BRANCH_NAME} &amp;&amp; rm -rf .git*
-				&quot;&quot;&quot;
-			}
+cd ${CWD}/p2p
 
-			String plain_version = sh (script: &quot;&quot;&quot;
-					cat ${CWD}/p2p/VERSION | tr -d &apos;\n&apos;
-					&quot;&quot;&quot;, returnStdout: true)
-			def p2p_version = &quot;${plain_version}+${date}&quot;
 
-			sh &quot;&quot;&quot;
-			cd ${CWD}/p2p
-			sed -i &apos;s/quilt/native/&apos; debian/source/format
-			sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
-			sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
-			dch -v &apos;${p2p_version}&apos; -D stable &apos;Test build for ${p2p_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
-			&quot;&quot;&quot;
+
+export plain_version = &quot;$(cat ${CWD}/p2p/VERSION | tr -d &apos;\n&apos;)&quot;
+
+export p2p_version = &quot;${plain_version}+${date}&quot;
+cd ${CWD}/p2p
+sed -i &apos;s/quilt/native/&apos; debian/source/format
+sed -i &apos;s/DHT_ENDPOINT/${dhtHost}/&apos; debian/rules
+sed -i &apos;s/DEFAULT_LOG_LEVEL/${p2p_log_level}/&apos; debian/rules
+dch -v &apos;${p2p_version}&apos; -D stable &apos;Test build for ${p2p_version}&apos; 1&gt;/dev/null 2&gt;/dev/null
+
 
 			stage(&quot;Build P2P package&quot;)
 			notifyBuildDetails = &quot;\nFailed on Stage - Build package&quot;
