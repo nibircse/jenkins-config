@@ -112,19 +112,19 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
+#json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
 prop=&apos;id&apos;
 id=`jsonval`
 
 
 # build template
-ssh admin@${env.peer_os_builder} &lt;&lt;- EOF
+ssh admin@172.31.6.66 &lt;&lt;- EOF
 set -e
 sudo subutai destroy management
 sudo subutai import debian-stretch
 sudo subutai clone debian-stretch management
 /bin/sleep 20
-scp ubuntu@${env.master_rh}:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/subutai/lxc/management/rootfs/tmp/
+scp ubuntu@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/subutai/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
 sudo cp /opt/key/cdn-pub.key /var/lib/subutai/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;gpg --import /tmp/cdn-pub.key&quot;
@@ -150,7 +150,7 @@ sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
 #echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
 sudo subutai export management -v ${version} --local -t ${token}
 EOF
-scp admin@${env.peer_os_builder}:/var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz . #${workspace}
+scp admin@172.31.6.66:/var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz . #${workspace}
 #ssh root@172.31.11.37 &lt;&lt;- EOF
 #set -x
 #subutai destroy management
