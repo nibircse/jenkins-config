@@ -15,16 +15,11 @@
       <dockerLabel></dockerLabel>
       <registry plugin="docker-commons@1.8"/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
-    <com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty reference="../com.cloudbees.hudson.plugins.folder.properties.AuthorizationMatrixProperty"/>
   </properties>
   <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </folderViews>
-  <healthMetrics>
-    <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.3">
-      <nonRecursive>false</nonRecursive>
-    </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
-  </healthMetrics>
+  <healthMetrics/>
   <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.8">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
@@ -43,8 +38,8 @@
           <checkoutCredentialsId>hub-optdyn-github-auth</checkoutCredentialsId>
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
-          <repository>control-center</repository>
-          <includes>dev master</includes>
+          <repository>packer</repository>
+          <includes>master</includes>
           <excludes></excludes>
           <buildOriginBranch>false</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
