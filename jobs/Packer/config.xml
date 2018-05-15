@@ -41,9 +41,9 @@
           <repository>packer</repository>
           <includes>jenkinsfile master</includes>
           <excludes></excludes>
-          <buildOriginBranch>false</buildOriginBranch>
+          <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
-          <buildOriginPRMerge>false</buildOriginPRMerge>
+          <buildOriginPRMerge>true</buildOriginPRMerge>
           <buildOriginPRHead>false</buildOriginPRHead>
           <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
