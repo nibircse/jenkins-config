@@ -36,7 +36,7 @@
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.0.8">
           <id>79611400-7f42-41e3-913c-6d96d7cd21a1</id>
           <checkoutCredentialsId>hub-optdyn-github-auth</checkoutCredentialsId>
-          <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
+          <scanCredentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>packer</repository>
           <includes>jenkinsfile master</includes>
