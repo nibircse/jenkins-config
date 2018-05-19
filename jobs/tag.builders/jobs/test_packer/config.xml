@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/subutai-io/control-center</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tags/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/subutai-io/control-center</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>debian</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
+    <hudson.tasks.Shell>
+      <command>export MAINTAINER=&quot;Jenkins Admin&quot;
+export MAINTAINER_EMAIL=&quot;jenkins@subut.ai&quot;
+export TRAYDIR=/tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag
+export QTBINPATH=/home/builder/qt_static/bin/
+export tray_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export PATH=$QTBINPATH:$PATH
+export BRANCH=HEAD
+
+rm -rf /home/builder/build_prod/
+mkdir /home/builder/build_prod
+
+cd $TRAYDIR
+qmake --version
+./configure --maintainer=&quot;$MAINTAINER&quot; --maintainer-email=&quot;$MAINTAINER_EMAIL&quot;
+PKGNAME=&quot;subutai-control-center.deb&quot;
+
+nproc_count=&quot;$(nproc)&quot;
+core_number=$((nproc_count*2+1))
+subutai_control_center_bin=&quot;subutai_control_center_bin&quot;
+
+if [ -d &quot;$subutai_control_center_bin&quot; ]; then 
+	echo &quot;Try to remove subutai_control_center_bin&quot;
+  rm -rf subutai_control_center_bin
+fi 
+mkdir subutai_control_center_bin
+cd subutai_control_center_bin
+lrelease ../SubutaiControlCenter.pro
+qmake ../SubutaiControlCenter.pro -r -spec linux-g++
+make -j$core_number 
+rm *.o *.cpp *.h
+mv ../*.qm .
+cd ../
+
+cd deb-packages/deb-packages-internal
+./clear.sh
+./pack_debian.sh 
+cd ../..
+
+
+cd /home/builder/build_prod
+cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/*.deb .
+cp /tmp/jenkins_slave/workspace/tag.builders/tray_linux.subutai-io.tag/deb-packages/deb-packages-internal/debian/SubutaiControlCenter/bin/subutai-control-center .
+
+
+mv *.deb subutai-control-center.deb
+mv subutai-control-center SubutaiControlCenter
+
+
+FILE=/home/builder/build_prod/subutai-control-center.deb
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+USER=jenkins
+EMAIL=jenkins@subut.ai
+PUBLICKEY=$(gpg --armor --export $EMAIL)
+curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
+rm -rf /tmp/filetosign.asc
+gpg --armor -u $EMAIL --clearsign /tmp/filetosign
+TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
+curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
+
+FILE=/home/builder/build_prod/SubutaiControlCenter
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+USER=jenkins
+EMAIL=jenkins@subut.ai
+PUBLICKEY=$(gpg --armor --export $EMAIL)
+curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
+rm -rf /tmp/filetosign.asc
+gpg --armor -u $EMAIL --clearsign /tmp/filetosign
+TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
+curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
+      <teamDomain></teamDomain>
+      <authToken></authToken>
+      <authTokenCredentialId></authTokenCredentialId>
+      <room></room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>true</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>true</notifyBackToNormal>
+      <notifyRepeatedFailure>false</notifyRepeatedFailure>
+      <includeTestSummary>false</includeTestSummary>
+      <commitInfoChoice>NONE</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>
