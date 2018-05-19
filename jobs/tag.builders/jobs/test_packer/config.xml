@@ -36,7 +36,7 @@
       <command>set +x
 export PACKER=/usr/local/bin/
 export PATH=$PACKER:$PATH
-which packer</command>
+n | ./build.sh stretch virtualbox-iso master</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
