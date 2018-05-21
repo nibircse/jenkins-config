@@ -38,12 +38,12 @@
 export PATH=$Packer:$PATH
 export cwd=&quot;$(pwd)&quot;
 export packer_version=&quot;$(git describe --abbrev=0 --tags)&quot;
-export box_stretch=vagrant-subutai-stretch-virtualbox.box
-export box_xenial=vagrant-subutai-xenial-virtualbox.box
+export box_stretch=vagrant-subutai-stretch-vmware.box
+export box_xenial=vagrant-subutai-xenial-vmware.box
 
-echo &quot;Build virtualbox-iso stretch .......................................................................&quot;
-n | ./build.sh stretch virtualbox-iso prod
-mv vagrant-subutai-stretch-virtualbox*.box $box_stretch
+echo &quot;Build vmware-iso stretch .......................................................................&quot;
+n | ./build.sh stretch vmware-iso prod
+mv vagrant-subutai-stretch-vmware*.box $box_stretch
 
 FILE=/$cwd/$box_stretch
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
@@ -59,8 +59,8 @@ curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$packer_version 
 
 
 echo &quot;Build virtualbox-iso xenial .......................................................................&quot;
-n | ./build.sh xenial virtualbox-iso prod
-mv vagrant-subutai-xenial-virtualbox*.box $box_xenial
+n | ./build.sh xenial vmware-iso prod
+mv vagrant-subutai-xenial-vmware*.box $box_xenial
 
 FILE=/$cwd/$box_xenial
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
