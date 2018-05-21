@@ -1,15 +1,79 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
+  <actions/>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.scm.NullSCM"/>
-  <canRoam>true</canRoam>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/subutai-io/packer</url>
+        <credentialsId>hub-optdyn-github-auth</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/tags/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <browser class="hudson.plugins.git.browser.GithubWeb">
+      <url>https://github.com/subutai-io/packer</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <assignedNode>packer_debian</assignedNode>
+  <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
-  <builders/>
-  <publishers/>
-  <buildWrappers/>
+  <builders>
+    <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
+    <hudson.tasks.Shell>
+      <command>n | ./build.sh stretch virtualbox-iso prod
+
+FILE=/home/builder/build_prod/subutai-control-center.deb
+URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
+USER=jenkins
+EMAIL=jenkins@subut.ai
+PUBLICKEY=$(gpg --armor --export $EMAIL)
+curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
+rm -rf /tmp/filetosign.asc
+gpg --armor -u $EMAIL --clearsign /tmp/filetosign
+TOKEN=$(curl -k -s -Fmessage=&quot;`cat /tmp/filetosign.asc`&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/upload\&quot;&quot;
+curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$tray_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <jenkins.plugins.slack.SlackNotifier plugin="slack@2.1-SNAPSHOT">
+      <teamDomain></teamDomain>
+      <authToken></authToken>
+      <authTokenCredentialId></authTokenCredentialId>
+      <room></room>
+      <startNotification>true</startNotification>
+      <notifySuccess>true</notifySuccess>
+      <notifyAborted>true</notifyAborted>
+      <notifyNotBuilt>true</notifyNotBuilt>
+      <notifyUnstable>true</notifyUnstable>
+      <notifyFailure>true</notifyFailure>
+      <notifyBackToNormal>true</notifyBackToNormal>
+      <notifyRepeatedFailure>false</notifyRepeatedFailure>
+      <includeTestSummary>false</includeTestSummary>
+      <commitInfoChoice>NONE</commitInfoChoice>
+      <includeCustomMessage>false</includeCustomMessage>
+      <customMessage></customMessage>
+    </jenkins.plugins.slack.SlackNotifier>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.33">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
 </project>
