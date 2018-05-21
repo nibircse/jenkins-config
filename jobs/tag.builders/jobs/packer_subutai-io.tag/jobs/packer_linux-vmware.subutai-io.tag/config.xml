@@ -42,8 +42,8 @@ n | ./build.sh stretch vmware-iso prod
 
 FILE=/$cwd/vagrant-subutai-stretch-vmware*.box
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
-USER=jenkins
-EMAIL=jenkins@subut.ai
+USER=subutai
+EMAIL=subutai@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
 curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
 rm -rf /tmp/filetosign.asc
@@ -58,8 +58,8 @@ n | ./build.sh xenial vmware-iso prod
 
 FILE=/$cwd/vagrant-subutai-xenial-vmware*.box
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
-USER=jenkins
-EMAIL=jenkins@subut.ai
+USER=subutai
+EMAIL=subutai@subut.ai
 PUBLICKEY=$(gpg --armor --export $EMAIL)
 curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
 rm -rf /tmp/filetosign.asc
