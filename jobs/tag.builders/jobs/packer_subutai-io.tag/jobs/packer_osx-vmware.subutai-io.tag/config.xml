@@ -24,7 +24,7 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <assignedNode>packer_debian</assignedNode>
+  <assignedNode>packer_mac</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -34,13 +34,18 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command>export cwd=&quot;$(pwd)&quot;
+      <command>export Packer=/usr/local/bin/
+export PATH=$Packer:$PATH
+export cwd=&quot;$(pwd)&quot;
 export packer_version=&quot;$(git describe --abbrev=0 --tags)&quot;
+export box_stretch=vagrant-subutai-stretch-virtualbox.box
+export box_xenial=vagrant-subutai-xenial-virtualbox.box
 
-echo &quot;Build qemu stretch .......................................................................&quot;
-n | ./build.sh stretch qemu prod
+echo &quot;Build virtualbox-iso stretch .......................................................................&quot;
+n | ./build.sh stretch virtualbox-iso prod
+mv vagrant-subutai-stretch-virtualbox*.box $box_stretch
 
-FILE=/$cwd/vagrant-subutai-stretch-libvirt*.box
+FILE=/$cwd/$box_stretch
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=subutai
 EMAIL=subutai@subut.ai
@@ -53,10 +58,11 @@ echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/up
 curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$packer_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 
 
-echo &quot;Build qemu xenial .......................................................................&quot;
-n | ./build.sh xenial qemu prod
+echo &quot;Build virtualbox-iso xenial .......................................................................&quot;
+n | ./build.sh xenial virtualbox-iso prod
+mv vagrant-subutai-xenial-virtualbox*.box $box_xenial
 
-FILE=/$cwd/vagrant-subutai-xenial-libvirt*.box
+FILE=/$cwd/$box_xenial
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=subutai
 EMAIL=subutai@subut.ai
