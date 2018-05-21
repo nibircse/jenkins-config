@@ -37,10 +37,10 @@
       <command>export cwd=&quot;$(pwd)&quot;
 export packer_version=&quot;$(git describe --abbrev=0 --tags)&quot;
 
-echo &quot;Build virtualbox-iso stretch .......................................................................&quot;
-n | ./build.sh stretch virtualbox-iso prod
+echo &quot;Build vmware-iso stretch .......................................................................&quot;
+n | ./build.sh stretch vmware-iso prod
 
-FILE=/$cwd/vagrant-subutai-stretch-virtualbox*.box
+FILE=/$cwd/vagrant-subutai-stretch-vmware*.box
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
@@ -53,10 +53,10 @@ echo &quot;-k -v -H \&quot;token: $TOKEN\&quot; -Ffile=@$FILE \&quot;$URL/raw/up
 curl -k -v -H &quot;token: $TOKEN&quot; -Ffile=@$FILE -Fversion=$packer_version -Ftoken=$TOKEN &quot;$URL/raw/upload&quot;
 
 
-echo &quot;Build virtualbox-iso xenial .......................................................................&quot;
-n | ./build.sh xenial virtualbox-iso prod
+echo &quot;Build vmware-iso xenial .......................................................................&quot;
+n | ./build.sh xenial vmware-iso prod
 
-FILE=/$cwd/vagrant-subutai-xenial-virtualbox*.box
+FILE=/$cwd/vagrant-subutai-xenial-vmware*.box
 URL=https://eu0.cdn.subutai.io:8338/kurjun/rest
 USER=jenkins
 EMAIL=jenkins@subut.ai
