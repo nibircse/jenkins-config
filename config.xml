@@ -84,7 +84,7 @@
           </default>
           <int>10</int>
           <string>deb</string>
-          <string>85.93.89.193</string>
+          <string>172.16.0.253</string>
           <string>debian_slave_node</string>
           <string>172.31.11.37</string>
           <string>DISPLAY</string>
