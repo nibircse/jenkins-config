@@ -44,7 +44,7 @@
     <githubWebUri>https://github.com</githubWebUri>
     <githubApiUri>https://api.github.com</githubApiUri>
     <clientID>e56b15776c926d446039</clientID>
-    <clientSecret>{AQAAABAAAAAwIdGb9XaibI8Cj3bHKFHQcB+PEnaKYVntRX03BuWHLmZjE0GY2iwCGlXIJI1Zh6Q4H18UBL7FSk4ABllq8Xf+vQ==}</clientSecret>
+    <clientSecret>{AQAAABAAAAAwheNp5oRVxhOhpYd59Qt5daNwC1JWbHqwrLB7uIP9CqrFr+/dQEQDt3RN3xztJW/aqwyX+pk8g37gboNlILGKQw==}</clientSecret>
     <oauthScopes>read:org,user:email</oauthScopes>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
