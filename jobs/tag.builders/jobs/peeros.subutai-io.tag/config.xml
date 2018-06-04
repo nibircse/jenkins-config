@@ -121,8 +121,8 @@ id=`jsonval`
 ssh admin@172.31.0.253 &lt;&lt;- EOF
 set -x
 sudo subutai destroy management
-sudo subutai import debian-stretch
-sudo subutai clone debian-stretch management
+sudo subutai -d import debian-stretch
+sudo subutai -d clone debian-stretch management
 /bin/sleep 20
 scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
