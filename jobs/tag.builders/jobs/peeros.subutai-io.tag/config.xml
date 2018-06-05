@@ -115,7 +115,7 @@ function jsonval {
 #json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
 prop=&apos;id&apos;
 id=`jsonval`
-ID=$(curl https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
+ID=$(curl -s https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
 echo $ID
 
 # build template
