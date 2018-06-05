@@ -115,14 +115,14 @@ function jsonval {
 #json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
 prop=&apos;id&apos;
 id=`jsonval`
-
+ID=$(curl https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
+echo $ID
 
 # build template
 ssh admin@172.31.0.253 &lt;&lt;- EOF
 set -x
 sudo subutai destroy management
-sudo subutai -d import debian-stretch
-sudo subutai -d clone debian-stretch management
+sudo subutai -d clone id:$ID management
 /bin/sleep 20
 scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
@@ -144,7 +144,7 @@ sudo subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/lo
 sudo subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo rm /var/lib/lxc/management/rootfs/tmp/${filename}
-sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /var/lib/subutai/agent.gcfg
+sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /etc/subutai/agent.conf
 sudo subutai export management -v ${version} --local -t $token
 scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
 EOF
