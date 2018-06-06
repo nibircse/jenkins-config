@@ -52,6 +52,7 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 rm -rf agent.subutai-io.tag
+cd ..
 export CWD=&quot;$(pwd)&quot;
 
 pwd
