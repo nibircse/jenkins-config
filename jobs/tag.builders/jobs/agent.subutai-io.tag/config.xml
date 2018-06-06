@@ -16,7 +16,7 @@
         <name>def</name>
         <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
         <url>https://github.com/subutai-io/agent</url>
-        <credentialsId>hub-optdyn-github-auth</credentialsId>
+        <credentialsId>1fe3b4cc-77f8-4d24-af74-f7db975a2f1d</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
