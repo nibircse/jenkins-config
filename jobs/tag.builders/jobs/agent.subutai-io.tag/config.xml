@@ -52,10 +52,7 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 cd ../
-rm -rf subutai-agent
-git clone https://github.com/happyaron/subutai-agent
-cp -r subutai-agent/debian/ agent.subutai-io.tag/
-echo &quot;Copied debian directory&quot;
+rm -rf agent.subutai-io.tag
 export CWD=&quot;$(pwd)&quot;
 
 pwd
