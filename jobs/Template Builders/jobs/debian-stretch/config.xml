@@ -29,7 +29,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>bash -c &quot;/home/admin/do-build debian-stretch&quot;</command>
+      <command>bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
