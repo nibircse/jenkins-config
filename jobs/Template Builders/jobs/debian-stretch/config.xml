@@ -20,7 +20,8 @@
     <submoduleCfg class="list"/>
     <extensions/>
   </scm>
-  <canRoam>true</canRoam>
+  <assignedNode>deb</assignedNode>
+  <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
@@ -28,7 +29,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>ssh buildd@18.184.164.218 bash -c &quot;/home/admin/do-build debian-stretch&quot;</command>
+      <command>bash -c &quot;/home/admin/do-build debian-stretch&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
