@@ -30,7 +30,10 @@
     <hudson.tasks.Shell>
       <command>#bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
 
-ssh root@172.31.0.253 bash -c &quot;cd /var/lib/jenkins/workspace/template.builders/debian-stretch &amp;&amp; ./debian-stretch&quot;</command>
+ssh root@172.31.0.253 &lt;&lt;- EOF
+rm -rf templates &amp;&amp; git clone https://github.com/subutai-io/templates
+cd templates &amp;&amp; sh debian-stretch
+EOF</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
