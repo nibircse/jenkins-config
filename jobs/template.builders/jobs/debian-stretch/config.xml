@@ -30,12 +30,9 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
-cd /home/admin/templates/
-if [ -f $1 ]; then
-    exec sh debian-stretch
-else
-    echo &quot;Oops cannot build.&quot;
-fi
+cd template.builders
+sh debian-stretch
+
 </command>
     </hudson.tasks.Shell>
   </builders>
