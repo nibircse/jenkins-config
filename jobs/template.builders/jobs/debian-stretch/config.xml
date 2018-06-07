@@ -30,7 +30,7 @@
     <hudson.tasks.Shell>
       <command>#bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
 
-ssh root@172.31.0.253 bash /home/admin/templates/debian-stretch</command>
+ssh root@172.31.0.253 bash -c &quot;cd /tmp/deb_slave/workspace/template.builders/debian-stretch &amp;&amp; ./debian-stretch&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
