@@ -29,17 +29,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
-#
-ssh root@172.31.0.253 &lt;&lt;- EOF
 
-pwd
-
-echo &quot;Here is&quot;
-
-bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
-EOF
-
-</command>
+ssh root@172.31.0.253 bash /home/admin/templates/debian-stretch</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
