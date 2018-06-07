@@ -30,6 +30,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
+pwd
 cd template.builders/debian-stretch
 sh debian-stretch
 
