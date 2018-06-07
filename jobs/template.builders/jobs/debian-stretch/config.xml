@@ -36,6 +36,7 @@ pwd
 
 echo &quot;Here is&quot;
 
+bash -c &quot;/home/admin/templates/do-build debian-stretch&quot;
 EOF
 
 </command>
