@@ -50,6 +50,8 @@ set +x
 export URL=&quot;https://cdn.subutai.io:8338/kurjun/rest&quot;
 export EMAIL=&quot;subutai@subut.ai&quot;
 
+pwd
+
 curl -k &quot;$URL/auth/token?user=$USER&quot; -o filetosign
 #rm -rf /tmp/filetosign.asc
 gpg --armor -u $EMAIL --clearsign filetosign
