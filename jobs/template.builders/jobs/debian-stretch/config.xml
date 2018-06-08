@@ -51,7 +51,7 @@ export URL=&quot;https://cdn.subutai.io:8338/kurjun/rest&quot;
 export EMAIL=&quot;subutai@subut.ai&quot;
 
 curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
-rm -rf /tmp/filetosign.asc
+#rm -rf /tmp/filetosign.asc
 gpg --armor -u $EMAIL --clearsign /tmp/filetosign
 
 SIGNED_AUTH_ID=$(cat /tmp/filetosign.asc)
