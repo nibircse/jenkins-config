@@ -47,10 +47,9 @@ EOF</command>
     <hudson.tasks.Shell>
       <command>ssh root@172.31.0.253 &lt;&lt;- EOF
 set +x
-export URL=https://cdn.subutai.io:8338/kurjun/rest
-export USER=subutai
-export AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
-export token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+export url=https://cdn.subutai.io:8338/kurjun/rest
+export AUTHID=$(curl -s -k &quot;$url/auth/token?user=subutai&quot; | gpg --clearsign --no-tty)
+export token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=subutai &quot;$url/auth/token&quot;)
 
 echo &quot;token=$token&quot;
 EOF
