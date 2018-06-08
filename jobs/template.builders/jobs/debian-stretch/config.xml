@@ -46,7 +46,7 @@ EOF</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>ssh root@172.31.0.253 &lt;&lt;- EOF
-cd templates &amp;&amp; sh upload build/debian-stretch-subutai-template_0.4.5_amd64.tar.gz &quot;&quot; template
+sh upload templates/build/debian-stretch-subutai-template_0.4.5_amd64.tar.gz sysnet template
 
 EOF
 </command>
