@@ -50,11 +50,11 @@ set +x
 export URL=&quot;https://cdn.subutai.io:8338/kurjun/rest&quot;
 export EMAIL=&quot;subutai@subut.ai&quot;
 
-curl -k &quot;$URL/auth/token?user=$USER&quot; -o /tmp/filetosign
+curl -k &quot;$URL/auth/token?user=$USER&quot; -o filetosign
 #rm -rf /tmp/filetosign.asc
-gpg --armor -u $EMAIL --clearsign /tmp/filetosign
+gpg --armor -u $EMAIL --clearsign filetosign
 
-SIGNED_AUTH_ID=$(cat /tmp/filetosign.asc)
+SIGNED_AUTH_ID=$(cat filetosign.asc)
 
 echo &quot;Auth id obtained and signed\\n$SIGNED_AUTH_ID&quot;
 
