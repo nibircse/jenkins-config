@@ -48,8 +48,8 @@ EOF</command>
       <command>ssh root@172.31.0.253 &lt;&lt;- EOF
 set +x
 export url=&quot;https://cdn.subutai.io:8338/kurjun/rest&quot;
-export AUTHID=$(curl -s -k $url/auth/token?user=subutai | gpg --clearsign --no-tty)
-export token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=subutai &quot;$url/auth/token&quot;)
+export AUTHID=$(curl -s -k https://cdn.subutai.io:8338/kurjun/rest/auth/token?user=subutai | gpg --clearsign --no-tty)
+export token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=subutai &quot;https://cdn.subutai.io:8338/kurjun/rest/auth/token&quot;)
 
 echo &quot;token=$token&quot;
 EOF
