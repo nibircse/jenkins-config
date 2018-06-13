@@ -46,7 +46,7 @@ mkdir /home/builder/build_prod
 
 cd $TRAYDIR
 qmake --version
-./configure --maintainer=&quot;$MAINTAINER&quot; --maintainer-email=&quot;$MAINTAINER_EMAIL&quot;
+./generate_changelog --maintainer=&quot;$MAINTAINER&quot; --maintainer-email=&quot;$MAINTAINER_EMAIL&quot;
 PKGNAME=&quot;subutai-control-center.deb&quot;
 
 nproc_count=&quot;$(nproc)&quot;
