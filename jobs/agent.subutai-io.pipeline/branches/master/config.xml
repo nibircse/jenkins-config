@@ -27,5 +27,5 @@
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.multibranch.SCMBinder" plugin="workflow-multibranch@2.14"/>
   <triggers/>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
 </flow-definition>
