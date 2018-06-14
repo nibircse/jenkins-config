@@ -44,8 +44,8 @@
           <scanCredentialsId>hub-optdyn-github-auth</scanCredentialsId>
           <repoOwner>subutai-io</repoOwner>
           <repository>agent</repository>
-          <includes>master dev sysnet</includes>
-          <excludes></excludes>
+          <includes>master</includes>
+          <excludes>*</excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>false</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
