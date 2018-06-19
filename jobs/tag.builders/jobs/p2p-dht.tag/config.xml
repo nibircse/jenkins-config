@@ -52,7 +52,7 @@ export PATH=${PATH}:/usr/local/go/bin
 
 go get -u github.com/subutai-io/p2p
 go get
-./configure
+./configure --dht=eu0.cdn.subutai.io:6881
 make	
 
 
