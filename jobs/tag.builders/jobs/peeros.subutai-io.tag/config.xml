@@ -4,6 +4,14 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>3</daysToKeep>
+        <numToKeep>3</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.27.0">
       <projectUrl>https://github.com/subutai-io/base/</projectUrl>
       <displayName></displayName>
@@ -44,7 +52,7 @@ tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
 # ENV
-URL=https://cdn.subutai.io:8338/kurjun/rest
+OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
 filename=&quot;management-stable.deb&quot;
 
 # get current file id
@@ -53,7 +61,7 @@ function jsonval {
     echo ${temp##*|}
 }
 
-json=`curl -k -s -X GET $URL/apt/info?name=$filename`
+json=`curl -k -s -X GET $OLDCDNURL/apt/info?name=$filename`
 prop=&apos;id&apos;
 id=`jsonval`
 
@@ -70,8 +78,7 @@ find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} $tm
 #preparing data for uploader
 echo &quot;file=$tmp/$filename&quot; &gt; ../env.properties
 echo &quot;id=$id&quot; &gt;&gt; ../env.properties
-echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
-</command>
+echo &quot;dir=apt&quot; &gt;&gt; ../env.properties</command>
     </hudson.tasks.Shell>
     <EnvInjectBuilder plugin="envinject@2.0">
       <info>
@@ -80,15 +87,17 @@ echo &quot;dir=apt&quot; &gt;&gt; ../env.properties
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-URL=https://cdn.subutai.io:8338/kurjun/rest
-USER=jenkins
-AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
-token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
+KURJUN_USER=jenkins
+kurjunUserEmail=jenkins@subut.ai
+AUTHID=$(curl -s -k &quot;$OLDCDNURL/auth/token?user=$KURJUN_USER&quot; | gpg --clearsign --no-tty -u $kurjunUserEmail)
+kurjun_token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$KURJUN_USER &quot;$OLDCDNURL/auth/token&quot;)
 
-curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/$dir/upload&quot;
-curl -k -H &quot;token:$token&quot; &quot;$URL/apt/generate&quot;
+curl -s -k -Ffile=@$file -H &quot;token:$kurjun_token&quot; &quot;$OLDCDNURL/$dir/upload&quot;
+curl -k -H &quot;token:$kurjun_token&quot; &quot;$OLDCDNURL/apt/generate&quot;
 
-echo &quot;token=$token&quot; &gt;&gt; env.properties</command>
+echo &quot;token=$kurjun_token&quot; &gt;&gt; env.properties
+</command>
     </hudson.tasks.Shell>
     <EnvInjectBuilder plugin="envinject@2.0">
       <info>
@@ -100,6 +109,18 @@ echo &quot;token=$token&quot; &gt;&gt; env.properties</command>
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 cdnHost=cdn.subutai.io
+
+ Preparing
+tmp=/tmp/jenkins/${JOB_NAME}
+mkdir -p $tmp
+cdnurl=bazaar.subutai.io
+apthost=cdn.subutai.io
+
+user=jenkins@optimal-dynamics.com
+fingerprint=877B586E74F170BC4CF6ECABB971E2AC63D23DC9
+authid=$(curl -s https://$cdnurl/rest/v1/cdn/token?fingerprint=$fingerprint)
+sign=$(echo $authid | gpg --clearsign -u $user)
+token=$(curl -s --data-urlencode &quot;request=$sign&quot;  https://$cdnurl/rest/v1/cdn/token)
 
 # ENV
 URL=https://cdn.subutai.io:8338/kurjun/rest
@@ -116,24 +137,27 @@ function jsonval {
 prop=&apos;id&apos;
 id=`jsonval`
 ID=$(curl -s https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
-echo $ID
+echo $token
 
 # build template
 ssh admin@172.31.0.253 &lt;&lt;- EOF
 set -x
+sudo sed &apos;s/APT =.*/APT = $apthost/gI&apos; -i /etc/subutai/agent.conf
+sudo sed &apos;s/URL =.*/URL = $cdnurl/gI&apos; -i /etc/subutai/agent.conf
+sudo sed &apos;s/SshJumpServer =.*/SshJumpServer = $apthost/gI&apos; -i /etc/subutai/agent.conf
 sudo subutai destroy management
-sudo subutai -d clone id:$ID management
+sudo subutai -d clone debian-stretch management
 /bin/sleep 20
 scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
 sudo cp /opt/key/cdn-pub.key /var/lib/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;gpg --import /tmp/cdn-pub.key&quot;
 sudo subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
-sudo subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
+sudo subutai attach management &quot;echo &apos;deb http://${apthost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
 sudo subutai attach management &quot;apt-get update&quot;
 sudo subutai attach management &quot;sync&quot;
 sudo subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
-sudo subutai attach management &quot;wget -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+sudo subutai attach management &quot;wget -q &apos;https://${apthost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
 sudo subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
 sudo subutai attach management &quot;systemctl stop management&quot;
 sudo subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
@@ -145,48 +169,28 @@ sudo subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d
 sudo subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo rm /var/lib/lxc/management/rootfs/tmp/${filename}
 sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /etc/subutai/agent.conf
-sudo subutai export management -v ${version} --local -t $token
-scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+sudo subutai export management -v ${version} --local -t $token grep -Po &quot;{.*}&quot; | tr -d &apos;\\\\&apos; &gt; /tmp/template.json
+scp /tmp/template.json ipfs-kg:/tmp
+scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz ipfs-kg:/tmp
+
+
 EOF
-#echo &quot;Template version is ${artifactVersion}-${env.BRANCH_NAME}&quot;
-#echo &quot;Using CDN token ${token}&quot;  
-#sudo sed &apos;s/branch = .*/branch = ${env.BRANCH_NAME}/g&apos; -i /var/lib/subutai/agent.gcfg
-#scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
-
-#ssh root@172.31.11.37 &lt;&lt;- EOF
-#set -x
-#subutai destroy management
-#subutai import debian-stretch
-#subutai clone debian-stretch management
-#/bin/sleep 20
-#scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/
-#subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
-#subutai attach management &quot;gpg --keyserver pgp.mit.edu --recv 80260C65A4D79BC8&quot;
-#subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
-#subutai attach management &quot;echo &apos;deb http://${cdnHost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
-#subutai attach management &quot;apt-get update&quot;
-#subutai attach management &quot;sync&quot;
-#subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
-#subutai attach management &quot;wget --no-check-certificate -q &apos;https://${cdnHost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
-#subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
-#subutai attach management &quot;systemctl stop management&quot;
-#subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
-#subutai attach management &quot;apt-get clean&quot;
-#subutai attach management &quot;sync&quot;
-#subutai attach management &quot;sed -i &quot;s/weekly/dayly/g&quot; /etc/logrotate.d/rsyslog&quot;
-#subutai attach management &quot;sed -i &quot;/delaycompress/d&quot; /etc/logrotate.d/rsyslog&quot;
-#subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d/rsyslog&quot;
-#subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
-#rm /var/snap/subutai-dev/common/lxc/management/rootfs/tmp/${filename}
-#sudo sed &apos;s/URL =.*/URL = cdn.subutai.io/g&apos; -i /var/snap/subutai-dev/current/agent.gcfg
-#subutai export management -v ${version} --local -t $token
-#scp /var/snap/subutai-dev/common/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
-#EOF
-
-# move template to jenkins instance
-#ssh root@gw.intra.lan &quot;mv /mnt/lib/lxc/tmpdir/management-subutai-template_${version}_amd64.tar.gz /mnt/lib/lxc/jenkins/rootfs/$tmp/$filename&quot;
-
-#preparing data for uploader
+#scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+ssh ipfs-kg &quot;ipfs add -Q /tmp/management-subutai-template_${version}_amd64.tar.gz &gt; /tmp/ipfs.hash&quot;
+scp ipfs-kg:/tmp/ipfs.hash /tmp/
+scp ipfs-kg:/tmp/template.json /tmp/
+NEW_ID=$(cat /tmp/ipfs.hash)
+OLD_ID=$(curl -s https://${cdnurl}/rest/v1/cdn/template?name=management&amp;verified=true) ; 
+if [[ \$OLD_ID != &quot;Template not found&quot; ]]; then echo \$OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\\K([a-zA-Z0-9]+)&apos; ; 
+else echo \$OLD_ID; fi
+	echo &quot;OLD ID: ${OLD_ID}&quot;
+if [[ &quot;${OLD_ID}&quot; != &quot;Template not found&quot; ]]; then
+	curl -X DELETE &quot;https://${cdnurl}/rest/v1/cdn/template?token=${token}&amp;id=${OLD_ID}&quot;
+fi
+echo &quot;NEW ID: ${NEW_ID}&quot;
+sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;${NEW_ID}&quot;/g&apos; /tmp/template.json
+template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=${token}&amp;template=$template&quot; https://${cdnurl}/rest/v1/cdn/templates
+            &quot;&quot;&quot;
 echo &quot;file=$tmp/$templatefilename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
 echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
@@ -197,18 +201,18 @@ echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command>set +x
-URL=https://cdn.subutai.io:8338/kurjun/rest
-USER=jenkins
-AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
-token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
+      <command>#set +x
+#URL=https://cdn.subutai.io:8338/kurjun/rest
+#USER=jenkins
+#AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
+#token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
 
 #curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
-SIGNATURE=$(curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
-curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
+#SIGNATURE=$(curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
+#curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
 
 # delete old file
-curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
+#curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
