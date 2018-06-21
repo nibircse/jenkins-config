@@ -188,17 +188,7 @@ echo &quot;NEW ID: $NEW_ID&quot;
 sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;&apos;$NEW_ID&apos;&quot;/g&apos; /tmp/template.json
 template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=$token&amp;template=$template&quot; https://$cdnurl/rest/v1/cdn/templates
             &quot;&quot;&quot;
-echo &quot;file=$tmp/$templatefilename&quot; &gt; env.properties
-echo &quot;id=$id&quot; &gt;&gt; env.properties
-echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
-    </hudson.tasks.Shell>
-    <EnvInjectBuilder plugin="envinject@2.0">
-      <info>
-        <propertiesFilePath>env.properties</propertiesFilePath>
-      </info>
-    </EnvInjectBuilder>
-    <hudson.tasks.Shell>
-      <command></command>
+</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
