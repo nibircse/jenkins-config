@@ -177,12 +177,14 @@ ssh ipfs-kg &quot;ipfs add -Q /tmp/management-subutai-template_${version}_amd64.
 scp ipfs-kg:/tmp/ipfs.hash /tmp/
 scp ipfs-kg:/tmp/template.json /tmp/
 NEW_ID=$(cat /tmp/ipfs.hash)
-OLD_ID=$(curl -s https://${cdnurl}/rest/v1/cdn/template?name=management&amp;verified=true) ; 
-if [[ \$OLD_ID != &quot;Template not found&quot; ]]; then echo \$OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\\K([a-zA-Z0-9]+)&apos; ; 
-else echo \$OLD_ID; fi
-	echo &quot;OLD ID: ${OLD_ID}&quot;
-if [[ &quot;${OLD_ID}&quot; != &quot;Template not found&quot; ]]; then
-	curl -X DELETE &quot;https://${cdnurl}/rest/v1/cdn/template?token=${token}&amp;id=${OLD_ID}&quot;
+set +e
+OLD_ID=$(curl -s https://${cdnurl}/rest/v1/cdn/template?name=management&amp;verified=true) 
+set -e
+if [[ $OLD_ID != &quot;Template not found&quot; ]]; then echo $OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\\K([a-zA-Z0-9]+)&apos; ; 
+else echo $OLD_ID; fi
+	echo &quot;OLD ID: $OLD_ID&quot;
+if [[ &quot;$OLD_ID&quot; != &quot;Template not found&quot; ]]; then
+	curl -X DELETE &quot;https://${cdnurl}/rest/v1/cdn/template?token=${token}&amp;id=$OLD_ID&quot;
 fi
 echo &quot;NEW ID: ${NEW_ID}&quot;
 sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;${NEW_ID}&quot;/g&apos; /tmp/template.json
