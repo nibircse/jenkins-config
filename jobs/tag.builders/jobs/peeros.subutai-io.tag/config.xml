@@ -47,15 +47,15 @@
   <builders>
     <org.jvnet.hudson.plugins.exclusion.CriticalBlockStart plugin="Exclusion@0.12"/>
     <hudson.tasks.Shell>
-      <command># Preparing
+      <command>#Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
-# ENV
+#ENV
 OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
 filename=&quot;management-stable.deb&quot;
 
-# get current file id
+#get current file id
 function jsonval {
     temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
     echo ${temp##*|}
@@ -67,11 +67,11 @@ id=`jsonval`
 
 cd management
 
-# build deb
+#build deb
 mvn clean install -Dmaven.test.skip=true -P deb -Dgit.branch=stable
 
 
-# move builded file
+#move builded file
 #mv `ls server/server-karaf/target/*.deb` $tmp/$filename
 find server/server-karaf/target/ -name &quot;*.deb&quot; | xargs -I {} mv {} $tmp/$filename
 
