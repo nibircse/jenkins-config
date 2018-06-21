@@ -105,7 +105,7 @@ echo &quot;token=$kurjun_token&quot; &gt;&gt; env.properties
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command># Preparing
+      <command>
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 cdnHost=cdn.subutai.io
@@ -122,24 +122,24 @@ authid=$(curl -s https://$cdnurl/rest/v1/cdn/token?fingerprint=$fingerprint)
 sign=$(echo $authid | gpg --clearsign -u $user)
 token=$(curl -s --data-urlencode &quot;request=$sign&quot;  https://$cdnurl/rest/v1/cdn/token)
 
-# ENV
+
 URL=https://cdn.subutai.io:8338/kurjun/rest
 version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
 templatefilename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
 filename=&quot;management-stable.deb&quot;
-# get current file id
+
 function jsonval {
     temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
     echo ${temp##*|}
 }
 
-#json=`curl -k -s -X GET $URL/template/info?name=$templatefilename`
+
 prop=&apos;id&apos;
 id=`jsonval`
 ID=$(curl -s https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
 echo $token
 
-# build template
+
 ssh admin@172.31.0.253 &lt;&lt;- EOF
 set -x
 sudo sed &apos;s/APT =.*/APT = $apthost/gI&apos; -i /etc/subutai/agent.conf
@@ -175,7 +175,7 @@ scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz ipfs-
 
 
 EOF
-#scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/$templatefilename
+
 ssh ipfs-kg &quot;ipfs add -Q /tmp/management-subutai-template_${version}_amd64.tar.gz &gt; /tmp/ipfs.hash&quot;
 scp ipfs-kg:/tmp/ipfs.hash /tmp/
 scp ipfs-kg:/tmp/template.json /tmp/
