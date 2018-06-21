@@ -185,7 +185,7 @@ if [[ &quot;$OLD_ID&quot; != &quot;Template not found&quot; ]]; then
 	curl -X DELETE &quot;https://$cdnurl/rest/v1/cdn/template?token=$token&amp;id=$OLD_ID&quot;
 fi
 echo &quot;NEW ID: $NEW_ID&quot;
-sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;$NEW_ID&quot;/g&apos; /tmp/template.json
+sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;&apos;$NEW_ID&apos;&quot;/g&apos; /tmp/template.json
 template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=$token&amp;template=$template&quot; https://$cdnurl/rest/v1/cdn/templates
             &quot;&quot;&quot;
 echo &quot;file=$tmp/$templatefilename&quot; &gt; env.properties
