@@ -190,7 +190,7 @@ fi
 echo &quot;NEW ID: $NEW_ID&quot;
 sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;&apos;$NEW_ID&apos;&quot;/g&apos; /tmp/template.json
 template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=$token&amp;template=$template&quot; https://$cdnurl/rest/v1/cdn/templates
-            &quot;&quot;&quot;
+
 </command>
     </hudson.tasks.Shell>
   </builders>
