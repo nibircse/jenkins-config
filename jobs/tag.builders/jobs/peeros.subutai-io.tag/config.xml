@@ -167,7 +167,7 @@ sudo subutai attach management &quot;sed -i &quot;s/7/3/g&quot; /etc/logrotate.d
 sudo subutai attach management &quot;sed -i &quot;s/4/3/g&quot; /etc/logrotate.d/rsyslog&quot;
 sudo rm /var/lib/lxc/management/rootfs/tmp/${filename}
 sudo sed &apos;s/URL =.*/URL = ${cdnHost}/g&apos; -i /etc/subutai/agent.conf
-sudo subutai export management -v ${version} --local -t $token grep -Po &quot;{.*}&quot; | tr -d &apos;\\\\&apos; &gt; /tmp/template.json
+sudo subutai export management -v ${version} --local -t $token | grep -Po &quot;{.*}&quot; | tr -d &apos;\\\\&apos; &gt; /tmp/template.json
 scp /tmp/template.json ipfs-kg:/tmp
 scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz ipfs-kg:/tmp
 
