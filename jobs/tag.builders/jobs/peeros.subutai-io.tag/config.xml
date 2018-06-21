@@ -179,7 +179,7 @@ set +e
 OLD_ID=$(curl -s https://${cdnurl}/rest/v1/cdn/template?name=management&amp;verified=true) 
 set -e
 if [[ $OLD_ID != &quot;Template not found&quot; ]]; then
-  OLD_ID=$(echo \$OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\K([a-zA-Z0-9]+)&apos;) ; 
+  OLD_ID=$(echo ${OLD_ID} | grep -Po &apos;&quot;id&quot;:&quot;\K([a-zA-Z0-9]+)&apos;) ; 
 else
   echo $OLD_ID; 
 fi
