@@ -178,9 +178,12 @@ NEW_ID=$(cat /tmp/ipfs.hash)
 set +e
 OLD_ID=$(curl -s https://${cdnurl}/rest/v1/cdn/template?name=management&amp;verified=true) 
 set -e
-if [[ $OLD_ID != &quot;Template not found&quot; ]]; then echo $OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\\K([a-zA-Z0-9]+)&apos; ; 
-else echo $OLD_ID; fi
-	echo &quot;OLD ID: $OLD_ID&quot;
+if [[ $OLD_ID != &quot;Template not found&quot; ]]; then
+  OLD_ID=$(echo \$OLD_ID | grep -Po &apos;&quot;id&quot;:&quot;\K([a-zA-Z0-9]+)&apos;) ; 
+else
+  echo $OLD_ID; 
+fi
+echo &quot;OLD ID: $OLD_ID&quot;
 if [[ &quot;$OLD_ID&quot; != &quot;Template not found&quot; ]]; then
 	curl -X DELETE &quot;https://$cdnurl/rest/v1/cdn/template?token=$token&amp;id=$OLD_ID&quot;
 fi
