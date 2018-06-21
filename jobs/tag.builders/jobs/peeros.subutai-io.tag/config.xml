@@ -169,8 +169,6 @@ sudo rm /var/lib/lxc/management/rootfs/tmp/${filename}
 sudo subutai export management -v ${version} --local -t $token | grep -Po &quot;{.*}&quot; | tr -d &apos;\\\\&apos; &gt; /tmp/template.json
 scp /tmp/template.json ipfs-kg:/tmp
 scp /var/cache/subutai/management-subutai-template_${version}_amd64.tar.gz ipfs-kg:/tmp
-
-
 EOF
 
 ssh ipfs-kg &quot;ipfs add -Q /tmp/management-subutai-template_${version}_amd64.tar.gz &gt; /tmp/ipfs.hash&quot;
@@ -184,11 +182,11 @@ if [[ $OLD_ID != &quot;Template not found&quot; ]]; then echo $OLD_ID | grep -Po
 else echo $OLD_ID; fi
 	echo &quot;OLD ID: $OLD_ID&quot;
 if [[ &quot;$OLD_ID&quot; != &quot;Template not found&quot; ]]; then
-	curl -X DELETE &quot;https://${cdnurl}/rest/v1/cdn/template?token=${token}&amp;id=$OLD_ID&quot;
+	curl -X DELETE &quot;https://$cdnurl/rest/v1/cdn/template?token=$token&amp;id=$OLD_ID&quot;
 fi
-echo &quot;NEW ID: ${NEW_ID}&quot;
-sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;${NEW_ID}&quot;/g&apos; /tmp/template.json
-template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=${token}&amp;template=$template&quot; https://${cdnurl}/rest/v1/cdn/templates
+echo &quot;NEW ID: $NEW_ID&quot;
+sed -i &apos;s/&quot;id&quot;:&quot;&quot;/&quot;id&quot;:&quot;$NEW_ID&quot;/g&apos; /tmp/template.json
+template=$(cat /tmp/template.json) &amp;&amp; curl -d &quot;token=$token&amp;template=$template&quot; https://$cdnurl/rest/v1/cdn/templates
             &quot;&quot;&quot;
 echo &quot;file=$tmp/$templatefilename&quot; &gt; env.properties
 echo &quot;id=$id&quot; &gt;&gt; env.properties
@@ -200,18 +198,7 @@ echo &quot;dir=template&quot; &gt;&gt; env.properties</command>
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command>#set +x
-#URL=https://cdn.subutai.io:8338/kurjun/rest
-#USER=jenkins
-#AUTHID=$(curl -s -k &quot;$URL/auth/token?user=$USER&quot; | gpg --clearsign --no-tty)
-#token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$USER &quot;$URL/auth/token&quot;)
-
-#curl -s -k -Ffile=@$file -Ftoken=$token &quot;$URL/$dir/upload&quot;
-#SIGNATURE=$(curl -s -k -Ffile=@$file -H &quot;token:$token&quot; &quot;$URL/template/upload&quot; | gpg --clearsign --no-tty)
-#curl -s -k -Ftoken=&quot;$token&quot; -Fsignature=&quot;$SIGNATURE&quot; &quot;$URL/auth/sign&quot;
-
-# delete old file
-#curl -s -k -X DELETE &quot;$URL/template/delete?id=$id&amp;token=$token&quot;</command>
+      <command></command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
