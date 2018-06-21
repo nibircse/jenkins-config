@@ -105,12 +105,10 @@ echo &quot;token=$kurjun_token&quot; &gt;&gt; env.properties
       </info>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
-      <command>
-tmp=/tmp/jenkins/${JOB_NAME}
+      <command>tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 cdnHost=cdn.subutai.io
 
- Preparing
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 cdnurl=bazaar.subutai.io
