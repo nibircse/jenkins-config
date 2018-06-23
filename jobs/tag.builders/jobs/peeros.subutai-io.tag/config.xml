@@ -103,51 +103,46 @@ ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh $aptRepo manage
     <hudson.tasks.Shell>
       <command>tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
-cdnHost=cdn.subutai.io
 
 tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
-cdnurl=bazaar.subutai.io
-apthost=cdn.subutai.io
 
 user=jenkins@optimal-dynamics.com
 fingerprint=877B586E74F170BC4CF6ECABB971E2AC63D23DC9
-authid=$(curl -s https://$cdnurl/rest/v1/cdn/token?fingerprint=$fingerprint)
+authid=$(curl -s https://$cdnHost/rest/v1/cdn/token?fingerprint=$fingerprint)
 sign=$(echo $authid | gpg --clearsign -u $user)
-token=$(curl -s --data-urlencode &quot;request=$sign&quot;  https://$cdnurl/rest/v1/cdn/token)
+token=$(curl -s --data-urlencode &quot;request=$sign&quot;  https://$cdnHost/rest/v1/cdn/token)
 
 
-URL=https://cdn.subutai.io:8338/kurjun/rest
+#URL=https://cdn.subutai.io:8338/kurjun/rest
 version=$(/var/lib/jenkins/.opt/xidel -s management/pom.xml -e &quot;&lt;project&gt;&lt;parent&gt;&lt;/parent&gt;&lt;version&gt;{.}&quot; | cut -d &apos;-&apos; -f1)
 templatefilename=&quot;management-subutai-template_${version}_amd64.tar.gz&quot;
-filename=&quot;management-stable.deb&quot;
+#filename=&quot;management-stable.deb&quot;
 
-function jsonval {
-    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
-    echo ${temp##*|}
-}
+#function jsonval {
+#    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+#    echo ${temp##*|}
+#}
 
 
-prop=&apos;id&apos;
-id=`jsonval`
-ID=$(curl -s https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
+p#rop=&apos;id&apos;
+
+#id=`jsonval`
+#ID=$(curl -s https://cdn.subutai.io:8338/kurjun/rest/template/info?name=debian-stretch | grep -oP &apos;id&quot;:&quot;\K(.*?)&quot;&apos;| tr -d &apos;&quot;&apos;)
 echo $token
 
 
 ssh admin@172.31.0.253 &lt;&lt;- EOF
 set -x
-sudo sed &apos;s/APT =.*/APT = $apthost/gI&apos; -i /etc/subutai/agent.conf
-sudo sed &apos;s/URL =.*/URL = $cdnurl/gI&apos; -i /etc/subutai/agent.conf
+sudo sed &apos;s/URL =.*/URL = $cdnHost/gI&apos; -i /etc/subutai/agent.conf
 sudo sed &apos;s/SshJumpServer =.*/SshJumpServer = $apthost/gI&apos; -i /etc/subutai/agent.conf
 sudo subutai destroy management
 sudo subutai -d clone debian-stretch management
 /bin/sleep 20
 scp root@172.31.5.61:/mnt/lib/lxc/jenkins/rootfs/$tmp/${filename} /var/lib/lxc/management/rootfs/tmp/
 sudo subutai attach management &quot;apt-get update &amp;&amp; apt-get install dirmngr -y&quot;
-sudo cp /opt/key/cdn-pub.key /var/lib/lxc/management/rootfs/tmp/
-sudo subutai attach management &quot;gpg --import /tmp/cdn-pub.key&quot;
-sudo subutai attach management &quot;gpg --export --armor 80260C65A4D79BC8 | apt-key add&quot;
-sudo subutai attach management &quot;echo &apos;deb http://${apthost}:8080/kurjun/rest/apt /&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
+sudo subutai attach management &quot;apt-key adv --recv-keys --keyserver keyserver.ubuntu.com C6B2AC7FBEB649F1&quot;
+sudo subutai attach management &quot;echo &apos;deb http://deb.subutai.io/subutai $aptRepo main&apos; &gt; /etc/apt/sources.list.d/subutai-repo.list&quot;
 sudo subutai attach management &quot;apt-get update&quot;
 sudo subutai attach management &quot;sync&quot;
 sudo subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
