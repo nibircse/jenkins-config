@@ -52,18 +52,22 @@ tmp=/tmp/jenkins/${JOB_NAME}
 mkdir -p $tmp
 
 #ENV
-OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
+#OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
+cdnHost=bazaar.subutai.io
+jumpServer=cdn.subutai.io
+aptRepo=prod
+
 filename=&quot;management-stable.deb&quot;
 
 #get current file id
-function jsonval {
-    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
-    echo ${temp##*|}
-}
+#function jsonval {
+#    temp=`echo $json | sed &apos;s/\\\\\//\//g&apos; | sed &apos;s/[{}]//g&apos; | awk -v k=&quot;text&quot; &apos;{n=split($0,a,&quot;,&quot;); for (i=1; i&lt;=n; i++) print a[i]}&apos; | sed &apos;s/\&quot;\:\&quot;/\|/g&apos; | sed &apos;s/[\,]/ /g&apos; | sed &apos;s/\&quot;//g&apos; | grep -w $prop`
+#    echo ${temp##*|}
+#}
 
-json=`curl -k -s -X GET $OLDCDNURL/apt/info?name=$filename`
-prop=&apos;id&apos;
-id=`jsonval`
+#json=`curl -k -s -X GET $OLDCDNURL/apt/info?name=$filename`
+#prop=&apos;id&apos;
+#id=`jsonval`
 
 cd management
 
@@ -87,17 +91,9 @@ echo &quot;dir=apt&quot; &gt;&gt; ../env.properties</command>
     </EnvInjectBuilder>
     <hudson.tasks.Shell>
       <command>set +x
-OLDCDNURL=https://cdn.subutai.io:8338/kurjun/rest
-KURJUN_USER=jenkins
-kurjunUserEmail=jenkins@subut.ai
-AUTHID=$(curl -s -k &quot;$OLDCDNURL/auth/token?user=$KURJUN_USER&quot; | gpg --clearsign --no-tty -u $kurjunUserEmail)
-kurjun_token=$(curl -s -k -Fmessage=&quot;$AUTHID&quot; -Fuser=$KURJUN_USER &quot;$OLDCDNURL/auth/token&quot;)
-
-curl -s -k -Ffile=@$file -H &quot;token:$kurjun_token&quot; &quot;$OLDCDNURL/$dir/upload&quot;
-curl -k -H &quot;token:$kurjun_token&quot; &quot;$OLDCDNURL/apt/generate&quot;
-
-echo &quot;token=$kurjun_token&quot; &gt;&gt; env.properties
-</command>
+touch uploading_management
+scp uploading_management $filename dak@deb.subutai.io:incoming/$aptRepo/
+ssh dak@deb.subutai.io sh /var/reprepro/scripts/scan-incoming.sh $aptRepo management</command>
     </hudson.tasks.Shell>
     <EnvInjectBuilder plugin="envinject@2.0">
       <info>
@@ -155,7 +151,7 @@ sudo subutai attach management &quot;echo &apos;deb http://${apthost}:8080/kurju
 sudo subutai attach management &quot;apt-get update&quot;
 sudo subutai attach management &quot;sync&quot;
 sudo subutai attach management &quot;apt-get -y install curl influxdb influxdb-certs openjdk-8-jre&quot;
-sudo subutai attach management &quot;wget -q &apos;https://${apthost}:8338/kurjun/rest/raw/get?owner=subutai&amp;name=influxdb.conf&apos; -O /etc/influxdb/influxdb.conf&quot;
+sudo cp /home/admin/influxdb.conf /var/lib/lxc/management/rootfs/etc/influxdb/influxdb.conf
 sudo subutai attach management &quot;dpkg -i /tmp/${filename}&quot;
 sudo subutai attach management &quot;systemctl stop management&quot;
 sudo subutai attach management &quot;rm -rf /opt/subutai-mng/keystores/&quot;
